@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<!-- 
+   To use this file:
+   1. Fill in the database name where noted
+   2. Fill in the username and password for the database where noted
+   3. Rename this file by removing the ".example" extension from it.
+   
+   This is done to ensure credentials don't get checked into github.
+   - Karim  
+-->
+
+<hibernate-configuration>
+   <session-factory>
+      <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+      
+      <!-- Replace with your database name. -->
+      <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_name</property>
+      
+      <!-- Replace with your database credentials. -->
+      <property name="hibernate.connection.username">db_username</property>
+      <property name="hibernate.connection.password">db_password</property>
+      
+      <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+      <property name="show_sql">true</property>
+      <property name="format_sql">true</property>
+
+      <!-- Use "create" to create the tables each time; "update" to add to them instead -->      
+<!--       <property name="hbm2ddl.auto">create</property> -->
+      <property name="hbm2ddl.auto">update</property>
+
+      <mapping class="club.seedymusic.jpa.bean.Account" />
+      <mapping class="club.seedymusic.jpa.bean.Cd" />
+      <mapping class="club.seedymusic.jpa.bean.Order" />
+      <mapping class="club.seedymusic.jpa.bean.OrderItem" />
+   </session-factory>
+</hibernate-configuration>

@@ -112,7 +112,7 @@ public class TestDAO extends HttpServlet
       boolean result = accountDAO.addAccount(account);
 
       out.println("<p>Step 2: Creating a dummy Account...");
-      out.println("Succesful? " + result);
+      out.println("Succesful? " + String.valueOf(result).toUpperCase());
 
       // Make an order
       Order order = new Order();
@@ -124,7 +124,7 @@ public class TestDAO extends HttpServlet
       result = orderDAO.addOrder(order);
 
       out.println("<p>Step 3: Creating a dummy Order with 2 OrderItems...");
-      out.println("Succesful? " + result);
+      out.println("Succesful? " + String.valueOf(result).toUpperCase());
 
       out.println("<p>Test completed at " + new Date());
       out.println("</body></html>");
