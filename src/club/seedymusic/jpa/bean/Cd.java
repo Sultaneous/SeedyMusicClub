@@ -1,0 +1,261 @@
+package club.seedymusic.jpa.bean;
+
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+/**
+ * <h2>Cd Class</h2>
+ * <p>
+ * This class is the entity bean used by the Java Persistence API. It represents a CD entry in the
+ * database.
+ * 
+ * @author Karim Sultan
+ * 
+ * @version Oct 9, 2017 Created this class.
+ */
+@Entity
+@Table(name = "cds")
+public class Cd
+{
+   /*
+    * Constants
+    */
+
+   /**
+    * The default string value for the database.
+    */
+   @Transient
+   private final String DEFAULT_VALUE = "n/a";
+
+   /**
+    * This is the unique key for the object in the database
+    */
+   @Id
+   @GeneratedValue
+   private int id;
+
+   /*
+    * Fields
+    */
+
+   /**
+    * The title of the CD (ie, "The Moon is Round")
+    */
+   private String title;
+
+   /**
+    * The genre of the CD (ie, "Rock") NOTE: This is NOT an enumeration, in order to allow more
+    * genre types to be easily added
+    */
+   private String genre;
+
+   /**
+    * The price of the CD (ie, 9.99)
+    */
+   private float price;
+
+   /**
+    * The link to the cover art (ie, "/assets/cds/covers/cover001.jpg")
+    */
+   private String cover;
+
+   /**
+    * The link to the audio sample (ie, "/assets/cds/samples/smaple001.mp3")
+    */
+   private String sample;
+
+   /**
+    * The quantity of items in stock.
+    */
+   private int quantity;
+
+   /**
+    * Internal; provides date and time stamp of when the record was created or modified.
+    */
+   @Temporal(TemporalType.TIMESTAMP)
+   private Date date;
+
+   /**
+    * Constructs a new Cd. Hibernate requires an argument free constructor. This will set default
+    * values into the bean.
+    */
+   public Cd()
+   {
+      this.title = DEFAULT_VALUE;
+      this.genre = DEFAULT_VALUE;
+      this.cover = DEFAULT_VALUE;
+      this.sample = DEFAULT_VALUE;
+      this.quantity = 0;
+      this.price = 0f;
+      this.date = new Date();
+   }
+
+   /*
+    * Accessors: Getters and Setters
+    */
+
+   /**
+    * Gets the date the record was last updated or created.
+    *
+    * @return Returns a {@link Date} containing the date.
+    */
+   public Date getDate()
+   {
+      return date;
+   }
+
+   /**
+    * Sets the date.
+    *
+    * @param date
+    *           The {@link Date} containing the date to set.
+    */
+   public void setDate(Date date)
+   {
+      this.date = date;
+   }
+
+   /**
+    * Gets the id.
+    *
+    * @return Returns an int containing the id.
+    */
+   public int getId()
+   {
+      return id;
+   }
+
+   /**
+    * Gets the title.
+    *
+    * @return Returns a {@link String} containing the title.
+    */
+   public String getTitle()
+   {
+      return title;
+   }
+
+   /**
+    * Sets the title.
+    *
+    * @param title
+    *           The {@link String} containing the title to set.
+    */
+   public void setTitle(String title)
+   {
+      this.title = title;
+   }
+
+   /**
+    * Gets the genre.
+    *
+    * @return Returns a {@link String} containing the genre.
+    */
+   public String getGenre()
+   {
+      return genre;
+   }
+
+   /**
+    * Sets the genre.
+    *
+    * @param genre
+    *           The {@link String} containing the genre to set.
+    */
+   public void setGenre(String genre)
+   {
+      this.genre = genre;
+   }
+
+   /**
+    * Gets the price.
+    *
+    * @return Returns a float containing the price.
+    */
+   public float getPrice()
+   {
+      return price;
+   }
+
+   /**
+    * Sets the price.
+    *
+    * @param price
+    *           The float containing the price to set.
+    */
+   public void setPrice(float price)
+   {
+      this.price = price;
+   }
+
+   /**
+    * Gets the cover.
+    *
+    * @return Returns a {@link String} containing the cover.
+    */
+   public String getCover()
+   {
+      return cover;
+   }
+
+   /**
+    * Sets the cover.
+    *
+    * @param cover
+    *           The {@link String} containing the cover to set.
+    */
+   public void setCover(String cover)
+   {
+      this.cover = cover;
+   }
+
+   /**
+    * Gets the sample.
+    *
+    * @return Returns a {@link String} containing the sample.
+    */
+   public String getSample()
+   {
+      return sample;
+   }
+
+   /**
+    * Sets the sample.
+    *
+    * @param sample
+    *           The {@link String} containing the sample to set.
+    */
+   public void setSample(String sample)
+   {
+      this.sample = sample;
+   }
+
+   /**
+    * Gets the quantity in stock.
+    *
+    * @return Returns a int containing the quantity.
+    */
+   public int getQuantity()
+   {
+      return quantity;
+   }
+
+   /**
+    * Sets the quantity in stock.
+    *
+    * @param quantity
+    *           The int containing the quantity to set.
+    */
+   public void setQuantity(int quantity)
+   {
+      this.quantity = quantity;
+   }
+
+} // Class
