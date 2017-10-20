@@ -34,7 +34,6 @@ public class TestDAO extends HttpServlet
    public TestDAO()
    {
       super();
-      // TODO Auto-generated constructor stub
    }
 
    /**
@@ -44,7 +43,9 @@ public class TestDAO extends HttpServlet
    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
    {
+      boolean result;
       PrintWriter out = response.getWriter();
+
       out.println("<html><head><title>DAO Test Results</title></head><body>");
       out.println("<h1>Testing DAO</h1>");
       out.println("Using tables: cds, accounts, orders, and orderitems");
@@ -57,25 +58,33 @@ public class TestDAO extends HttpServlet
       cd.setTitle("The Moon is Round");
       cd.setCover("no cover");
       cd.setGenre("Rock");
-      cd.setPrice(9.99f);
+      cd.setPrice(9.99);
       cd.setSample("no sample");
       cd.setQuantity(100);
 
       CdDAO cdDAO = new CdDAO();
-      cdDAO.addCd(cd);
+      result = cdDAO.addCd(cd);
+
+      // Save id for order test portion
       int orderItem1 = cd.getId();
 
       cd = new Cd();
       cd.setTitle("Barking at the Forest");
       cd.setCover("no cover");
       cd.setGenre("Blues");
-      cd.setPrice(4.99f);
+      cd.setPrice(4.99);
       cd.setSample("no sample");
       cd.setQuantity(100);
-      cdDAO.addCd(cd);
+
+      // This ternary test keeps the first result in case it was false
+      // and only allows success if both add operations were true
+      result = cdDAO.addCd(cd) ? result : false;
+
+      // Save id for order test portion
       int orderItem2 = cd.getId();
 
       out.println("<p>Step 1: Creating some dummy CDs...");
+      out.println("Succesful? " + String.valueOf(result).toUpperCase());
 
       out.println("<p>Listing CDs:");
       List<Cd> cds = cdDAO.listCds();
@@ -87,20 +96,40 @@ public class TestDAO extends HttpServlet
       }
       else
       {
-         out.println("</br>");
+         out.println("</br><table cellpadding=2 cellspacing=2 border=2>");
+         out.println("<th>ID</th>");
+         out.println("<th>Title</th>");
+         out.println("<th>Genre</th>");
+         out.println("<th>Price</th>");
+         out.println("<th>Quantity</th>");
+         out.println("<th>Cover</th>");
+         out.println("<th>Sample</th>");
+         out.println("<th>Date</th>");
+
          for (Iterator iterator = cds.iterator(); iterator.hasNext();)
          {
             cd = (Cd) iterator.next();
-            out.println("<p>&nbsp;Title: " + cd.getTitle());
+            out.println("<tr>");
+            out.println("<td>" + cd.getId() + "</td>");
+            out.println("<td>" + cd.getTitle() + "</td>");
+            out.println("<td>" + cd.getGenre() + "</td>");
+            out.println("<td>" + cd.getPrice() + "</td>");
+            out.println("<td>" + cd.getQuantity() + "</td>");
+            out.println("<td>" + cd.getCover() + "</td>");
+            out.println("<td>" + cd.getSample() + "</td>");
+            out.println("<td>" + cd.getDate() + "</td>");
+            out.println("</tr>");
          }
+
+         out.println("</table>");
       }
 
       // Add an account
       Account account = new Account();
       account.setUsername("user1");
       account.setPassword("password");
-      account.setFirstName("Ali");
-      account.setLastName("Babba");
+      account.setFirstName("Simple");
+      account.setLastName("Simon");
       account.setStreet("314 Pi Street");
       account.setCity("Ottawa");
       account.setProvince("Ontario");
@@ -109,10 +138,72 @@ public class TestDAO extends HttpServlet
       account.setPhone("613-987-6543");
 
       AccountDAO accountDAO = new AccountDAO();
-      boolean result = accountDAO.addAccount(account);
+      result = accountDAO.addAccount(account);
 
-      out.println("<p>Step 2: Creating a dummy Account...");
+      account = new Account();
+      account.setUsername("user2");
+      account.setPassword("password");
+      account.setFirstName("Ali");
+      account.setLastName("Babba");
+      account.setStreet("8 Cyber Road");
+      account.setCity("Beijing");
+      account.setProvince("Hebei");
+      account.setCountry("China");
+      account.setPostalCode("100000");
+      account.setPhone("172-6482-1443");
+
+      // This ternary test keeps the first result in case it was false
+      // and only allows success if both add operations were true
+      result = accountDAO.addAccount(account) ? result : false;
+
+      out.println("<p>Step 2: Creating 2 dummy Accounts...");
       out.println("Succesful? " + String.valueOf(result).toUpperCase());
+
+      out.println("<p>Listing Accounts:");
+      List<Account> accounts = accountDAO.listAccounts();
+
+      if (accounts == null)
+      {
+         out.println(
+                  "<h4>ERROR: Request for accounts came back empty.  Not a good sign.  Look into it.</h4>");
+      }
+      else
+      {
+         out.println("</br><table cellpadding=2 cellspacing=2 border=2>");
+         out.println("<th>ID</th>");
+         out.println("<th>First Name</th>");
+         out.println("<th>Last Name</th>");
+         out.println("<th>Uername</th>");
+         out.println("<th>Password</th>");
+         out.println("<th>Street</th>");
+         out.println("<th>City</th>");
+         out.println("<th>Province</th>");
+         out.println("<th>Country</th>");
+         out.println("<th>Postal Code</th>");
+         out.println("<th>Phone</th>");
+         out.println("<th>Date</th>");
+
+         for (Iterator iterator = accounts.iterator(); iterator.hasNext();)
+         {
+            account = (Account) iterator.next();
+            out.println("<tr>");
+            out.println("<td>" + account.getId() + "</td>");
+            out.println("<td>" + account.getFirstName() + "</td>");
+            out.println("<td>" + account.getLastName() + "</td>");
+            out.println("<td>" + account.getUsername() + "</td>");
+            out.println("<td>" + account.getPassword() + "</td>");
+            out.println("<td>" + account.getStreet() + "</td>");
+            out.println("<td>" + account.getCity() + "</td>");
+            out.println("<td>" + account.getProvince() + "</td>");
+            out.println("<td>" + account.getCountry() + "</td>");
+            out.println("<td>" + account.getPostalCode() + "</td>");
+            out.println("<td>" + account.getPhone() + "</td>");
+            out.println("<td>" + account.getDate() + "</td>");
+            out.println("</tr>");
+         }
+
+         out.println("</table>");
+      }
 
       // Make an order
       Order order = new Order();

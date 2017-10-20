@@ -59,7 +59,7 @@ public class Cd
    /**
     * The price of the CD (ie, 9.99)
     */
-   private float price;
+   private double price;
 
    /**
     * The link to the cover art (ie, "/assets/cds/covers/cover001.jpg")
@@ -179,7 +179,7 @@ public class Cd
     *
     * @return Returns a float containing the price.
     */
-   public float getPrice()
+   public double getPrice()
    {
       return price;
    }
@@ -190,7 +190,7 @@ public class Cd
     * @param price
     *           The float containing the price to set.
     */
-   public void setPrice(float price)
+   public void setPrice(double price)
    {
       this.price = price;
    }

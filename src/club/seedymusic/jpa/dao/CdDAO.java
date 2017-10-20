@@ -2,6 +2,7 @@ package club.seedymusic.jpa.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,6 +19,11 @@ public class CdDAO
       // Nothing to do (yet?)
    }
 
+   /**
+    * This method is a utility method for session creation, refactored from repetitive code.
+    * 
+    * @return A Hibernate Session object to be used by transactions and queries.
+    */
    private Session createSession()
    {
       try
@@ -38,6 +44,13 @@ public class CdDAO
       }
    }
 
+   /**
+    * This method will add a cd to the database. The cd information must be stored in the Cd Entity
+    * bean.
+    * 
+    * @param cd
+    * @return boolean; true if successful, false otherwise
+    */
    public boolean addCd(Cd cd)
    {
       // Get session object
@@ -74,6 +87,13 @@ public class CdDAO
 
    }
 
+   /**
+    * This will retrieve a list of ALL the cds in the database. Once you have the list, you can
+    * iterate over the contents; each will be an entity bean with the database record stored in its
+    * attributes, accessible via the getter method accessors.
+    * 
+    * @return Returns a list of all the CDs in the database which can be iterated over.
+    */
    public List<Cd> listCds()
    {
       Session session = createSession();
@@ -82,15 +102,28 @@ public class CdDAO
       try
       {
          transaction = session.beginTransaction();
-         List<Cd> cds = session.createQuery("FROM Cd").list();
+
+         // Using criteria requires no HQL or SQL or XML config data
+         Criteria criteria = session.createCriteria(Cd.class);
+
+         // Alternative way to load table data using HQL
+         // List<Cd> cds = session.createQuery("FROM Cd").list();
+
+         // Suppress casting warning; this is a Hibernate issue
+         @SuppressWarnings("unchecked")
+         List<Cd> cds = criteria.list();
+
          transaction.commit();
          return (cds);
       }
       catch (HibernateException e)
       {
+         // Check if rollback is required
          if (transaction != null)
             transaction.rollback();
          e.printStackTrace();
+
+         // Failure
          return null;
       }
       finally
