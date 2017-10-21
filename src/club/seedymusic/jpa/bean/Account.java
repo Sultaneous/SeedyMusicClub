@@ -2,6 +2,7 @@ package club.seedymusic.jpa.bean;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,6 +28,11 @@ public class Account
    /*
     * Constants
     */
+
+   /**
+    * Default field value for string fields. Marked transient so Hibernate doesn't put it into the
+    * database table as a column.
+    */
    @Transient
    private final String DEFAULT_VALUE = "n/a";
 
@@ -34,28 +40,68 @@ public class Account
     * Fields
     */
 
-   // This is the unique key for the object in the database
+   /**
+    * This is the unique key for the object in the database.
+    */
    @Id
    @GeneratedValue
    private int id;
 
-   // Account info
+   /**
+    * The username of the account. Note that this has a unique constraint on it so that no two
+    * accounts can have the same username.
+    */
+   @Column(unique = true)
    private String username;
+
+   /**
+    * The password for the account.
+    */
    private String password;
 
-   // User info
+   /**
+    * The first name of the account owner.
+    */
    private String firstName;
+
+   /**
+    * The last name of the account owner.
+    */
    private String lastName;
 
-   // Address info
+   /**
+    * The unit number and street name.
+    */
    private String street;
+
+   /**
+    * The address city.
+    */
    private String city;
+
+   /**
+    * The address province / state.
+    */
    private String province;
+
+   /**
+    * The address country.
+    */
    private String country;
+
+   /**
+    * The address postal code / zip.
+    */
    private String postalCode;
+
+   /**
+    * The account owner's contact number.
+    */
    private String phone;
 
-   // Timestamp
+   /**
+    * Provides a timestamp for date of creation / update.
+    */
    @Temporal(TemporalType.TIMESTAMP)
    private Date date;
 
@@ -63,6 +109,10 @@ public class Account
     * Constructor
     */
 
+   /**
+    * Constructs a new Account.
+    *
+    */
    public Account()
    {
       this.username = DEFAULT_VALUE;
@@ -85,7 +135,7 @@ public class Account
    /**
     * Gets the id.
     *
-    * @return Returns a {@link int} containing the id.
+    * @return Returns an int containing the id.
     */
    public int getId()
    {
@@ -96,7 +146,7 @@ public class Account
     * Sets the id.
     *
     * @param id
-    *           The {@link int} containing the id to set.
+    *           The int containing the id to set.
     */
    public void setId(int id)
    {

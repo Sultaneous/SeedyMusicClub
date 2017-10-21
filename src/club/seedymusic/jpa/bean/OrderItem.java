@@ -17,15 +17,33 @@ import javax.persistence.Id;
 @Entity
 public class OrderItem
 {
+   /**
+    * The unique ID for the record in the table.
+    */
    @Id
    @GeneratedValue
    private int id;
+
+   /**
+    * The id of the CD that was ordered.
+    */
    private int cdid;
 
+   /**
+    * Constructs a new OrderItem.
+    *
+    */
    public OrderItem()
    {
+      // Nothing to do (yet?)
    }
 
+   /**
+    * Constructs a new OrderItem.
+    *
+    * @param cdid
+    *           The id of the CD which has been ordered.
+    */
    public OrderItem(int cdid)
    {
       this.cdid = cdid;
@@ -34,7 +52,7 @@ public class OrderItem
    /**
     * Gets the id.
     *
-    * @return Returns a {@link int} containing the id.
+    * @return Returns an int containing the id.
     */
    public int getId()
    {
@@ -45,7 +63,7 @@ public class OrderItem
     * Sets the id.
     *
     * @param id
-    *           The {@link int} containing the id to set.
+    *           The int containing the id to set.
     */
    public void setId(int id)
    {
@@ -55,7 +73,7 @@ public class OrderItem
    /**
     * Gets the cd id.
     *
-    * @return Returns a {@link int} containing the cdid.
+    * @return Returns an int containing the cdid.
     */
    public int getCdid()
    {
@@ -66,7 +84,7 @@ public class OrderItem
     * Sets the cd id.
     *
     * @param cdid
-    *           The {@link int} containing the cdid to set.
+    *           The int containing the cdid to set.
     */
    public void setCdid(int cdid)
    {
@@ -98,4 +116,4 @@ public class OrderItem
       return hash;
    }
 
-}
+} // Class

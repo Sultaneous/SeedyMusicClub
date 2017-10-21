@@ -29,7 +29,8 @@ public class Cd
     */
 
    /**
-    * The default string value for the database.
+    * Default field value for string fields. Marked transient so Hibernate doesn't put it into the
+    * database table as a column.
     */
    @Transient
    private final String DEFAULT_VALUE = "n/a";

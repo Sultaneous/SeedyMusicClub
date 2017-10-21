@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/test/TestServlet")
 public class TestServlet extends HttpServlet
 {
+   /**
+    * Serial version ID for servlet.
+    */
    private static final long serialVersionUID = 1L;
 
    /**

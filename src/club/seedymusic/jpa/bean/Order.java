@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -32,16 +33,28 @@ public class Order
     * Fields
     */
 
+   /**
+    * The unique id for the row entry in the table.
+    */
    @Id
    @GeneratedValue
    private int id;
 
+   /**
+    * Represents the id of the account making the order.
+    */
    private int accountId;
 
-   @OneToMany(cascade = CascadeType.ALL)
+   /**
+    * A one-to-many joined table containing all the ids of the cds that are being ordered.
+    */
+   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
    @JoinColumn(name = "orderid")
    private Set<OrderItem> orderItems;
 
+   /**
+    * Timestamp at time of record creation / update.
+    */
    @Temporal(TemporalType.TIMESTAMP)
    private Date date;
 
@@ -49,6 +62,10 @@ public class Order
     * Constructor
     */
 
+   /**
+    * Constructs a new Order.
+    *
+    */
    public Order()
    {
       this.accountId = 0;
@@ -63,7 +80,7 @@ public class Order
    /**
     * Gets the id.
     *
-    * @return Returns a {@link int} containing the id.
+    * @return Returns an int containing the id.
     */
    public int getId()
    {
@@ -74,7 +91,7 @@ public class Order
     * Sets the id.
     *
     * @param id
-    *           The {@link int} containing the id to set.
+    *           The int containing the id to set.
     */
    public void setId(int id)
    {
@@ -84,7 +101,7 @@ public class Order
    /**
     * Gets the accountId.
     *
-    * @return Returns a {@link int} containing the accountId.
+    * @return Returns an int containing the accountId.
     */
    public int getAccountId()
    {
@@ -95,7 +112,7 @@ public class Order
     * Sets the accountId.
     *
     * @param accountId
-    *           The {@link int} containing the accountId to set.
+    *           The int containing the accountId to set.
     */
    public void setAccountId(int accountId)
    {
@@ -105,7 +122,7 @@ public class Order
    /**
     * Gets the orderItems.
     *
-    * @return Returns a {@link Set<OrderItem>} containing the orderItems. This is the cd id.
+    * @return Returns a {@link Set} containing the orderItems. This is the CD id.
     */
    public Set<OrderItem> getOrderItems()
    {
@@ -116,7 +133,7 @@ public class Order
     * Sets the orderItems.
     *
     * @param orderItems
-    *           The {@link Set<OrderItem>} containing the orderItems to set. This is the cd id.
+    *           The {@link Set} containing the orderItems to set. This is the CD id.
     */
    public void setOrderItems(Set<OrderItem> orderItems)
    {

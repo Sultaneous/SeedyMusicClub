@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +27,9 @@ import club.seedymusic.jpa.dao.OrderDAO;
 @WebServlet("/test/TestDAO")
 public class TestDAO extends HttpServlet
 {
+   /**
+    * Serial version ID for servlet.
+    */
    private static final long serialVersionUID = 1L;
 
    /**
@@ -106,9 +110,9 @@ public class TestDAO extends HttpServlet
          out.println("<th>Sample</th>");
          out.println("<th>Date</th>");
 
-         for (Iterator iterator = cds.iterator(); iterator.hasNext();)
+         for (Iterator<Cd> iterator = cds.iterator(); iterator.hasNext();)
          {
-            cd = (Cd) iterator.next();
+            cd = iterator.next();
             out.println("<tr>");
             out.println("<td>" + cd.getId() + "</td>");
             out.println("<td>" + cd.getTitle() + "</td>");
@@ -183,9 +187,9 @@ public class TestDAO extends HttpServlet
          out.println("<th>Phone</th>");
          out.println("<th>Date</th>");
 
-         for (Iterator iterator = accounts.iterator(); iterator.hasNext();)
+         for (Iterator<Account> iterator = accounts.iterator(); iterator.hasNext();)
          {
-            account = (Account) iterator.next();
+            account = iterator.next();
             out.println("<tr>");
             out.println("<td>" + account.getId() + "</td>");
             out.println("<td>" + account.getFirstName() + "</td>");
@@ -217,6 +221,51 @@ public class TestDAO extends HttpServlet
       out.println("<p>Step 3: Creating a dummy Order with 2 OrderItems...");
       out.println("Succesful? " + String.valueOf(result).toUpperCase());
 
+      out.println("<p>Listing Orders:");
+      List<Order> orders = orderDAO.listOrders();
+
+      if (orders == null)
+      {
+         out.println(
+                  "<h4>ERROR: Request for orders came back empty.  Not a good sign.  Look into it.</h4>");
+      }
+      else
+      {
+         out.println("</br><table cellpadding=2 cellspacing=2 border=2>");
+         out.println("<th>ID</th>");
+         out.println("<th>Account ID</th>");
+         out.println("<th>CD IDs</th>");
+         out.println("<th>Date</th>");
+
+         for (Iterator<Order> iterator = orders.iterator(); iterator.hasNext();)
+         {
+            order = iterator.next();
+            out.println("<tr>");
+            out.println("<td>" + order.getId() + "</td>");
+            out.println("<td>" + order.getAccountId() + "</td>");
+
+            // Now we print all the cd ids of each ordered item into the table cell
+            out.println("<td>");
+            Set<OrderItem> orderItems = order.getOrderItems();
+            for (Iterator<OrderItem> nestedIterator = orderItems.iterator(); nestedIterator
+                     .hasNext();)
+            {
+               OrderItem orderItem = nestedIterator.next();
+               out.println(orderItem.getCdid());
+
+               if (nestedIterator.hasNext())
+                  out.println(", ");
+            }
+            out.println("</td>");
+
+            out.println("<td>" + order.getDate() + "</td>");
+            out.println("</tr>");
+         }
+
+         out.println("</table>");
+      }
+
+      // Wrap-up
       out.println("<p>Test completed at " + new Date());
       out.println("</body></html>");
    }

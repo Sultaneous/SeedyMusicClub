@@ -12,9 +12,18 @@ import org.hibernate.cfg.Configuration;
 
 import club.seedymusic.jpa.bean.Account;
 
+/**
+ * <h2>AccountDAO Class</h2>
+ * <p>
+ * This class performs the Data related business logic for Accounts. It relies on the Account Entity
+ * Bean.
+ * 
+ * @author Karim Sultan
+ * 
+ * @version Oct 9, 2017 Created this class.
+ */
 public class AccountDAO
 {
-
    /**
     * Constructs a new AccountDAO. Argument free.
     *
@@ -53,6 +62,7 @@ public class AccountDAO
     * Adds an account to the account table.
     * 
     * @param account
+    *           The Account bean, with populated fields.
     * @return A boolean value (true if successful, failure otherwise).
     */
    public boolean addAccount(Account account)
@@ -121,6 +131,7 @@ public class AccountDAO
          // Check if rollback is required
          if (transaction != null)
             transaction.rollback();
+
          e.printStackTrace();
 
          // Failure

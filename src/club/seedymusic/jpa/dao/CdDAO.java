@@ -12,8 +12,21 @@ import org.hibernate.cfg.Configuration;
 
 import club.seedymusic.jpa.bean.Cd;
 
+/**
+ * <h2>CdDAO Class</h2>
+ * <p>
+ * This class performs the Data related business logic for CDs. It relies on the CD Entity Bean.
+ * 
+ * @author Karim Sultan
+ * 
+ * @version Oct 9, 2017 Created this class.
+ */
 public class CdDAO
 {
+   /**
+    * Constructs a new CdDAO.
+    *
+    */
    public CdDAO()
    {
       // Nothing to do (yet?)
@@ -49,7 +62,8 @@ public class CdDAO
     * bean.
     * 
     * @param cd
-    * @return boolean; true if successful, false otherwise
+    *           The Cd Bean with populated fields to add to the database.
+    * @return boolean; true if successful, false otherwise.
     */
    public boolean addCd(Cd cd)
    {
@@ -74,6 +88,7 @@ public class CdDAO
          // Rollback if necessary
          if (transaction != null)
             transaction.rollback();
+
          e.printStackTrace();
 
          // Failure
@@ -96,11 +111,13 @@ public class CdDAO
     */
    public List<Cd> listCds()
    {
+      // Create session
       Session session = createSession();
       Transaction transaction = null;
 
       try
       {
+         // Transaction
          transaction = session.beginTransaction();
 
          // Using criteria requires no HQL or SQL or XML config data
@@ -121,6 +138,7 @@ public class CdDAO
          // Check if rollback is required
          if (transaction != null)
             transaction.rollback();
+
          e.printStackTrace();
 
          // Failure
