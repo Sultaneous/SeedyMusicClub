@@ -60,6 +60,7 @@ public class TestDAO extends HttpServlet
       // Add some CDs
       Cd cd = new Cd();
       cd.setTitle("The Moon is Round");
+      cd.setBand("Lunar Pilots");
       cd.setCover("no cover");
       cd.setGenre("Rock");
       cd.setPrice(9.99);
@@ -74,6 +75,7 @@ public class TestDAO extends HttpServlet
 
       cd = new Cd();
       cd.setTitle("Barking at the Forest");
+      cd.setBand("Four Dogs");
       cd.setCover("no cover");
       cd.setGenre("Blues");
       cd.setPrice(4.99);
@@ -103,6 +105,7 @@ public class TestDAO extends HttpServlet
          out.println("</br><table cellpadding=2 cellspacing=2 border=2>");
          out.println("<th>ID</th>");
          out.println("<th>Title</th>");
+         out.println("<th>Band</th>");
          out.println("<th>Genre</th>");
          out.println("<th>Price</th>");
          out.println("<th>Quantity</th>");
@@ -116,6 +119,7 @@ public class TestDAO extends HttpServlet
             out.println("<tr>");
             out.println("<td>" + cd.getId() + "</td>");
             out.println("<td>" + cd.getTitle() + "</td>");
+            out.println("<td>" + cd.getBand() + "</cd>");
             out.println("<td>" + cd.getGenre() + "</td>");
             out.println("<td>" + cd.getPrice() + "</td>");
             out.println("<td>" + cd.getQuantity() + "</td>");
@@ -177,7 +181,7 @@ public class TestDAO extends HttpServlet
          out.println("<th>ID</th>");
          out.println("<th>First Name</th>");
          out.println("<th>Last Name</th>");
-         out.println("<th>Uername</th>");
+         out.println("<th>Username</th>");
          out.println("<th>Password</th>");
          out.println("<th>Street</th>");
          out.println("<th>City</th>");

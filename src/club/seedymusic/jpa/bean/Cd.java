@@ -52,6 +52,11 @@ public class Cd
    private String title;
 
    /**
+    * The name of the band / singer who made the CD.
+    */
+   private String band;
+
+   /**
     * The genre of the CD (ie, "Rock") NOTE: This is NOT an enumeration, in order to allow more
     * genre types to be easily added
     */
@@ -134,6 +139,17 @@ public class Cd
    }
 
    /**
+    * Sets the id.
+    *
+    * @param id
+    *           The int containing the id to set.
+    */
+   public void setId(int id)
+   {
+      this.id = id;
+   }
+
+   /**
     * Gets the title.
     *
     * @return Returns a {@link String} containing the title.
@@ -152,6 +168,27 @@ public class Cd
    public void setTitle(String title)
    {
       this.title = title;
+   }
+
+   /**
+    * Gets the band.
+    *
+    * @return Returns a {@link String} containing the band.
+    */
+   public String getBand()
+   {
+      return band;
+   }
+
+   /**
+    * Sets the band.
+    *
+    * @param band
+    *           The {@link String} containing the band to set.
+    */
+   public void setBand(String band)
+   {
+      this.band = band;
    }
 
    /**
