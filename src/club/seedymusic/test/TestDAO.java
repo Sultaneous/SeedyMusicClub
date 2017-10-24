@@ -62,7 +62,7 @@ public class TestDAO extends HttpServlet
       cd.setTitle("The Moon is Round");
       cd.setBand("Lunar Pilots");
       cd.setCover("no cover");
-      cd.setGenre("Rock");
+      cd.setGenre("rock");
       cd.setPrice(9.99);
       cd.setSample("no sample");
       cd.setQuantity(100);
@@ -77,7 +77,7 @@ public class TestDAO extends HttpServlet
       cd.setTitle("Barking at the Forest");
       cd.setBand("Four Dogs");
       cd.setCover("no cover");
-      cd.setGenre("Blues");
+      cd.setGenre("blues");
       cd.setPrice(4.99);
       cd.setSample("no sample");
       cd.setQuantity(100);
