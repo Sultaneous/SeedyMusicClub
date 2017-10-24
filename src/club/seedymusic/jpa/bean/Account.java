@@ -100,6 +100,11 @@ public class Account
    private String phone;
 
    /**
+    * The email address of the account owner.
+    */
+   private String email;
+
+   /**
     * Provides a timestamp for date of creation / update.
     */
    @Temporal(TemporalType.TIMESTAMP)
@@ -382,6 +387,27 @@ public class Account
    public void setPhone(String phone)
    {
       this.phone = phone;
+   }
+
+   /**
+    * Gets the email.
+    *
+    * @return Returns a {@link String} containing the email.
+    */
+   public String getEmail()
+   {
+      return email;
+   }
+
+   /**
+    * Sets the email.
+    *
+    * @param email
+    *           The {@link String} containing the email to set.
+    */
+   public void setEmail(String email)
+   {
+      this.email = email;
    }
 
 }

@@ -103,6 +103,7 @@
          <th>Country</th>
          <th>Postal Code</th>
          <th>Phone</th>
+         <th>Email</th>
          <th>Date</th>
          </tr>
 
@@ -118,6 +119,7 @@
          <td><%=account.getCountry()%></td>
          <td><%=account.getPostalCode()%></td>
          <td><%=account.getPhone()%></td>
+         <td><%=account.getEmail()%></td>
          <td><%=account.getDate()%></td>
          </tr>
       </table>

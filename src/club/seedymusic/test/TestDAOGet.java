@@ -22,6 +22,9 @@ import club.seedymusic.jpa.dao.OrderDAO;
 @WebServlet("/test/TestDAOGet")
 public class TestDAOGet extends HttpServlet
 {
+   /**
+    * The serial ID of this servlet.
+    */
    private static final long serialVersionUID = 1L;
 
    /**

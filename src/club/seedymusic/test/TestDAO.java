@@ -134,7 +134,7 @@ public class TestDAO extends HttpServlet
 
       // Add an account
       Account account = new Account();
-      account.setUsername("user1");
+      account.setUsername("simplesimon");
       account.setPassword("password");
       account.setFirstName("Simple");
       account.setLastName("Simon");
@@ -144,13 +144,14 @@ public class TestDAO extends HttpServlet
       account.setCountry("Canada");
       account.setPostalCode("A1B 2C3");
       account.setPhone("613-987-6543");
+      account.setEmail("simplesimon@thepieman.ca");
 
       AccountDAO accountDAO = new AccountDAO();
       result = accountDAO.addAccount(account);
 
       account = new Account();
-      account.setUsername("user2");
-      account.setPassword("password");
+      account.setUsername("alibaba");
+      account.setPassword("aAS3Jf4");
       account.setFirstName("Ali");
       account.setLastName("Babba");
       account.setStreet("8 Cyber Road");
@@ -159,6 +160,7 @@ public class TestDAO extends HttpServlet
       account.setCountry("China");
       account.setPostalCode("100000");
       account.setPhone("172-6482-1443");
+      account.setEmail("ali_babs7@kaching.cn");
 
       // This ternary test keeps the first result in case it was false
       // and only allows success if both add operations were true
@@ -189,6 +191,7 @@ public class TestDAO extends HttpServlet
          out.println("<th>Country</th>");
          out.println("<th>Postal Code</th>");
          out.println("<th>Phone</th>");
+         out.println("<th>Email</th>");
          out.println("<th>Date</th>");
 
          for (Iterator<Account> iterator = accounts.iterator(); iterator.hasNext();)
@@ -206,6 +209,7 @@ public class TestDAO extends HttpServlet
             out.println("<td>" + account.getCountry() + "</td>");
             out.println("<td>" + account.getPostalCode() + "</td>");
             out.println("<td>" + account.getPhone() + "</td>");
+            out.println("<td>" + account.getEmail() + "</td>");
             out.println("<td>" + account.getDate() + "</td>");
             out.println("</tr>");
          }
