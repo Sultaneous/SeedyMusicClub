@@ -157,7 +157,7 @@ public class CdDAO
     * 
     * @param id
     *           The CD id to retrieve from database.
-    * @return
+    * @return Returns the Cd bean populated from db if id exists; null otherwise.
     */
    public Cd getCd(int id)
    {
@@ -180,7 +180,8 @@ public class CdDAO
 
          transaction.commit();
 
-         if (cds.size() < 1)
+         // Make sure we have a result
+         if (cds.isEmpty())
             return null;
          else
             return (cds.get(0));

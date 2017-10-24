@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 
 import club.seedymusic.jpa.bean.Order;
 
@@ -141,6 +142,58 @@ public class OrderDAO
 
          transaction.commit();
          return (orders);
+      }
+      catch (HibernateException e)
+      {
+         // Check if rollback is required
+         if (transaction != null)
+            transaction.rollback();
+
+         e.printStackTrace();
+
+         // Failure
+         return null;
+      }
+      finally
+      {
+         // Close session to clean up
+         session.close();
+      }
+   }
+
+   /**
+    * Retrieves a single order object from the database based on its id.
+    * 
+    * @param id
+    *           The order id to retrieve from database.
+    * @return Returns the Order bean populated from db if id exists; null otherwise.
+    */
+   public Order getOrder(int id)
+   {
+      // Create session
+      Session session = createSession();
+      Transaction transaction = null;
+
+      try
+      {
+         // Transaction
+         transaction = session.beginTransaction();
+
+         // Using criteria requires no HQL or SQL or XML config data
+         Criteria criteria = session.createCriteria(Order.class);
+         criteria.add(Restrictions.idEq(id));
+
+         // Suppress casting warning; this is a Hibernate issue
+         @SuppressWarnings("unchecked")
+         List<Order> orders = criteria.list();
+
+         transaction.commit();
+
+         // Make sure we have a result
+         if (orders.isEmpty())
+            return null;
+         else
+            return (orders.get(0));
       }
       catch (HibernateException e)
       {
