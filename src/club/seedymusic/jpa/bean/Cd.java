@@ -100,7 +100,10 @@ public class Cd
       this.sample = DEFAULT_VALUE;
       this.quantity = 0;
       this.price = 0f;
-      this.date = new Date();
+
+      // CHANGED: No longer need to set date; as the
+      // DB will set this on creation and on updates
+      // this.date = new Date();
    }
 
    /*

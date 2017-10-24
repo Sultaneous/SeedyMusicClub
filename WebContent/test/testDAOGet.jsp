@@ -156,6 +156,7 @@
          <th>ID</th>
          <th>Account ID</th>
          <th>Order Items</th>
+         <th>Status</th>
          <th>Date</th>
 
          <tr>
@@ -175,6 +176,7 @@
          }
          %>
          </td>
+         <td><%=order.getStatus()%></cd>
          <td><%=order.getDate()%></cd>
          </tr>
       </table>

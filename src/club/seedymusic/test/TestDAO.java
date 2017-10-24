@@ -220,6 +220,7 @@ public class TestDAO extends HttpServlet
       // Make an order
       Order order = new Order();
       order.setAccountId(account.getId());
+      order.setStatus("open");
       order.getOrderItems().add(new OrderItem(orderItem1));
       order.getOrderItems().add(new OrderItem(orderItem2));
 
@@ -243,6 +244,7 @@ public class TestDAO extends HttpServlet
          out.println("<th>ID</th>");
          out.println("<th>Account ID</th>");
          out.println("<th>CD IDs</th>");
+         out.println("<th>Status</th>");
          out.println("<th>Date</th>");
 
          for (Iterator<Order> iterator = orders.iterator(); iterator.hasNext();)
@@ -266,6 +268,7 @@ public class TestDAO extends HttpServlet
             }
             out.println("</td>");
 
+            out.println("<td>" + order.getStatus() + "</td>");
             out.println("<td>" + order.getDate() + "</td>");
             out.println("</tr>");
          }

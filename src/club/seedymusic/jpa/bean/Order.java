@@ -46,6 +46,13 @@ public class Order
    private int accountId;
 
    /**
+    * Open field to represent the status. Not enumerated; can be set to anything by the controller
+    * or web-service as they require depending on how the order system is envisioned (for example,
+    * "open", "paid", "pending", "shipped").
+    */
+   private String status;
+
+   /**
     * A one-to-many joined table containing all the ids of the cds that are being ordered.
     */
    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -70,7 +77,10 @@ public class Order
    {
       this.accountId = 0;
       this.orderItems = new HashSet<OrderItem>();
-      this.date = new Date();
+
+      // CHANGED: No longer need to set date; as the
+      // DB will set this on creation and on updates
+      // this.date = new Date();
    }
 
    /*
@@ -117,6 +127,27 @@ public class Order
    public void setAccountId(int accountId)
    {
       this.accountId = accountId;
+   }
+
+   /**
+    * Gets the status.
+    *
+    * @return Returns a {@link String} containing the status.
+    */
+   public String getStatus()
+   {
+      return status;
+   }
+
+   /**
+    * Sets the status.
+    *
+    * @param status
+    *           The {@link String} containing the status to set.
+    */
+   public void setStatus(String status)
+   {
+      this.status = status;
    }
 
    /**
