@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="club.seedymusic.jpa.bean.*, java.util.*" %>
+<%@ page import="club.seedymusic.jpa.bean.*, club.seedymusic.jpa.dao.*, java.util.*" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -12,6 +12,13 @@
       <h1>DAO Get Test Page</h1>
       NOTE: This page is under development and will change as it is updated frequently.
       <br/><br/>
+      
+      <%
+      CdDAO acd= new CdDAO();
+      long recs = acd.getCount();
+      %>
+      <i>Discovered  <%=recs%> CDs in the database.</i>
+      <br/>
       <form name="cd" action="${pageContext.request.contextPath}/test/TestDAOGet" method="get">
          <input type="hidden" name="lookup" value="cd">
          Enter CD id to retrieve: <input name="cdid" type="text" value="1" size="10">
@@ -61,6 +68,11 @@
       %>   
       
       <br/><br/>
+      <%
+      AccountDAO anaccount = new AccountDAO();
+      recs = anaccount.getCount();
+      %>
+      <i>Discovered  <%=recs%> Accounts in the database.</i>
       <form name="account" action="${pageContext.request.contextPath}/test/TestDAOGet" method="get">
          <input type="hidden" name="lookup" value="account">
          Enter Account id to retrieve: <input name="accountid" type="text" value="1" size="10">
@@ -115,6 +127,12 @@
       %>
 
       <br/><br/>
+      <%
+      OrderDAO anorder = new OrderDAO();
+      recs = anorder.getCount();
+      %>
+      <i>Discovered  <%=recs%> Orders in the database.</i>
+      
       <form name="order" action="${pageContext.request.contextPath}/test/TestDAOGet" method="get">
          <input type="hidden" name="lookup" value="order">
          Enter Order id to retrieve: <input name="orderid" type="text" value="1" size="10">

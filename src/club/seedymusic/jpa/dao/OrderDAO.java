@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import club.seedymusic.jpa.bean.Order;
@@ -205,6 +206,49 @@ public class OrderDAO
 
          // Failure
          return null;
+      }
+      finally
+      {
+         // Close session to clean up
+         session.close();
+      }
+   }
+
+   /**
+    * Returns the number of records in the table.
+    * 
+    * @return long Number of records
+    */
+   public long getCount()
+   {
+      // Create session
+      Session session = createSession();
+      Transaction transaction = null;
+
+      try
+      {
+         // Transaction
+         transaction = session.beginTransaction();
+
+         // Using criteria requires no HQL or SQL or XML config data
+         Criteria criteria = session.createCriteria(Order.class);
+         long records = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
+
+         transaction.commit();
+
+         // Make sure we have a result
+         return (records);
+      }
+      catch (HibernateException e)
+      {
+         // Check if rollback is required
+         if (transaction != null)
+            transaction.rollback();
+
+         e.printStackTrace();
+
+         // Failure
+         return 0;
       }
       finally
       {
