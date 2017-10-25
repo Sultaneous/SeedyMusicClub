@@ -1,0 +1,158 @@
+-- Database Schema and Population Script
+-- Version 1.0
+-- Karim Sultan, 2017-11-21
+
+-- Run this script via MySQL Workbench (File | Run SQL Script...) OR
+-- you can also run it from MySQL shell (>script [path to script]
+
+-- This script will:
+-- 1. Create a database called "seedy_db"
+-- 2. Create the four major tables (cds, accounts, orders, orderitems)
+-- 3. Populate the cds table with a catalog of cds
+
+-- Note that each CD has properties, cover art and a 15 sec music sample.
+
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema seedy_db
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `seedy_db` DEFAULT CHARACTER SET utf8 ;
+USE `seedy_db` ;
+
+-- -----------------------------------------------------
+-- Drop Tables
+-- PLEASE do not change the order below.  It has to be 
+-- dropped in this order to adhere to foreign key constraints.
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `seedy_db`.`orderitems` ;
+DROP TABLE IF EXISTS `seedy_db`.`orders` ;
+DROP TABLE IF EXISTS `seedy_db`.`accounts` ;
+DROP TABLE IF EXISTS `seedy_db`.`cds` ;
+
+
+-- -----------------------------------------------------
+-- Table `seedy_db`.`accounts`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `seedy_db`.`accounts` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `city` VARCHAR(255) NULL DEFAULT NULL,
+  `country` VARCHAR(255) NULL DEFAULT NULL,
+  `date` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `firstName` VARCHAR(255) NULL DEFAULT NULL,
+  `lastName` VARCHAR(255) NULL DEFAULT NULL,
+  `password` VARCHAR(255) NULL DEFAULT NULL,
+  `phone` VARCHAR(255) NULL DEFAULT NULL,
+  `postalCode` VARCHAR(255) NULL DEFAULT NULL,
+  `province` VARCHAR(255) NULL DEFAULT NULL,
+  `street` VARCHAR(255) NULL DEFAULT NULL,
+  `username` VARCHAR(255) NULL DEFAULT NULL,
+  `email` VARCHAR(255) NULL DEFAULT NULL,
+  UNIQUE (username),
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `seedy_db`.`cds`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `seedy_db`.`cds` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `band` VARCHAR(255) NULL DEFAULT NULL,
+  `cover` VARCHAR(255) NULL DEFAULT NULL,
+  `date` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `genre` VARCHAR(255) NULL DEFAULT NULL,
+  `price` DOUBLE NOT NULL,
+  `quantity` INT(11) NOT NULL,
+  `sample` VARCHAR(255) NULL DEFAULT NULL,
+  `title` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `seedy_db`.`orders`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `seedy_db`.`orders` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `accountId` INT(11) NOT NULL,
+  `status` VARCHAR(255) NOT NULL,
+  `date` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `seedy_db`.`orderitems`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `seedy_db`.`orderitems` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `cdid` INT(11) NOT NULL,
+  `orderid` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FK_m5lkunghh06tt5g98d6madcw3`
+    FOREIGN KEY (`orderid`)
+    REFERENCES `seedy_db`.`orders` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+CREATE INDEX `FK_m5lkunghh06tt5g98d6madcw3` ON `seedy_db`.`orderitems` (`orderid` ASC);
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+-- -----------------------------------------------------
+-- Now we insert a couple of dummy records for tables
+-- -----------------------------------------------------
+
+-- 3 Accounts
+INSERT INTO `seedy_db`.`accounts` (`city`, `country`, `firstName`, `lastName`, `password`, `phone`, 
+`postalCode`, `province`, `street`, `username`, `email`) VALUES ('Ottawa', 'Canada', 'admin', 'istrator', 'admin!', 
+'613-555-5555', 'K1N 6N5', 'Ontario', '55 Laurier Avenue West', 'admin', 'admin@seedymusic.club');
+
+INSERT INTO `seedy_db`.`accounts` (`city`, `country`, `firstName`, `lastName`, `password`, `phone`, 
+`postalCode`, `province`, `street`, `username`, `email`) VALUES ('Ottawa', 'Canada', 'Simple', 'Simon', 
+'password', '613-862-2229', 'A1B 2C3', 'Ontario', '314 Pi Street', 'simplesimon', 'simplesimon@thepieman.ca');
+
+INSERT INTO `seedy_db`.`accounts` (`city`, `country`, `firstName`, `lastName`, `password`, `phone`, 
+`postalCode`, `province`, `street`, `username`, `email`) VALUES ('Beijing', 'China', 'Ali', 'Baba', 'aAS3Jf4', 
+'172-6482-1443', '100000', 'Hebei', '8 Cyber Road', 'alibaba', 'ali_babs7@kaching.cn');
+
+-- 2 Orders
+INSERT INTO `seedy_db`.`orders` (`accountId`, `status`) VALUES ('2', 'shipped');
+INSERT INTO `seedy_db`.`orders` (`accountId`, `status`) VALUES ('3', 'open');
+
+-- With 4 OrderItems in first and 7 in second 
+INSERT INTO `seedy_db`.`orderitems` (`cdid`, `orderid`) VALUES ('22', '1');
+INSERT INTO `seedy_db`.`orderitems` (`cdid`, `orderid`) VALUES ('38', '1');
+INSERT INTO `seedy_db`.`orderitems` (`cdid`, `orderid`) VALUES ('99', '1');
+INSERT INTO `seedy_db`.`orderitems` (`cdid`, `orderid`) VALUES ('102', '1');
+
+INSERT INTO `seedy_db`.`orderitems` (`cdid`, `orderid`) VALUES ('7', '2');
+INSERT INTO `seedy_db`.`orderitems` (`cdid`, `orderid`) VALUES ('49', '2');
+INSERT INTO `seedy_db`.`orderitems` (`cdid`, `orderid`) VALUES ('51', '2');
+INSERT INTO `seedy_db`.`orderitems` (`cdid`, `orderid`) VALUES ('64', '2');
+INSERT INTO `seedy_db`.`orderitems` (`cdid`, `orderid`) VALUES ('127', '2');
+INSERT INTO `seedy_db`.`orderitems` (`cdid`, `orderid`) VALUES ('136', '2');
+INSERT INTO `seedy_db`.`orderitems` (`cdid`, `orderid`) VALUES ('144', '2');
+
+-- -----------------------------------------------------
+-- The following commands insert the CD catalog data.
+-- Do not edit these lines!
+-- They are created automatically by the Genesis tool.
+-- -----------------------------------------------------
+
+-- [START] Genesis Data --
+
