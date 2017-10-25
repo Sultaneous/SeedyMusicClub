@@ -3,6 +3,7 @@ package club.seedymusic.jpa.bean;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * <h2>OrderItem Class</h2>
@@ -15,6 +16,7 @@ import javax.persistence.Id;
  * @version Oct 9, 2017 Created this class.
  */
 @Entity
+@Table(name = "orderitems")
 public class OrderItem
 {
    /**
