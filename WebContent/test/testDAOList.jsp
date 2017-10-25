@@ -69,27 +69,38 @@
       <table cellpadding=2 cellspacing=2 border=2>
          <tr>
          <th>ID</th>
+         <th>Cover</th>
          <th>Title</th>
          <th>Band</th>
          <th>Genre</th>
          <th>Price</th>
          <th>Quantity</th>
-         <th>Cover</th>
-         <th>Sample</th>
          <th>Date</th>
          </tr>
 
       <% for (Cd cd : cds) { %>
          <tr>
-         <td><%=cd.getId()%></td>
+         <td rowspan="2"><%=cd.getId()%></td>
+         <td rowspan="2">
+            <a href="${pageContext.request.contextPath}/assets/covers/<%=cd.getCover()%>">
+            <img src="${pageContext.request.contextPath}/assets/covers/<%=cd.getCover()%>" width="150" height="150" />
+            </a>
+         </td>
          <td><%=cd.getTitle()%></td>
          <td><%=cd.getBand()%></cd>
          <td><%=cd.getGenre()%></td>
          <td><%=cd.getPrice()%></td>
          <td><%=cd.getQuantity()%></td>
-         <td><%=cd.getCover()%></td>
-         <td><%=cd.getSample()%></td>
          <td><%=cd.getDate()%></td>
+         </tr>
+         <tr>
+         <td colspan="6">
+            <audio controls>
+               <source src="${pageContext.request.contextPath}/assets/samples/<%=cd.getSample()%>"/>
+               Not supported.
+            </audio>
+         </td>
+         
          </tr>
        <% } %>
          
