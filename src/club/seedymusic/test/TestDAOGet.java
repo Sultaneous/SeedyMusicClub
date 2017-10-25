@@ -49,7 +49,7 @@ public class TestDAOGet extends HttpServlet
       {
          // Create our DAO
          CdDAO cdDAO = new CdDAO();
-
+         cdDAO.getGenres();
          // The JSP form passes us the cdid as a string parameter; retrieve an convert to int
          int cdid = Integer.parseInt(request.getParameter("cdid"));
 
