@@ -72,6 +72,16 @@ public class CdDAO
       private static final int ACTION_SEARCH_PAGED = 6;
 
       /**
+       * ACTION: searches DB for title & genre matches.
+       */
+      private static final int ACTION_SEARCHFULL = 7;
+
+      /**
+       * ACTION: searches DB for title & genre matches and returns as page.
+       */
+      private static final int ACTION_SEARCHFULL_PAGED = 6;
+
+      /**
        * The action to perform; must be one of the class ACTION constants.
        */
       public int action;
@@ -254,6 +264,24 @@ public class CdDAO
             criteria.setMaxResults(lcp.pageSize);
          }
 
+         // Its a search request based on title
+         else if (lcp.action == ListControllerParameters.ACTION_SEARCHFULL)
+         {
+            criteria.addOrder(Order.asc("id"));
+            criteria.add(Restrictions.ilike("title", lcp.title, MatchMode.ANYWHERE));
+            criteria.add(Restrictions.eq("genre", lcp.genre));
+         }
+
+         // The request is a title search, paged.
+         else if (lcp.action == ListControllerParameters.ACTION_SEARCH_PAGED)
+         {
+            criteria.addOrder(Order.asc("id"));
+            criteria.add(Restrictions.ilike("title", lcp.title, MatchMode.ANYWHERE));
+            criteria.add(Restrictions.eq("genre", lcp.genre));
+            criteria.setFirstResult(lcp.pageStart);
+            criteria.setMaxResults(lcp.pageSize);
+         }
+
          // Suppress casting warning; this is a Hibernate issue
          @SuppressWarnings("unchecked")
          List<Cd> cds = criteria.list();
@@ -376,7 +404,7 @@ public class CdDAO
 
    /**
     * Searches for any CDs that match, in part, the title search criteria and returns a page of
-    * reults bounded by pageStart, pageStart + pageSize - 1.
+    * results bounded by pageStart, pageStart + pageSize - 1.
     * 
     * @param title
     *           The search criteria (ie, "Love" would find all CDs with "Love" in their title).
@@ -391,6 +419,53 @@ public class CdDAO
       ListControllerParameters lcp = new ListControllerParameters();
       lcp.action = ListControllerParameters.ACTION_SEARCH_PAGED;
       lcp.title = title;
+      lcp.pageStart = pageStart;
+      lcp.pageSize = pageSize;
+      return (listCdsController(lcp));
+   }
+
+   /**
+    * Searches for any CDs that match, in part, the title and genre search criteria.
+    * 
+    * @param title
+    *           The search criteria (ie, "Love" would find all CDs with "Love" in their title).
+    *           Matches partially.
+    * @param genre
+    *           The search criteria (ie, "blues" would find all CDs with "blues" as their genre).
+    *           Matches exactly.
+    * @return A list of matching Cd beans or null otherwise.
+    */
+   public List<Cd> searchCds(String title, String genre)
+   {
+      ListControllerParameters lcp = new ListControllerParameters();
+      lcp.action = ListControllerParameters.ACTION_SEARCHFULL;
+      lcp.title = title;
+      lcp.genre = genre;
+      return (listCdsController(lcp));
+   }
+
+   /**
+    * Searches for any CDs that match, in part, the title search criteria and returns a page of
+    * results bounded by pageStart, pageStart + pageSize - 1.
+    * 
+    * @param title
+    *           The search criteria (ie, "Love" would find all CDs with "Love" in their title).
+    *           Matches partially.
+    * @param genre
+    *           The search criteria (ie, "blues" would find all CDs with "blues" as their genre).
+    *           Matches exactly.
+    * @param pageStart
+    *           The record to start at (inclusive, 0-based)
+    * @param pageSize
+    *           The maximum number of records to return
+    * @return A list of matching Cd beans or null otherwise.
+    */
+   public List<Cd> searchCds(String title, String genre, int pageStart, int pageSize)
+   {
+      ListControllerParameters lcp = new ListControllerParameters();
+      lcp.action = ListControllerParameters.ACTION_SEARCHFULL_PAGED;
+      lcp.title = title;
+      lcp.genre = genre;
       lcp.pageStart = pageStart;
       lcp.pageSize = pageSize;
       return (listCdsController(lcp));
