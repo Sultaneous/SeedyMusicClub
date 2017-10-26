@@ -251,7 +251,7 @@ public class AccountDAO
     *           The unique username to search for
     * @return Returns the account object or null on failure.
     */
-   private Account searchAccounts(String username)
+   public Account searchAccounts(String username)
    {
       // Create session
       Session session = createSession();

@@ -46,7 +46,8 @@ public class TestDAOList extends HttpServlet
       {
          // Retrieve parameters
          String action = request.getParameter("action");
-         String criteria = request.getParameter("criteria");
+         String title_criteria = request.getParameter("title_criteria");
+         String genre_criteria = request.getParameter("genre_criteria");
 
          int pageStart;
          try
@@ -83,19 +84,23 @@ public class TestDAOList extends HttpServlet
          }
          else if (action.equals("listByGenre"))
          {
-            cds = cdDAO.listCds(criteria);
+            cds = cdDAO.listCds(genre_criteria);
          }
          else if (action.equals("listByGenrePaged"))
          {
-            cds = cdDAO.listCds(criteria, pageStart, pageSize);
+            cds = cdDAO.listCds(genre_criteria, pageStart, pageSize);
          }
          else if (action.equals("search"))
          {
-            cds = cdDAO.searchCds(criteria);
+            cds = cdDAO.searchCds(title_criteria);
          }
          else if (action.equals("searchPaged"))
          {
-            cds = cdDAO.searchCds(criteria, pageStart, pageSize);
+            cds = cdDAO.searchCds(title_criteria, pageStart, pageSize);
+         }
+         else if (action.equals("searchFull"))
+         {
+            cds = cdDAO.searchCds(title_criteria, genre_criteria);
          }
 
          // Put it into the session object for the jsp

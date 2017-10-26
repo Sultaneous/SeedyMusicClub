@@ -28,15 +28,22 @@
             <li><input type="radio" name="action" value="listByGenrePaged"/>List by Genre, Paged</li>
             <li><input type="radio" name="action" value="search"/>Search by Title (partial allowed)</li>
             <li><input type="radio" name="action" value="searchPaged"/>Search by Title, Paged</li>            
+            <li><input type="radio" name="action" value="searchFull"/>Search by Title &amp; Genre</li>            
+            <li><input type="radio" name="action" value="searchFullPaged"/>Search by Title &amp; Genre, Paged</li>            
          </ol>
          <br/>
          <input type="hidden" name="lookup" value="cd">
 
          <table>
 	         <tr>
-	            <td>Enter Genre/Title criteria:</td> 
-	            <td><input name="criteria" type="text" value="Love" size="40"/></td>
+	            <td>Enter Title criteria:</td> 
+	            <td><input name="title_criteria" type="text" value="Love" size="40"/></td>
 	         </tr>
+	         
+            <tr>
+               <td>Enter Genre criteria:</td> 
+               <td><input name="genre_criteria" type="text" value="rock" size="40"/></td>
+            </tr>
 	         
 	         <tr>
 	            <td>Page Starting record:</td> 
