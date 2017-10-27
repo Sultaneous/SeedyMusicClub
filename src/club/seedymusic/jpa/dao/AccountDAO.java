@@ -200,49 +200,6 @@ public class AccountDAO
    }
 
    /**
-    * Returns the number of records in the table.
-    * 
-    * @return long Number of records
-    */
-   public long getCount()
-   {
-      // Create session
-      Session session = createSession();
-      Transaction transaction = null;
-
-      try
-      {
-         // Transaction
-         transaction = session.beginTransaction();
-
-         // Using criteria requires no HQL or SQL or XML config data
-         Criteria criteria = session.createCriteria(Account.class);
-         long records = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
-
-         transaction.commit();
-
-         // Make sure we have a result
-         return (records);
-      }
-      catch (HibernateException e)
-      {
-         // Check if rollback is required
-         if (transaction != null)
-            transaction.rollback();
-
-         e.printStackTrace();
-
-         // Failure
-         return 0;
-      }
-      finally
-      {
-         // Close session to clean up
-         session.close();
-      }
-   }
-
-   /**
     * Searches the database for an account by username. This should be a unique record but
     * regarless, if multiple ones are found, we return only the first one (defined b by the one with
     * the lowest id).
@@ -251,7 +208,7 @@ public class AccountDAO
     *           The unique username to search for
     * @return Returns the account object or null on failure.
     */
-   public Account searchAccounts(String username)
+   public Account getAccount(String username)
    {
       // Create session
       Session session = createSession();
@@ -293,6 +250,49 @@ public class AccountDAO
 
          // Failure
          return null;
+      }
+      finally
+      {
+         // Close session to clean up
+         session.close();
+      }
+   }
+
+   /**
+    * Returns the number of records in the table.
+    * 
+    * @return long Number of records
+    */
+   public long getCount()
+   {
+      // Create session
+      Session session = createSession();
+      Transaction transaction = null;
+
+      try
+      {
+         // Transaction
+         transaction = session.beginTransaction();
+
+         // Using criteria requires no HQL or SQL or XML config data
+         Criteria criteria = session.createCriteria(Account.class);
+         long records = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
+
+         transaction.commit();
+
+         // Make sure we have a result
+         return (records);
+      }
+      catch (HibernateException e)
+      {
+         // Check if rollback is required
+         if (transaction != null)
+            transaction.rollback();
+
+         e.printStackTrace();
+
+         // Failure
+         return 0;
       }
       finally
       {
