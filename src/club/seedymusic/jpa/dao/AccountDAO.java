@@ -172,6 +172,66 @@ public class AccountDAO
          @SuppressWarnings("unchecked")
          List<Account> accounts = criteria.list();
 
+         session.flush();
+         transaction.commit();
+
+         // Make sure we have a result
+         if (accounts.isEmpty())
+            return null;
+         else
+            return (accounts.get(0));
+      }
+      catch (HibernateException e)
+      {
+         // Check if rollback is required
+         if (transaction != null)
+            transaction.rollback();
+
+         e.printStackTrace();
+
+         // Failure
+         return null;
+      }
+      finally
+      {
+         // Close session to clean up
+         session.close();
+      }
+   }
+
+   /**
+    * Searches the database for an account by username. This should be a unique record but
+    * regarless, if multiple ones are found, we return only the first one (defined b by the one with
+    * the lowest id).
+    * 
+    * @param username
+    *           The unique username to search for
+    * @return Returns the account object or null on failure.
+    */
+   public Account getAccount(String username)
+   {
+      // Create session
+      Session session = createSession();
+      Transaction transaction = null;
+
+      try
+      {
+         // Transaction
+         transaction = session.beginTransaction();
+
+         // Using criteria requires no HQL or SQL or XML config data
+         Criteria criteria = session.createCriteria(Account.class);
+
+         // Search for username. It should be unique. Regardless, we will
+         // return only the first result.
+         criteria.add(Restrictions.eq("username", username));
+         criteria.uniqueResult();
+
+         // Suppress casting warning; this is a Hibernate issue
+         @SuppressWarnings("unchecked")
+         List<Account> accounts = criteria.list();
+
+         session.flush();
          transaction.commit();
 
          // Make sure we have a result
@@ -241,4 +301,4 @@ public class AccountDAO
       }
    }
 
-}
+} // Class
