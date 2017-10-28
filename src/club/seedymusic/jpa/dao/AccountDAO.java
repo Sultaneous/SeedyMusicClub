@@ -28,10 +28,26 @@ import club.seedymusic.util.ConfigurationManager;
  */
 public class AccountDAO
 {
+   /**
+    * Constant representing a key name in the configuration file.
+    */
    private static final String CONFIG_USERNAME = "accounts_username";
+
+   /**
+    * Constant representing a key name in the configuration file.
+    */
    private static final String DEFAULT_FIELD_USERNAME = "username";
+
+   /**
+    * Constant representing a key name in the configuration file.
+    */
    private static final String CONFIG_ID = "accounts_id";
+
+   /**
+    * Constant representing a key name in the configuration file.
+    */
    private static final String DEFAULT_FIELD_ID = "id";
+
    /**
     * Holds the mappings for string literals so that no fields are stored in the class, except some
     * default values (overridden by the configuration). This abstracts all HQl / SQL field name

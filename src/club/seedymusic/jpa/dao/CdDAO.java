@@ -269,7 +269,7 @@ public class CdDAO
          {
             criteria.addOrder(
                      Order.asc(configurationManager.getConfiguration(CONFIG_ID, DEFAULT_FIELD_ID)));
-            criteria.setFirstResult(lcp.pageStart);
+            criteria.setFirstResult((lcp.pageStart - 1) * lcp.pageSize);
             criteria.setMaxResults(lcp.pageSize);
          }
 
@@ -291,7 +291,7 @@ public class CdDAO
             criteria.add(Restrictions.ilike(
                      configurationManager.getConfiguration(CONFIG_GENRE, DEFAULT_FIELD_GENRE),
                      lcp.genre, MatchMode.EXACT));
-            criteria.setFirstResult(lcp.pageStart);
+            criteria.setFirstResult((lcp.pageStart - 1) * lcp.pageSize);
             criteria.setMaxResults(lcp.pageSize);
          }
 
@@ -313,7 +313,7 @@ public class CdDAO
             criteria.add(Restrictions.ilike(
                      configurationManager.getConfiguration(CONFIG_TITLE, DEFAULT_FIELD_TITLE),
                      lcp.title, MatchMode.ANYWHERE));
-            criteria.setFirstResult(lcp.pageStart);
+            criteria.setFirstResult((lcp.pageStart - 1) * lcp.pageSize);
             criteria.setMaxResults(lcp.pageSize);
          }
 
@@ -341,7 +341,7 @@ public class CdDAO
             criteria.add(Restrictions.eq(
                      configurationManager.getConfiguration(CONFIG_GENRE, DEFAULT_FIELD_GENRE),
                      lcp.genre));
-            criteria.setFirstResult(lcp.pageStart);
+            criteria.setFirstResult((lcp.pageStart - 1) * lcp.pageSize);
             criteria.setMaxResults(lcp.pageSize);
          }
 
@@ -377,7 +377,6 @@ public class CdDAO
          // Close session to clean up
          session.close();
       }
-
    }
 
    /**
@@ -627,6 +626,61 @@ public class CdDAO
       finally
       {
          // Close session to clean up
+         session.close();
+      }
+   }
+
+   /**
+    * Gets the number of CD records that near-match the title and exact match the genre criteria.
+    * 
+    * @param title
+    *           The title to near match
+    * @param genre
+    *           The genre to exact match
+    * @return Returns the count of matching records, or 0 on failure
+    */
+   public long getCount(String title, String genre)
+   {
+      // Create session
+      Session session = createSession();
+      Transaction transaction = null;
+
+      try
+      {
+         // Transaction
+         transaction = session.beginTransaction();
+
+         // Using criteria requires no HQL or SQL or XML config data
+         Criteria criteria = session.createCriteria(Cd.class);
+         criteria.add(Restrictions.ilike(
+                  configurationManager.getConfiguration(CONFIG_TITLE, DEFAULT_FIELD_TITLE), title,
+                  MatchMode.ANYWHERE));
+         criteria.add(Restrictions.eq(
+                  configurationManager.getConfiguration(CONFIG_GENRE, DEFAULT_FIELD_GENRE), genre));
+
+         // Get the count
+         long records = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
+
+         transaction.commit();
+
+         // Make sure we have a result
+         return (records);
+      }
+      catch (HibernateException e)
+      {
+         // Check if rollback is required
+         if (transaction != null)
+            transaction.rollback();
+
+         e.printStackTrace();
+
+         // Failure
+         return 0;
+      }
+      finally
+      {
+         // Close session to clean up
+         session.flush();
          session.close();
       }
    }
