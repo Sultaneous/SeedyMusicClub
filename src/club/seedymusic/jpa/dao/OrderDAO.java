@@ -107,6 +107,7 @@ public class OrderDAO
       finally
       {
          // Clean-up
+         session.flush();
          session.close();
       }
    }
@@ -158,6 +159,7 @@ public class OrderDAO
       finally
       {
          // Close session to clean up
+         session.flush();
          session.close();
       }
    }
@@ -191,7 +193,7 @@ public class OrderDAO
          transaction.commit();
 
          // Make sure we have a result
-         if (orders.isEmpty())
+         if (orders == null || orders.isEmpty())
             return null;
          else
             return (orders.get(0));
@@ -254,6 +256,73 @@ public class OrderDAO
       finally
       {
          // Close session to clean up
+         session.flush();
+         session.close();
+      }
+   }
+
+   /**
+    * Allows an order's status to be updated, based on a valid order id. Sanity checks aren't
+    * required on id and status as hibernate will throw an exception on failure.
+    * 
+    * @param id
+    *           The id of the order to update.
+    * @param status
+    *           The new value for the status.
+    * @return
+    */
+   public boolean setStatus(int id, String status)
+   {
+      // Create session
+      Session session = createSession();
+      Transaction transaction = null;
+
+      try
+      {
+         // Transaction
+         transaction = session.beginTransaction();
+
+         // Using criteria requires no HQL or SQL or XML config data
+         Criteria criteria = session.createCriteria(Order.class);
+         criteria.add(Restrictions.idEq(id));
+
+         // Suppress casting warning; this is a Hibernate issue
+         @SuppressWarnings("unchecked")
+         List<Order> orders = criteria.list();
+
+         // Make sure we have a result; exception will be handle by catch block
+         if (orders == null || orders.isEmpty())
+            throw (new HibernateException(
+                     "The Order ID: " + id + " was not found in the database."));
+
+         // Get order object
+         Order order = orders.get(0);
+
+         // Set the new status
+         order.setStatus(status);
+
+         // Update the database
+         session.update(order);
+         transaction.commit();
+
+         // Success
+         return (true);
+      }
+      catch (HibernateException e)
+      {
+         // Check if rollback is required
+         if (transaction != null)
+            transaction.rollback();
+
+         e.printStackTrace();
+
+         // Failure
+         return false;
+      }
+      finally
+      {
+         // Close session to clean up
+         session.flush();
          session.close();
       }
    }

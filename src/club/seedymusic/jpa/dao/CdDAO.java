@@ -203,7 +203,6 @@ public class CdDAO
          // Transaction
          transaction = session.beginTransaction();
          session.save(cd);
-         session.flush();
          transaction.commit();
 
          // Success
@@ -223,6 +222,7 @@ public class CdDAO
       finally
       {
          // Close session to clean up
+         session.flush();
          session.close();
       }
    }
@@ -349,7 +349,6 @@ public class CdDAO
          @SuppressWarnings("unchecked")
          List<Cd> cds = criteria.list();
 
-         session.flush();
          transaction.commit();
          return (cds);
       }
@@ -375,6 +374,7 @@ public class CdDAO
       finally
       {
          // Close session to clean up
+         session.flush();
          session.close();
       }
    }
@@ -559,11 +559,10 @@ public class CdDAO
          @SuppressWarnings("unchecked")
          List<Cd> cds = criteria.list();
 
-         session.flush();
          transaction.commit();
 
          // Make sure we have a result
-         if (cds.isEmpty())
+         if (cds == null || cds.isEmpty())
             return null;
          else
             return (cds.get(0));
@@ -582,6 +581,7 @@ public class CdDAO
       finally
       {
          // Close session to clean up
+         session.flush();
          session.close();
       }
    }
@@ -720,7 +720,6 @@ public class CdDAO
          @SuppressWarnings("unchecked")
          List<String> genres = criteria.list();
 
-         session.flush();
          transaction.commit();
 
          // Caller should check for empty set and null values
@@ -740,7 +739,9 @@ public class CdDAO
       finally
       {
          // Close session to clean up
+         session.flush();
          session.close();
       }
    }
+
 } // Class
