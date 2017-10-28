@@ -1,7 +1,6 @@
-package club.seedymusic.test;
+package club.seedymusic.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,23 +8,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class TestServlet
+/*
+ * CLASS IS UNDER CONSTRUCTION THIS IS A SOURCE PLACEHOLDER
  */
-@WebServlet("/test/TestServlet")
-public class TestServlet extends HttpServlet
+/**
+ * Servlet implementation class SessionController
+ */
+@WebServlet("/SessionController")
+public class SessionController extends HttpServlet
 {
-   /**
-    * Serial version ID for servlet.
-    */
    private static final long serialVersionUID = 1L;
 
    /**
     * @see HttpServlet#HttpServlet()
     */
-   public TestServlet()
+   public SessionController()
    {
       super();
+      // TODO Auto-generated constructor stub
    }
 
    /**
@@ -35,13 +35,8 @@ public class TestServlet extends HttpServlet
    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
    {
-      PrintWriter out = response.getWriter();
-      out.append(
-               "<html><head><title>Servlet Success</title></head><body><h1>SERVLET Test Succesful</h1>");
-      out.append("Your servlet configuration for Seedy Music Club is correct.");
-      out.append("<p>The server date and time is: " + new java.util.Date());
-      out.append("<p>You can also <a href=\"" + request.getContextPath()
-               + "/test/testJSP.jsp\">test the JSP setup</a>.</body></html>");
+      // TODO Auto-generated method stub
+      response.getWriter().append("Served at: ").append(request.getContextPath());
    }
 
    /**
@@ -51,6 +46,7 @@ public class TestServlet extends HttpServlet
    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
    {
+      // TODO Auto-generated method stub
       doGet(request, response);
    }
 

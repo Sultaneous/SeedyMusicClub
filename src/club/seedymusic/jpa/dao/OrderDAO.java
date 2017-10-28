@@ -210,6 +210,7 @@ public class OrderDAO
       finally
       {
          // Close session to clean up
+         session.flush();
          session.close();
       }
    }

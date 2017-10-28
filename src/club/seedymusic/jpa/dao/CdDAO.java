@@ -15,6 +15,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import club.seedymusic.jpa.bean.Cd;
+import club.seedymusic.util.ConfigurationManager;
 
 /**
  * <h2>CdDAO Class</h2>
@@ -27,6 +28,36 @@ import club.seedymusic.jpa.bean.Cd;
  */
 public class CdDAO
 {
+   /**
+    * Constant representing a key name in the configuration file.
+    */
+   private static final String CONFIG_ID = "cds_id";
+
+   /**
+    * Constant representing a key name in the configuration file.
+    */
+   private static final String CONFIG_GENRE = "cds_genre";
+
+   /**
+    * Constant representing a key name in the configuration file.
+    */
+   private static final String CONFIG_TITLE = "cds_title";
+
+   /**
+    * Constant representing a default field name in case the configuration file failed to load.
+    */
+   private static final String DEFAULT_FIELD_ID = "id";
+
+   /**
+    * Constant representing a default field name in case the configuration file failed to load.
+    */
+   private static final String DEFAULT_FIELD_GENRE = "genre";
+
+   /**
+    * Constant representing a default field name in case the configuration file failed to load.
+    */
+   private static final String DEFAULT_FIELD_TITLE = "title";
+
    /**
     * <h2>ListControllerParameters Class</h2>
     * <p>
@@ -108,12 +139,22 @@ public class CdDAO
    }
 
    /**
+    * Holds the mappings for string literals so that no fields are stored in the class, except some
+    * default values (overridden by the configuration). This abstracts all HQl / SQL field name
+    * references from the code and avoids recompilations on change.
+    */
+   private ConfigurationManager configurationManager;
+
+   /**
     * Constructs a new CdDAO.
     *
     */
    public CdDAO()
    {
-      // Nothing to do (yet?)
+      // Load the configuration. The configuration keeps a dictionary of fields for
+      // the actual DB, abstracted from us, so if they change, one needs only update
+      // the properties file and not the code.
+      configurationManager = new ConfigurationManager();
    }
 
    /**
@@ -184,7 +225,6 @@ public class CdDAO
          // Close session to clean up
          session.close();
       }
-
    }
 
    /**
@@ -220,65 +260,88 @@ public class CdDAO
          if (lcp.action == ListControllerParameters.ACTION_LIST)
          {
             // Return all ordered by id
-            criteria.addOrder(Order.asc("id"));
+            criteria.addOrder(
+                     Order.asc(configurationManager.getConfiguration(CONFIG_ID, DEFAULT_FIELD_ID)));
          }
 
          // The request is to list all CDs but paged
          else if (lcp.action == ListControllerParameters.ACTION_LIST_PAGED)
          {
-            criteria.addOrder(Order.asc("id"));
-            criteria.setFirstResult(lcp.pageStart);
+            criteria.addOrder(
+                     Order.asc(configurationManager.getConfiguration(CONFIG_ID, DEFAULT_FIELD_ID)));
+            criteria.setFirstResult((lcp.pageStart - 1) * lcp.pageSize);
             criteria.setMaxResults(lcp.pageSize);
          }
 
          // The request is to list CDs by their genre
          else if (lcp.action == ListControllerParameters.ACTION_LIST_BYGENRE)
          {
-            criteria.addOrder(Order.asc("id"));
+            criteria.addOrder(
+                     Order.asc(configurationManager.getConfiguration(CONFIG_ID, DEFAULT_FIELD_ID)));
             // was using .eq but got unpredictable results, .ilike works and is case insensitive.
-            criteria.add(Restrictions.ilike("genre", lcp.genre, MatchMode.EXACT));
+            criteria.add(Restrictions.ilike(
+                     configurationManager.getConfiguration(CONFIG_GENRE, DEFAULT_FIELD_GENRE),
+                     lcp.genre, MatchMode.EXACT));
          }
 
          // The request is to list CDs by genre but paged
          else if (lcp.action == ListControllerParameters.ACTION_LIST_BYGENRE_PAGED)
          {
             // criteria.addOrder(Order.asc("id"));
-            criteria.add(Restrictions.ilike("genre", lcp.genre, MatchMode.EXACT));
-            criteria.setFirstResult(lcp.pageStart);
+            criteria.add(Restrictions.ilike(
+                     configurationManager.getConfiguration(CONFIG_GENRE, DEFAULT_FIELD_GENRE),
+                     lcp.genre, MatchMode.EXACT));
+            criteria.setFirstResult((lcp.pageStart - 1) * lcp.pageSize);
             criteria.setMaxResults(lcp.pageSize);
          }
 
          // Its a search request based on title
          else if (lcp.action == ListControllerParameters.ACTION_SEARCH)
          {
-            criteria.addOrder(Order.asc("id"));
-            criteria.add(Restrictions.ilike("title", lcp.title, MatchMode.ANYWHERE));
+            criteria.addOrder(
+                     Order.asc(configurationManager.getConfiguration(CONFIG_ID, DEFAULT_FIELD_ID)));
+            criteria.add(Restrictions.ilike(
+                     configurationManager.getConfiguration(CONFIG_TITLE, DEFAULT_FIELD_TITLE),
+                     lcp.title, MatchMode.ANYWHERE));
          }
 
          // The request is a title search, paged.
          else if (lcp.action == ListControllerParameters.ACTION_SEARCH_PAGED)
          {
-            criteria.addOrder(Order.asc("id"));
-            criteria.add(Restrictions.ilike("title", lcp.title, MatchMode.ANYWHERE));
-            criteria.setFirstResult(lcp.pageStart);
+            criteria.addOrder(
+                     Order.asc(configurationManager.getConfiguration(CONFIG_ID, DEFAULT_FIELD_ID)));
+            criteria.add(Restrictions.ilike(
+                     configurationManager.getConfiguration(CONFIG_TITLE, DEFAULT_FIELD_TITLE),
+                     lcp.title, MatchMode.ANYWHERE));
+            criteria.setFirstResult((lcp.pageStart - 1) * lcp.pageSize);
             criteria.setMaxResults(lcp.pageSize);
          }
 
          // Its a search request based on title
          else if (lcp.action == ListControllerParameters.ACTION_SEARCHFULL)
          {
-            criteria.addOrder(Order.asc("id"));
-            criteria.add(Restrictions.ilike("title", lcp.title, MatchMode.ANYWHERE));
-            criteria.add(Restrictions.eq("genre", lcp.genre));
+            criteria.addOrder(
+                     Order.asc(configurationManager.getConfiguration(CONFIG_ID, DEFAULT_FIELD_ID)));
+            criteria.add(Restrictions.ilike(
+                     configurationManager.getConfiguration(CONFIG_TITLE, DEFAULT_FIELD_TITLE),
+                     lcp.title, MatchMode.ANYWHERE));
+            criteria.add(Restrictions.eq(
+                     configurationManager.getConfiguration(CONFIG_GENRE, DEFAULT_FIELD_GENRE),
+                     lcp.genre));
          }
 
          // The request is a title search, paged.
-         else if (lcp.action == ListControllerParameters.ACTION_SEARCH_PAGED)
+         else if (lcp.action == ListControllerParameters.ACTION_SEARCHFULL_PAGED)
          {
-            criteria.addOrder(Order.asc("id"));
-            criteria.add(Restrictions.ilike("title", lcp.title, MatchMode.ANYWHERE));
-            criteria.add(Restrictions.eq("genre", lcp.genre));
-            criteria.setFirstResult(lcp.pageStart);
+            criteria.addOrder(
+                     Order.asc(configurationManager.getConfiguration(CONFIG_ID, DEFAULT_FIELD_ID)));
+            criteria.add(Restrictions.ilike(
+                     configurationManager.getConfiguration(CONFIG_TITLE, DEFAULT_FIELD_TITLE),
+                     lcp.title, MatchMode.ANYWHERE));
+            criteria.add(Restrictions.eq(
+                     configurationManager.getConfiguration(CONFIG_GENRE, DEFAULT_FIELD_GENRE),
+                     lcp.genre));
+            criteria.setFirstResult((lcp.pageStart - 1) * lcp.pageSize);
             criteria.setMaxResults(lcp.pageSize);
          }
 
@@ -314,7 +377,6 @@ public class CdDAO
          // Close session to clean up
          session.close();
       }
-
    }
 
    /**
@@ -569,6 +631,61 @@ public class CdDAO
    }
 
    /**
+    * Gets the number of CD records that near-match the title and exact match the genre criteria.
+    * 
+    * @param title
+    *           The title to near match
+    * @param genre
+    *           The genre to exact match
+    * @return Returns the count of matching records, or 0 on failure
+    */
+   public long getCount(String title, String genre)
+   {
+      // Create session
+      Session session = createSession();
+      Transaction transaction = null;
+
+      try
+      {
+         // Transaction
+         transaction = session.beginTransaction();
+
+         // Using criteria requires no HQL or SQL or XML config data
+         Criteria criteria = session.createCriteria(Cd.class);
+         criteria.add(Restrictions.ilike(
+                  configurationManager.getConfiguration(CONFIG_TITLE, DEFAULT_FIELD_TITLE), title,
+                  MatchMode.ANYWHERE));
+         criteria.add(Restrictions.eq(
+                  configurationManager.getConfiguration(CONFIG_GENRE, DEFAULT_FIELD_GENRE), genre));
+
+         // Get the count
+         long records = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
+
+         transaction.commit();
+
+         // Make sure we have a result
+         return (records);
+      }
+      catch (HibernateException e)
+      {
+         // Check if rollback is required
+         if (transaction != null)
+            transaction.rollback();
+
+         e.printStackTrace();
+
+         // Failure
+         return 0;
+      }
+      finally
+      {
+         // Close session to clean up
+         session.flush();
+         session.close();
+      }
+   }
+
+   /**
     * Creates a list of genres (product categories).
     * 
     * @return A List<string> of all genres in the cds table.
@@ -586,8 +703,10 @@ public class CdDAO
 
          // Using criteria requires no HQL or SQL or XML config data
          Criteria criteria = session.createCriteria(Cd.class);
-         criteria.setProjection(Projections.distinct(Projections.property("genre")))
-                  .addOrder(Order.asc("genre"));
+         criteria.setProjection(Projections.distinct(Projections.property(
+                  configurationManager.getConfiguration(CONFIG_GENRE, DEFAULT_FIELD_GENRE))))
+                  .addOrder(Order.asc(configurationManager.getConfiguration(CONFIG_GENRE,
+                           DEFAULT_FIELD_GENRE)));
 
          // Annotation necessary to handle Hibernate type-safety bug
          @SuppressWarnings("unchecked")

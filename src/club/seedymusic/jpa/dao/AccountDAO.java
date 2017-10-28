@@ -9,10 +9,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import club.seedymusic.jpa.bean.Account;
+import club.seedymusic.util.ConfigurationManager;
 
 /**
  * <h2>AccountDAO Class</h2>
@@ -27,12 +29,42 @@ import club.seedymusic.jpa.bean.Account;
 public class AccountDAO
 {
    /**
+    * Constant representing a key name in the configuration file.
+    */
+   private static final String CONFIG_USERNAME = "accounts_username";
+
+   /**
+    * Constant representing a key name in the configuration file.
+    */
+   private static final String DEFAULT_FIELD_USERNAME = "username";
+
+   /**
+    * Constant representing a key name in the configuration file.
+    */
+   private static final String CONFIG_ID = "accounts_id";
+
+   /**
+    * Constant representing a key name in the configuration file.
+    */
+   private static final String DEFAULT_FIELD_ID = "id";
+
+   /**
+    * Holds the mappings for string literals so that no fields are stored in the class, except some
+    * default values (overridden by the configuration). This abstracts all HQl / SQL field name
+    * references from the code and avoids recompilations on change.
+    */
+   private ConfigurationManager configurationManager;
+
+   /**
     * Constructs a new AccountDAO. Argument free.
     *
     */
    public AccountDAO()
    {
-      // Nothing to do (yet?)
+      // Load the configuration. The configuration keeps a dictionary of fields for
+      // the actual DB, abstracted from us, so if they change, one needs only update
+      // the properties file and not the code.
+      configurationManager = new ConfigurationManager();
    }
 
    /**
@@ -120,6 +152,10 @@ public class AccountDAO
 
          // Using criteria allows us to avoid HQL / SQL string literals
          Criteria criteria = session.createCriteria(Account.class);
+
+         // Return all ordered by id
+         criteria.addOrder(
+                  Order.asc(configurationManager.getConfiguration(CONFIG_ID, DEFAULT_FIELD_ID)));
 
          // Suppress casting warning; this is a Hibernate issue
          @SuppressWarnings("unchecked")
@@ -224,7 +260,9 @@ public class AccountDAO
 
          // Search for username. It should be unique. Regardless, we will
          // return only the first result.
-         criteria.add(Restrictions.eq("username", username));
+         criteria.add(Restrictions.eq(
+                  configurationManager.getConfiguration(CONFIG_USERNAME, DEFAULT_FIELD_USERNAME),
+                  username));
          criteria.uniqueResult();
 
          // Suppress casting warning; this is a Hibernate issue

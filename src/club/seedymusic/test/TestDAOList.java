@@ -102,6 +102,10 @@ public class TestDAOList extends HttpServlet
          {
             cds = cdDAO.searchCds(title_criteria, genre_criteria);
          }
+         else if (action.equals("searchFullPaged"))
+         {
+            cds = cdDAO.searchCds(title_criteria, genre_criteria, pageStart, pageSize);
+         }
 
          // Put it into the session object for the jsp
          HttpSession session = request.getSession();
