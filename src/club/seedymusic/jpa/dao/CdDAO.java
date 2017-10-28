@@ -652,11 +652,19 @@ public class CdDAO
 
          // Using criteria requires no HQL or SQL or XML config data
          Criteria criteria = session.createCriteria(Cd.class);
-         criteria.add(Restrictions.ilike(
-                  configurationManager.getConfiguration(CONFIG_TITLE, DEFAULT_FIELD_TITLE), title,
-                  MatchMode.ANYWHERE));
-         criteria.add(Restrictions.eq(
-                  configurationManager.getConfiguration(CONFIG_GENRE, DEFAULT_FIELD_GENRE), genre));
+         if (title != null && !title.isEmpty())
+         {
+            criteria.add(Restrictions.ilike(
+                     configurationManager.getConfiguration(CONFIG_TITLE, DEFAULT_FIELD_TITLE),
+                     title, MatchMode.ANYWHERE));
+         }
+
+         if (genre != null && !genre.isEmpty())
+         {
+            criteria.add(Restrictions.eq(
+                     configurationManager.getConfiguration(CONFIG_GENRE, DEFAULT_FIELD_GENRE),
+                     genre));
+         }
 
          // Get the count
          long records = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
