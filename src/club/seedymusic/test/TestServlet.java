@@ -41,7 +41,7 @@ public class TestServlet extends HttpServlet
       out.append("Your servlet configuration for Seedy Music Club is correct.");
       out.append("<p>The server date and time is: " + new java.util.Date());
       out.append("<p>You can also <a href=\"" + request.getContextPath()
-               + "/test/TestJSP.jsp\">test the JSP setup</a>.</body></html>");
+               + "/test/testJSP.jsp\">test the JSP setup</a>.</body></html>");
    }
 
    /**
