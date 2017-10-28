@@ -5,25 +5,30 @@ import javax.jws.WebService;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.jpa.bean.Cd;
 import club.seedymusic.jpa.dao.AccountDAO;
+import club.seedymusic.jpa.exceptions.UserAlreadyExistsException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.jws.WebMethod;
 
-@WebService
+@WebService(name="Order", serviceName="OrderWebService")
 public class OrderWebService {
 	
 	AccountDAO accountDAO = new AccountDAO();
 	
-	// account info retrieval and creation
+	/**
+	 * Creates an account. If an account already exists, throw an exception for the controller servlet to catch and use
+	 * to notify a user that the account already exists.
+	 * @param accountName Username of the user to create.
+	 * @param accountInfo Account information of the user to create.
+	 * @throws UserAlreadyExistsException Thrown exception caught by a controller servletto 
+	 */
 	@WebMethod
-	public void createAccount(String accountName, Account accountInfo) {
+	public void createAccount(String accountName, Account accountInfo) throws UserAlreadyExistsException {
 		// check if account already exists by username
-		// PLACEHOLDER
-		Boolean accountExists = false;
-		if (accountExists) {
-			throw SOME EXCEPTION
+		if (accountDAO.getAccount(accountName) != null) {
+			throw new UserAlreadyExistsException();
 		} else {
 			accountDAO.addAccount(accountInfo);			
 		}
@@ -47,6 +52,14 @@ public class OrderWebService {
 				} else {
 					// throw an error of sorts to let the JSP display a failure to login
 				}
+			}
+		}
+		Account accountToCheck = accountDAO.getAccount(accountName);
+		if (accountToCheck.getUsername().equals(accountName)) {
+			if (accountToCheck.getPassword().equals(accountPassword)) {
+				accountInfo = accountToCheck;
+			} else {
+				// throw an error of sorts to let the JSP display a failure to login
 			}
 		}
 		return accountInfo;
