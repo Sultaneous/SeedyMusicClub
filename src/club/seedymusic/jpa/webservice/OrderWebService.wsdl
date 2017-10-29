@@ -34,6 +34,26 @@
       		<xsd:element name="date" type="xsd:dateTime"></xsd:element>
       	</xsd:sequence>
       </xsd:complexType>
+      <xsd:element name="getAccount">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="accountName" type="xsd:string"></xsd:element>
+      			<xsd:element name="accountPassword"
+      				type="xsd:string">
+      			</xsd:element>
+      			<xsd:element name="accountInfo" type="OrderWebService:Account"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getAccountResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="out" type="OrderWebService:Account" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="createAccountRequest">
@@ -42,10 +62,20 @@
   <wsdl:message name="createAccountResponse">
     <wsdl:part element="OrderWebService:createAccountResponse" name="parameters"/>
   </wsdl:message>
+  <wsdl:message name="getAccountRequest">
+  	<wsdl:part name="parameters" element="OrderWebService:getAccount"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAccountResponse">
+  	<wsdl:part name="parameters" element="OrderWebService:getAccountResponse"></wsdl:part>
+  </wsdl:message>
   <wsdl:portType name="OrderWebService">
     <wsdl:operation name="createAccount">
       <wsdl:input message="OrderWebService:createAccountRequest"/>
       <wsdl:output message="OrderWebService:createAccountResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getAccount">
+    	<wsdl:input message="OrderWebService:getAccountRequest"></wsdl:input>
+    	<wsdl:output message="OrderWebService:getAccountResponse"></wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="OrderWebServiceSOAP" type="OrderWebService:OrderWebService">
