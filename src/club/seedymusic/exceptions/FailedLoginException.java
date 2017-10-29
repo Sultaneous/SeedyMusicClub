@@ -1,4 +1,4 @@
-package club.seedymusic.jpa.exceptions;
+package club.seedymusic.exceptions;
 
 public class FailedLoginException extends Exception {
 	public FailedLoginException() {

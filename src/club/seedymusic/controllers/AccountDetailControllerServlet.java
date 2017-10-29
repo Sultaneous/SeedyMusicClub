@@ -1,4 +1,4 @@
-package club.seedymusic.jpa.controllers;
+package club.seedymusic.controllers;
 
 import java.io.IOException;
 
@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import club.seedymusic.exceptions.FailedLoginException;
 import club.seedymusic.jpa.bean.Account;
-import club.seedymusic.jpa.exceptions.FailedLoginException;
-import club.seedymusic.jpa.webservice.OrderWebService;
+import club.seedymusic.webservice.OrderWebService;
 
 @WebServlet("/test/AccountDetailControllerServlet")
 public class AccountDetailControllerServlet extends HttpServlet {

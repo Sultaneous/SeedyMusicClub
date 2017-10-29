@@ -1,12 +1,12 @@
-package club.seedymusic.jpa.webservice;
+package club.seedymusic.webservice;
 
 import javax.jws.WebService;
 
+import club.seedymusic.exceptions.FailedLoginException;
+import club.seedymusic.exceptions.UserAlreadyExistsException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.jpa.bean.Cd;
 import club.seedymusic.jpa.dao.AccountDAO;
-import club.seedymusic.jpa.exceptions.FailedLoginException;
-import club.seedymusic.jpa.exceptions.UserAlreadyExistsException;
 
 import java.util.ArrayList;
 import java.util.List;

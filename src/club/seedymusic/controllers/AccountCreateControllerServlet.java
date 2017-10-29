@@ -1,4 +1,4 @@
-package club.seedymusic.jpa.controllers;
+package club.seedymusic.controllers;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import club.seedymusic.exceptions.UserAlreadyExistsException;
 import club.seedymusic.jpa.bean.Account;
-import club.seedymusic.jpa.exceptions.UserAlreadyExistsException;
-import club.seedymusic.jpa.webservice.OrderWebService;
+import club.seedymusic.webservice.OrderWebService;
 
 @WebServlet("/test/AccountCreateControllerServlet")
 public class AccountCreateControllerServlet extends HttpServlet {
