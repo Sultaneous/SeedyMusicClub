@@ -26,13 +26,14 @@ public class OrderWebService {
 	 * @throws UserAlreadyExistsException Thrown exception caught by a controller servletto 
 	 */
 	@WebMethod
-	public void createAccount(String accountName, Account accountInfo) throws UserAlreadyExistsException {
+	public String createAccount(String accountName, Account accountInfo) throws UserAlreadyExistsException {
 		// check if account already exists by username
 		if (accountDAO.getAccount(accountName) != null) {
 			throw new UserAlreadyExistsException();
 		} else {
 			accountDAO.addAccount(accountInfo);			
 		}
+		return "Account created successfully.";
 	}
 	
 	/**
