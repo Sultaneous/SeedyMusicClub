@@ -14,7 +14,7 @@ import java.util.List;
 import javax.jws.WebMethod;
 
 @WebService(name="Order", serviceName="OrderWebService")
-public class OrderWS {
+public class OrderWebService {
 	
 	AccountDAO accountDAO = new AccountDAO();
 	
