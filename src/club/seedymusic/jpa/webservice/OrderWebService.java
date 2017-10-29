@@ -5,6 +5,7 @@ import javax.jws.WebService;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.jpa.bean.Cd;
 import club.seedymusic.jpa.dao.AccountDAO;
+import club.seedymusic.jpa.exceptions.FailedLoginException;
 import club.seedymusic.jpa.exceptions.UserAlreadyExistsException;
 
 import java.util.ArrayList;
@@ -42,25 +43,16 @@ public class OrderWebService {
 	 * @return The Account model containing the specified user's info if the given passwrod was correct.
 	 */
 	@WebMethod
-	public Account getAccount(String accountName, String accountPassword, Account accountInfo) {
-		// PLACEHOLDER IMPLEMENTATION
-		List<Account> accountList = accountDAO.listAccounts();
-		for (Account currentAccount: accountList) {
-			if (currentAccount.getUsername().equals(accountName)) {
-				if (currentAccount.getPassword().equals(accountPassword)) {
-					accountInfo = currentAccount;
-				} else {
-					// throw an error of sorts to let the JSP display a failure to login
-				}
-			}
-		}
+	public Account getAccount(String accountName, String accountPassword, Account accountInfo) throws FailedLoginException{
 		Account accountToCheck = accountDAO.getAccount(accountName);
-		if (accountToCheck.getUsername().equals(accountName)) {
+		if (accountToCheck != null) {
 			if (accountToCheck.getPassword().equals(accountPassword)) {
 				accountInfo = accountToCheck;
 			} else {
-				// throw an error of sorts to let the JSP display a failure to login
+				throw new FailedLoginException();
 			}
+		} else {
+			throw new FailedLoginException();
 		}
 		return accountInfo;
 	}
