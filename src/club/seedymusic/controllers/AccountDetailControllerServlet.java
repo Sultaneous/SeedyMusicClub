@@ -11,12 +11,12 @@ import javax.servlet.http.HttpSession;
 
 import club.seedymusic.exceptions.FailedLoginException;
 import club.seedymusic.jpa.bean.Account;
-import club.seedymusic.webservice.OrderWebService;
+import club.seedymusic.webservice.OrderWS;
 
 @WebServlet("/test/AccountDetailControllerServlet")
 public class AccountDetailControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private OrderWebService orderWebService;
+	private OrderWS orderWebService;
 	
 	public AccountDetailControllerServlet() {
 		super();
@@ -25,7 +25,7 @@ public class AccountDetailControllerServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		orderWebService = new OrderWebService();
+		orderWebService = new OrderWS();
 		Account accountInfo = new Account();
 		try {
 			orderWebService.getAccount(request.getParameter("username"), request.getParameter("password"), accountInfo);

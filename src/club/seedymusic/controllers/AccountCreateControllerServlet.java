@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import club.seedymusic.exceptions.UserAlreadyExistsException;
 import club.seedymusic.jpa.bean.Account;
-import club.seedymusic.webservice.OrderWebService;
+import club.seedymusic.webservice.OrderWS;
 
 @WebServlet("/test/AccountCreateControllerServlet")
 public class AccountCreateControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private OrderWebService orderWebService;
+	private OrderWS orderWebService;
 	public AccountCreateControllerServlet() {
 		super();
 	}
@@ -23,7 +23,7 @@ public class AccountCreateControllerServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		orderWebService = new OrderWebService();
+		orderWebService = new OrderWS();
 		
 		Account accountToBeAdded = new Account();
 		accountToBeAdded.setUsername(request.getParameter("username"));
