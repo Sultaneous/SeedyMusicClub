@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import club.seedymusic.exceptions.FailedLoginException;
+import club.seedymusic.exceptions.UserDoesNotExistException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.webservice.OrderWS;
 
@@ -26,20 +27,26 @@ public class AccountLoginControllerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		orderWebService = new OrderWS();
-		Account accountInfo = new Account();
-		if (orderWebService.verifyCredentials(request.getParameter("username"), request.getParameter("password"))) {
-			HttpSession httpSession = request.getSession(true);
-			// set max idle time
-//			httpSession.setMaxInactiveInterval(arg0);
+		
+		String userToVerify = request.getParameter("username");
+		
+		if (orderWebService.verifyCredentials(userToVerify, request.getParameter("password"))) {
+			try {
+				Account accountInfo = orderWebService.getAccountDetails(userToVerify);
+				HttpSession httpSession = request.getSession(true);
+				// store the userId, the first and last name of the user are also stored for ease of access
+				httpSession.setAttribute("userId", accountInfo.getId()); 
+				httpSession.setAttribute("firstName", accountInfo.getFirstName());
+				httpSession.setAttribute("lastName", accountInfo.getLastName()); 
+				// set max idle time
+//				httpSession.setMaxInactiveInterval(arg0);
+			} catch(UserDoesNotExistException exception) {
+				// redirect user to a critical failure page for login as the user somehow doesn't exist
+			}
+			
 		} else {
 			// notify user the login failed
 		}
-		
-		HttpSession session = request.getSession();
-        session.setAttribute("account", accountInfo);
-        
-        // check on how to send data back to server
-		response.sendRedirect(request.getHeader("referer"));
 	}
 
 }
