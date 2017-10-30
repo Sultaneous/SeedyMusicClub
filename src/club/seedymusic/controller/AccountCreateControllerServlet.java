@@ -1,4 +1,4 @@
-package club.seedymusic.controllers;
+package club.seedymusic.controller;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
