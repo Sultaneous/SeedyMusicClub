@@ -13,7 +13,8 @@
 	<form name="login" action="${pageContext.request.contextPath}/account/AccountCreateControllerServlet" method="post">
          Username: <input type="hidden" name="username" value=""><br>
          Password: <input type="hidden" name="password" value=""><br>
-         Re-Type Password: <input type="hidden" name="password" value="password"><br>
+         <%-- Used for confirmation --%>
+         Re-Type Password: <input type="hidden" value=""><br>
          First name: <input type="hidden" name="firstName" value=""><br>
          Last name: <input type="hidden" name="lastName" value=""><br>
          Street: <input type="hidden" name="street" value=""><br>

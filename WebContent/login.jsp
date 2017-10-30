@@ -10,7 +10,7 @@
 <body>
 <h1>Account Login</h1>
 <div>
-	<form name="login" action="${pageContext.request.contextPath}/account/TestDAOGet" method="post">
+	<form name="login" action="${pageContext.request.contextPath}/account/AccountLoginControllerServlet" method="post">
          Username: <input type="hidden" name="username" placeholder="username"><br>
          Password: <input type="hidden" name="password" placeholder="password"><br>
          <input type="submit" value="submit"/>
