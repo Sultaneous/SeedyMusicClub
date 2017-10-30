@@ -24,7 +24,9 @@ public class OrderWS {
 	 * to notify a user that the account already exists.
 	 * @param accountName Username of the user to create.
 	 * @param accountInfo Account information of the user to create.
-	 * @throws UserAlreadyExistsException Thrown exception caught by a controller servletto 
+	 * @return Returns a String to display, stating that the account has been successfully created.
+	 * @throws UserAlreadyExistsException Thrown exception caught by a controller servlet and used to inform the user 
+	 * that the user already exists in the DB 
 	 */
 	@WebMethod
 	public String createAccount(String accountName, Account accountInfo) throws UserAlreadyExistsException {
@@ -38,11 +40,14 @@ public class OrderWS {
 	}
 	
 	/**
-	 * Checks if an account with a given username and password
+	 * Checks if an account with a given username and password. If it does, retrieves all details about the
+	 * account including the password.
 	 * @param accountName Username of the user to check.
 	 * @param accountPassword Password of the user to check.
 	 * @param accountInfo Account info object to return with the user's actual information if the user exists. 
-	 * @return The Account model containing the specified user's info if the given passwrod was correct.
+	 * @return The Account model containing the specified user's info if the given password was correct.
+	 * @throws FailedLoginException Throws an exception  caught by a controller servlet and used to inform the
+	 * user that the login details were wrong
 	 */
 	@WebMethod
 	public Account getAccount(String accountName, String accountPassword, Account accountInfo) throws FailedLoginException{
