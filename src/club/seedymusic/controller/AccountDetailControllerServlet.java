@@ -13,7 +13,7 @@ import club.seedymusic.exceptions.FailedLoginException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.webservice.OrderWS;
 
-@WebServlet("/test/AccountDetailControllerServlet")
+@WebServlet("/account/AccountDetailControllerServlet")
 public class AccountDetailControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private OrderWS orderWebService;

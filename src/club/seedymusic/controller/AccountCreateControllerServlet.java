@@ -11,7 +11,7 @@ import club.seedymusic.exceptions.UserAlreadyExistsException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.webservice.OrderWS;
 
-@WebServlet("/test/AccountCreateControllerServlet")
+@WebServlet("/account/AccountCreateControllerServlet")
 public class AccountCreateControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
