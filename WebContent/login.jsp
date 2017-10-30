@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="club.seedymusic.jpa.bean.*, club.seedymusic.controller.*, java.util.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,9 +8,13 @@
 <title>Login</title>
 </head>
 <body>
-<h1>Account Login JSP</h1>
-<p>
-This page is to be filled in for bare bone code and then stylized.
-
+<h1>Account Login</h1>
+<div>
+	<form name="login" action="${pageContext.request.contextPath}/account/TestDAOGet" method="post">
+         Username: <input type="hidden" name="username" value="username"><br>
+         Password: <input type="hidden" name="password" value="password"><br>
+         <input type="submit" value="submit"/>
+    </form>
+</div>
 </body>
 </html>
