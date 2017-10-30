@@ -4,6 +4,7 @@ import javax.jws.WebService;
 
 import club.seedymusic.exceptions.FailedLoginException;
 import club.seedymusic.exceptions.UserAlreadyExistsException;
+import club.seedymusic.exceptions.UserDoesNotExistException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.jpa.bean.Cd;
 import club.seedymusic.jpa.dao.AccountDAO;
@@ -57,5 +58,40 @@ public class OrderWS {
 		}
 		return accountInfo;
 	}
-
+	
+	/**
+	 * Verifies the user's account login information is correct. If the account does not exist, users should 
+	 * avoid being told that the account doesn't exist for security reasons.
+	 * @param accountName Name of the user to login as.
+	 * @param accountPassword Password of the user to login as.
+	 * @return True if user has the correct login details, false if the user entered invalid information.
+	 */
+	@WebMethod
+	public boolean verifyCredentials(String accountName, String accountPassword) {
+		boolean accountLoginValid = false;
+		Account accountToCheck = accountDAO.getAccount(accountName);
+		// user should exist first of all and the user's password should be checked after
+		if (accountToCheck != null && accountToCheck.getPassword().equals(accountPassword)) {
+			accountLoginValid = true;
+		}
+		return accountLoginValid;
+	}
+	
+	/**
+	 * Returns account details, with the exception of the account password.
+	 * @param accountName Name of the account to get details from.
+	 * @return Account info without the password.
+	 * @throws UserDoesNotExistException Notify the user that the user being checked for details does not exist.
+	 */
+	@WebMethod
+	public Account getAccountDetails(String accountName) throws UserDoesNotExistException{
+		Account accountInfo = accountDAO.getAccount(accountName);
+		if (accountInfo != null) {
+			// don't send the password for security reasons
+			accountInfo.setPassword(null);
+		} else {
+			throw new UserDoesNotExistException();
+		}
+		return accountInfo;
+	}
 }
