@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import club.seedymusic.exceptions.FailedLoginException;
+import club.seedymusic.exceptions.UserDoesNotExistException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.webservice.OrderWS;
 
@@ -28,15 +29,10 @@ public class AccountDetailControllerServlet extends HttpServlet {
 		orderWebService = new OrderWS();
 		Account accountInfo = new Account();
 		try {
-			orderWebService.getAccount(request.getParameter("username"), request.getParameter("password"), accountInfo);
-		} catch (FailedLoginException exception) {
-			// Redirect or pop up message for failure to login
+			orderWebService.getAccountDetails(request.getParameter("username"));
+		} catch (UserDoesNotExistException exception) {
+			response.sendRedirect("loginFailure.jsp");
 		}
-		
-		HttpSession session = request.getSession();
-        session.setAttribute("account", accountInfo);
-        
-        // check on how to send data back to server
-		response.sendRedirect(request.getHeader("referer"));
+        request.setAttribute("account", accountInfo);
 	}
 }

@@ -38,14 +38,12 @@ public class AccountLoginControllerServlet extends HttpServlet {
 				httpSession.setAttribute("userId", accountInfo.getId()); 
 				httpSession.setAttribute("firstName", accountInfo.getFirstName());
 				httpSession.setAttribute("lastName", accountInfo.getLastName()); 
-				// set max idle time
-//				httpSession.setMaxInactiveInterval(arg0);
+				response.sendRedirect(request.getHeader("referer"));
 			} catch(UserDoesNotExistException exception) {
-				// redirect user to a critical failure page for login as the user somehow doesn't exist
+				response.sendRedirect("loginFailure.jsp");
 			}
-			
 		} else {
-			// notify user the login failed
+			response.sendRedirect("loginFailure.jsp");
 		}
 	}
 
