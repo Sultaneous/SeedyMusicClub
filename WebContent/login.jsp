@@ -11,8 +11,8 @@
 <h1>Account Login</h1>
 <div>
 	<form name="login" action="${pageContext.request.contextPath}/account/TestDAOGet" method="post">
-         Username: <input type="hidden" name="username" value="username"><br>
-         Password: <input type="hidden" name="password" value="password"><br>
+         Username: <input type="hidden" name="username" placeholder="username"><br>
+         Password: <input type="hidden" name="password" placeholder="password"><br>
          <input type="submit" value="submit"/>
     </form>
 </div>

@@ -7,9 +7,23 @@
 <title>Register</title>
 </head>
 <body>
-<h1>Account Registration JSP</h1>
-<p>
-This page is to be filled in for bare bone code and then stylized.
-
+<h1>Account Registration</h1>
+<div>
+<h2>Please enter your user information:</h2>
+	<form name="login" action="${pageContext.request.contextPath}/account/AccountCreateControllerServlet" method="post">
+         Username: <input type="hidden" name="username" value=""><br>
+         Password: <input type="hidden" name="password" value=""><br>
+         Re-Type Password: <input type="hidden" name="password" value="password"><br>
+         First name: <input type="hidden" name="firstName" value=""><br>
+         Last name: <input type="hidden" name="lastName" value=""><br>
+         Street: <input type="hidden" name="street" value=""><br>
+         Province: <input type="hidden" name="province" value=""><br>
+         Country: <input type="hidden" name="country" value=""><br>
+         Postal Code: <input type="hidden" name="postalCode" value=""><br>
+         Phone: <input type="hidden" name="password" value=""><br>
+         Email: <input type="hidden" name="email" value=""><br>
+         <input type="submit" value="submit"/>
+    </form>
+</div>
 </body>
 </html>
