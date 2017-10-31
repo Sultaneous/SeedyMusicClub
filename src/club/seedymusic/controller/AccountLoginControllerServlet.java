@@ -29,17 +29,21 @@ public class AccountLoginControllerServlet extends HttpServlet {
 		orderWebService = new OrderWS();
 		
 		String userToVerify = request.getParameter("username");
-		
-		if (orderWebService.verifyCredentials(userToVerify, request.getParameter("password"))) {
+		String userPassword = request.getParameter("password");
+		if (orderWebService.verifyCredentials(userToVerify, userPassword)) {
 			try {
-				Account accountInfo = orderWebService.getAccountDetails(userToVerify);
+				Account accountInfo = new Account();
+				accountInfo = orderWebService.getAccount(userToVerify, userPassword, accountInfo);
 				HttpSession httpSession = request.getSession(true);
 				// store the userId, the first and last name of the user are also stored for ease of access
 				httpSession.setAttribute("userId", accountInfo.getId()); 
 				httpSession.setAttribute("firstName", accountInfo.getFirstName());
 				httpSession.setAttribute("lastName", accountInfo.getLastName()); 
 				response.sendRedirect(request.getHeader("referer"));
-			} catch(UserDoesNotExistException exception) {
+			} catch (UserDoesNotExistException exception) {
+				request.setAttribute("errorMessage", "User does not exist.");
+				request.getRequestDispatcher("/login.jsp").forward(request,  response);
+			} catch (FailedLoginException exception) {
 				request.setAttribute("errorMessage", "Login failed. Username/Password mismatch.");
 				request.getRequestDispatcher("/login.jsp").forward(request,  response);
 			}

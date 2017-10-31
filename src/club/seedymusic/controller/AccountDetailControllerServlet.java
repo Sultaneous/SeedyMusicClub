@@ -28,8 +28,9 @@ public class AccountDetailControllerServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		orderWebService = new OrderWS();
 		Account accountInfo = new Account();
+		HttpSession session = request.getSession();
 		try {
-			orderWebService.getAccountDetails(request.getParameter("username"));
+			accountInfo = orderWebService.getAccountDetails(Integer.parseInt(request.getParameter("userId")));
 		} catch (UserDoesNotExistException exception) {
 			response.sendRedirect("loginFailure.jsp");
 		}
