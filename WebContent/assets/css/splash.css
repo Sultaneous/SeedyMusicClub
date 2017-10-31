@@ -39,7 +39,11 @@ body, html {
   background-repeat: no-repeat;
   background-size: cover;  
 }
-	
+
+.formtb
+{
+	max-width: 66%;
+}	
 
 .caption {
   position: absolute;

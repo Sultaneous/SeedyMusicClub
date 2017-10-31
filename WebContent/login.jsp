@@ -19,9 +19,9 @@
 	<div class="bgimg-4">
 
 		<br />
-		<div class="container" style="color: #fff;">
+		<div class="container formtb" style="color: #fff;">
 			<div>
-				<h3 style="color: #fff;">SEEDY MUSIC CLUB: LOGIN</h3>
+				<h3 style="color: #fff; background: #120012;">SEEDY MUSIC CLUB: LOGIN</h3>
 			</div>
 
 			<form

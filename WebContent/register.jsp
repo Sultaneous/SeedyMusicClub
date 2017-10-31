@@ -19,9 +19,9 @@
    <div class="bgimg-4">
 
       <br />
-      <div class="container" style="color: #fff;">
+      <div class="container formtb" style="color: #fff;">
          <div>
-            <h3 style="color: #fff;">SEEDY MUSIC CLUB: REGISTER</h3>
+            <h3 style="color: #fff; background: #120012">SEEDY MUSIC CLUB: REGISTER</h3>
          </div>
 
          <form
@@ -77,7 +77,7 @@
 
             <div class="form-group row">
                <label for="street"
-                  class="col-sm-2 col-form-label col-form-label-lg">Unit &amp; Street</label>
+                  class="col-sm-2 col-form-label col-form-label-lg">Street</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
                      id="street" placeholder="unit &amp; street">
@@ -104,7 +104,7 @@
 
             <div class="form-group row">
                <label for="postalCode"
-                  class="col-sm-2 col-form-label col-form-label-lg">Postal Code</label>
+                  class="col-sm-2 col-form-label col-form-label-lg">Postal</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
                      id="postalCode" placeholder="your postal or zip code">
@@ -114,7 +114,7 @@
 
             <div class="form-group row">
                <label for="phone"
-                  class="col-sm-2 col-form-label col-form-label-lg">Phone Number</label>
+                  class="col-sm-2 col-form-label col-form-label-lg">Phone</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
                      id="postalCode" placeholder="your phone number">
