@@ -9,11 +9,14 @@ import club.seedymusic.exceptions.UserDoesNotExistException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.jpa.bean.Cd;
 import club.seedymusic.jpa.bean.Order;
+import club.seedymusic.jpa.bean.OrderItem;
 import club.seedymusic.jpa.dao.AccountDAO;
 import club.seedymusic.jpa.dao.OrderDAO;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.jws.WebMethod;
 
@@ -107,18 +110,57 @@ public class OrderWS {
 		return accountInfo;
 	}
 	
+	/**
+	 * Returns an order object to be persisted as the user's active order.
+	 * @param shoppingCartInfo Shopping cart of the user to use to make an order
+	 * @param shippingInfo shipping information of the user. Retrievable as long as we keep the userId of the user to ship to.
+	 * @return Order object to be persisted, or null if the order fails to be created.
+	 */
 	@WebMethod
-	public boolean createOrder(ShoppingCart shoppingCartInfo, Account shippingInfo) {
+	public Order createOrder(ShoppingCart shoppingCartInfo, Account shippingInfo) {
 		orderDAO = new OrderDAO();
+		ArrayList<Cd> shoppingCartCds = shoppingCartInfo.getCartItems();
+		Set<OrderItem> orderItems = new HashSet<OrderItem>();
+		for (Cd currentCd: shoppingCartCds) {
+			OrderItem currentOrder = new OrderItem();
+			currentOrder.setCdid(currentCd.getId());
+			orderItems.add(currentOrder);
+		}
 		
 		Order order = new Order();
-		return orderDAO.addOrder(order);
+		order.setAccountId(shippingInfo.getId());
+		order.setOrderItems(orderItems);
+		boolean successfullOrder = orderDAO.addOrder(order);
+		
+		// get most recent order based on ID
+		Order mostRecentOrder = null;
+		for (Order currentOrder: orderDAO.listOrders()) {
+			// get initial mostRecentOrder
+			if (currentOrder.getAccountId() == shippingInfo.getId() && mostRecentOrder == null) {
+				mostRecentOrder = currentOrder;
+			} else if (currentOrder.getAccountId() == shippingInfo.getId() && (currentOrder.getId() > mostRecentOrder.getId())) {
+				mostRecentOrder = currentOrder;
+			}
+		}
+		return mostRecentOrder;
 	}
 	
+	/**
+	 * Verifies that the userId of the shipping info and the purchase order match up. Sets the status of the order to either paid or credit card declined.
+	 * @param purchaseOrder Information for the user's current active order.
+	 * @param shippingInfo Information for the account to ship to.
+	 * @param paymentInfo Credit card number, though it is not used for now.
+	 * @return True if the order is succesfully made, false if it isn't.
+	 */
 	@WebMethod
-	public boolean confirmOrder(int purchaseOrder, Account shippingInfo, String paymentInfo) {
-		orderDAO = new OrderDAO();
+	public boolean confirmOrder(Order purchaseOrder, Account shippingInfo, String paymentInfo) {
 		boolean orderCorrect = false;
+		if (purchaseOrder.getAccountId() == shippingInfo.getId()) {
+			purchaseOrder.setStatus("paid");
+			orderCorrect = true;
+		} else {
+			purchaseOrder.setStatus("credit card declined");
+		}
 		
 		return orderCorrect;
 	}
