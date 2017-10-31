@@ -10,6 +10,7 @@
 <body>
 <h1>Account Login</h1>
 <div>
+	<div style="color: #FF0000;">${errorMessage}</div>
 	<form name="login" action="${pageContext.request.contextPath}/account/AccountLoginControllerServlet" method="post">
          Username: <input name="username" placeholder="username"><br>
          Password: <input name="password" placeholder="password"><br>

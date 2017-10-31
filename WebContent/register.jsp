@@ -11,17 +11,26 @@
 <div>
 <h2>Please enter your user information:</h2>
 	<form name="login" action="${pageContext.request.contextPath}/account/AccountCreateControllerServlet" method="post">
+		<%-- User exists error --%>
+		<div style="color: #FF0000;">${userExistsError}</div><br>
          Username: <input type="hidden" name="username" value=""><br>
          Password: <input type="hidden" name="password" value=""><br>
          <%-- Used for confirmation --%>
-         Re-Type Password: <input type="hidden" value=""><br>
+         <div style="color: #FF0000;">${passwordMismatchError}</div><br>
+         Re-Type Password: <input type="hidden" name="passwordRetyped" value=""><br>
          First name: <input type="hidden" name="firstName" value=""><br>
          Last name: <input type="hidden" name="lastName" value=""><br>
          Street: <input type="hidden" name="street" value=""><br>
          Province: <input type="hidden" name="province" value=""><br>
          Country: <input type="hidden" name="country" value=""><br>
+         <%-- Postal Code format error message --%>
+         <div style="color: #FF0000;">${postalCodeError}</div><br>
          Postal Code: <input type="hidden" name="postalCode" value=""><br>
+         <%-- Phone Number format error message --%>
+         <div style="color: #FF0000;">${phoneError}</div><br>
          Phone: <input type="hidden" name="password" value=""><br>
+         <%-- Email format error message --%>
+         <div style="color: #FF0000;">${emailError}</div><br>
          Email: <input type="hidden" name="email" value=""><br>
          <input type="submit" value="submit"/>
     </form>
