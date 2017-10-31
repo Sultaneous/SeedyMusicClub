@@ -1,377 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Seedy Music Club</title>
 
- 
- <head>
-
-   
-<meta charset="ISO-8859-1">
- 
- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
- <meta name="description" content="">
-  
- <meta name="author" content="">
-
-  
-  <title>Seedy Music Club</title>
-
-    <!-- Bootstrap Core CSS -->
-  
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-  
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
-    <!-- Custom CSS -->
-   
- <link href="css/stylish-portfolio.css" rel="stylesheet">
-
- 
-<link href="css/style1.css" rel="stylesheet" type="text/css" />
-
- </head>
-
-  
-
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="assets/css/splash.css">
+</head>
 <body>
-  
-
- <!-- Navigation -->
-  
- 
- <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle">
- 
-<i class="fa fa-bars"></i>
-   
- </a>
- 
-  
- <nav id="sidebar-wrapper">
-    
- <ul class="sidebar-nav">
-  
-  
- <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle">
-      
- <i class="fa fa-times"></i>
-      
- </a>
-      
- 
-  <li>
-<a class="js-scroll-trigger" href="index.html">Home</a>
-           </li>
- 
-  <li>
-<a class="js-scroll-trigger" href="#about">About</a>
-        </li>
-  
-  <li>
-<a class="js-scroll-trigger" href="register.jsp">Register</a>
-</li>
 
 
- <li>
-<a class="js-scroll-trigger" href="#categories">Categories</a>
-</li>
+	<!DOCTYPE html>
+<html>
+<head>
+<style>
+</style>
+</head>
+<body>
 
- <li>
-<a class="js-scroll-trigger" href>Catalog</a>
-</li>
- 
-  <li>
-<a class="js-scroll-trigger" href="#footer">Contact</a>
-</li>  
+	<div class="bgimg-1">
+		<div class="caption">
+			<span class="border">SEEDY MUSIC CLUB</span>
+		</div>
+	</div>
 
-   </ul>
-  
-  </nav>
+	<div
+		style="color: #777; background-color: #fffff7; text-align: center; padding: 50px 80px; text-align: justify;">
+		<h3 style="text-align: center;">Welcome to the Seedy Music Club!
+		</h3>
+		<p class="text-center" style="font-size: 16px; line-height: 2;'">
+			As a club member, you will get access to some of the oddest CDs
+			available on Earth for incredibly low prices!</p>
+			
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-3 justify-center center-block">
+						<img class="mx-auto d-block" src="assets/images/icon_cd.png" />
+				</div>
 
-  
+				<div class="col-3 center-block">
+					<img class="mx-auto d-block" src="assets/images/icon_club.png" />
+				</div>
 
-  <!-- Header -->
-   
- <header class="header" id="top">
-  
-
-<div class="top-right">
-  <img src="img/logo.png" width="307" height="65" />
-</div>
-   
- <div class="text-vertical-center">
-      
-   <h1>Seedy Music Club</h1>
-      
-  <br>
-     
+				<div class="col-3 center-block">
+					<img class="mx-auto d-block" src="assets/images/icon_login.png" />
+				</div>
+			</div>
+			
+			<div class="row justify-content-center">
+   <div class="col-3 text-center">
+      <br/>
+      <a class="btn btn-success text-center" style="color: #fff"
+      role="button">Browse Seedy CDs</a>
    </div>
- 
- </header>
 
-  
-  <!-- Services -->
-    <section id="categories" class="services bg-primary text-white">
-      <div class="container">
-        <div class="row text-center">
-          <div class="col-lg-10 mx-auto">
-            <h2>Categories</h2>
-            <hr class="small">
-            <div class="row">
-              <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-cloud fa-stack-1x text-primary"></i>
-                  </span>
-                  <h4>
-                  <a class="text-white" href="${pageContext.request.contextPath}/browse?genre=jazz">
-                    <strong>Jazz</strong>
-                    </a>
-                  </h4>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-compass fa-stack-1x text-primary"></i>
-                  </span>
-                  <h4>
-                 <a class="text-white" href="${pageContext.request.contextPath}/browse?genre=rock">   <strong>Rock</strong> </a>
-                  </h4>
-                 
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-flask fa-stack-1x text-primary"></i>
-                  </span>
-                  <h4>
-                  <a class="text-white" href="${pageContext.request.contextPath}/browse?genre=electronic">
-                    <strong>Electronic</strong>
-                    </a>
-                  </h4>
-             
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-shield fa-stack-1x text-primary"></i>
-                  </span>
-                  <h4>
-                  <a class="text-white" href="${pageContext.request.contextPath}/browse?genre=country">
-                    <strong>Country</strong>
-                    </a>
-                  </h4>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-shield fa-stack-1x text-primary"></i>
-                  </span>
-                  <h4>
-                   <a class="text-white" href="${pageContext.request.contextPath}/browse?genre=hiphop">
-                    <strong>Hiphop</strong>
-                    </a>
-                  </h4>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-shield fa-stack-1x text-primary"></i>
-                  </span>
-                  <h4>
-                  <a class="text-white" href="${pageContext.request.contextPath}/browse?genre=latin">
-                    <strong>Latin</strong>
-                    </a>
-                  </h4>
-                </div>
-              </div><div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-shield fa-stack-1x text-primary"></i>
-                  </span>
-                  <a class="text-white" href="${pageContext.request.contextPath}/browse?genre=world" >
-                  <h4>
-                    <strong>World</strong>
-                  </h4>
-                  </a>
-                  
-                </div>
-              </div><div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-shield fa-stack-1x text-primary"></i>
-                  </span>
-                  <h4>
-                  <a class="text-white" href="${pageContext.request.contextPath}/browse?genre=blues" >
-                    <strong>Blues</strong>
-                    </a>
-                  </h4>
-                </div>
-              </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                  </span>
-                  <h4>
-                  <a class="text-white" href="${pageContext.request.contextPath}/browse?genre=rnb">
-                    <strong>RnB</strong>
-                    </a>
-                  </h4>
-                
-                </div>
-              </div>
-            
-            </div>
-            <!-- /.row (nested) -->
-          </div>
-          <!-- /.col-lg-10 -->
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container -->
-    </section>
-    
-     <!-- About -->
-  
-  <section id="about" class="about">
-  
-  <div class="container text-left">
+   <div class="col-3 text-center"> 
+      <br/>
+      <a class="btn btn-warning center-block" style="color: #fff"
+      role="button" href="register.jsp">Join the Seedy Club</a>
+   </div>
    
-
-<p><h4><strong>About Us</strong></h4><br>
-
-You have got to love Seedy Music Club. <br> The company was established as a project and ended up providing users with an easy access to a wide range of music.<br> The website is easily accessible  from multiple platforms and devices and supplies you for different scenerios, mood and occassion.
- </p>    
- 
- </div>
- </section>
- 
-
-   
-    <!-- Footer -->
-  <section id="footer">
-  <footer>
-   
-   <div class="container">
- 
-   <div class="row">
-   
-   <div class="col-lg-10 mx-auto text-center">
-
-    <h4><strong>Work Address</strong></h4>
+   <div class="col-3 text-center">
+      <br/>
+      <a class="btn btn-danger center-block" style="color: #fff"
+       role="button" href="login.jsp">Login</a>
+   </div>
+</div>
+			
+			
+		</div>
+	</div>
+	
 
 
-            <p>Room 256
-<br>
-	       Morriset Hall<br>
-	       University of Ottawa<br>
-	       Ottawa<br>
-		Canada</p>
-  
+	<div class="bgimg-2">
+		<div class="caption">
+			<span class="border">SEEDY MUSIC CLUB</span>
+		</div>
+	</div>
 
-    <ul class="list-unstyled">
-          
-    <li>
-<i class="fa fa-phone fa-fw"></i>
- +1 (613) 111-1111</li>
- 
-    <li>
-<i class="fa fa-envelope-o fa-fw"></i>
-  
-    <a href="mailto:name@example.com">seedymusicclub@yahoo.com</a>  
-      </li>
-         
-   </ul>
-        
-    <br>
-           
+	<div style="position: relative;">
+		<div
+			style="color: #ddd; background-color: #4d4d4d; text-align: center; padding: 50px 80px; text-align: justify;">
+			<p class="text-center">
+				<i>There's something seedy about CDs in a post-record, pre-MP3
+					way... And we get that. Shop in complete privacy. Buy anonymously
+					with Bitcoin. Well, after you share your address info. We have to
+					ship it somewhere. You see how seedy the CD scene of Seedy Music
+					Club is? (Try saying that 10 times fast...)</i>
+			</p>
+		</div>
+	</div>
 
- <ul class="list-inline">
- 
-  <li class="list-inline-item">
- 
-   <a href="#">
-          
-   <i class="fa fa-facebook fa-fw fa-3x"></i>
-</a>
-</li>
-  
-    <li class="list-inline-item">
-          
-    <a href="#">
-                
-  <i class="fa fa-twitter fa-fw fa-3x"></i>
-   
-   </a>
-           
-   </li>
-        
+	<div class="bgimg-1">
+		<div class="caption">
+			<span class="border">SEEDY MUSIC CLUB</span>
+		</div>
+	</div>
 
-  <li class="list-inline-item">
-  
-  <a href="#">
-<i class="fa fa-instagram fa-fw fa-3x"></i>
-</a>
-
-              </li>
-    
-        </ul>
-      
-
-      <hr class="small">
-     
-      <p class="text-muted">Copyright &copy; Your Website 2017</p>
-     
-     </div>
-      
-  </div>
-  
-    </div>
-  
-
-    <a id="to-top" href="#top" class="btn btn-dark btn-lg js-scroll-trigger">
-        
-<i class="fa fa-chevron-up fa-fw fa-1x"></i>
-     
- </a>
-   
- </footer>
-   </section>
-
-    <!-- Bootstrap core JavaScript -->
-   
-
- <script src="vendor/jquery/jquery.min.js"></script>
-
- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-
- <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for this template -->
-  
- <script src="js/stylish-portfolio.js"></script>
- 
-  
 </body>
-
-
 </html>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+	integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+	integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+	crossorigin="anonymous"></script>
+</body>
+</html>
+
+<!--
+Stack of CDs icon by Juan Pablo Bravo from the Noun Project 
+ -->

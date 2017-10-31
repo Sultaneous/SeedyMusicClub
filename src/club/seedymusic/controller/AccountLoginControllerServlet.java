@@ -40,10 +40,12 @@ public class AccountLoginControllerServlet extends HttpServlet {
 				httpSession.setAttribute("lastName", accountInfo.getLastName()); 
 				response.sendRedirect(request.getHeader("referer"));
 			} catch(UserDoesNotExistException exception) {
-				response.sendRedirect("loginFailure.jsp");
+				request.setAttribute("errorMessage", "Login failed. Username/Password mismatch.");
+				request.getRequestDispatcher("/login.jsp").forward(request,  response);
 			}
 		} else {
-			response.sendRedirect("loginFailure.jsp");
+			request.setAttribute("errorMessage", "Login failed. Username/Password mismatch.");
+			request.getRequestDispatcher("/login.jsp").forward(request,  response);
 		}
 	}
 
