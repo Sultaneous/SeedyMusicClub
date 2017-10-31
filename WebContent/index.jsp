@@ -20,6 +20,7 @@
 		</div>
 	</div>
 
+
 	<div
 		style="color: #777; background-color: #fffff7; text-align: center; padding: 50px 80px; text-align: justify;">
 		<h3 style="text-align: center;">Welcome to the Seedy Music Club!
@@ -46,7 +47,7 @@
 			<div class="row justify-content-center">
 				<div class="col-3 text-center">
 					<br /> <a class="btn btn-success text-center" style="color: #fff"
-						role="button">Browse Seedy CDs</a>
+						role="button" href="${pageContext.request.contextPath}/browse">Browse Seedy CDs</a>
 				</div>
 
 				<div class="col-3 text-center">
