@@ -21,14 +21,14 @@
 		<br />
 		<div class="container" style="color: #fff;">
 			<div>
-				<h3 style="color: #fff;">SEEDY MUSIC CLUB</h3>
+				<h3 style="color: #fff;">SEEDY MUSIC CLUB: LOGIN</h3>
 			</div>
 
 			<form
 				action="${pageContext.request.contextPath}/account/AccountLoginControllerServlet"
 				method="post">
 
-				<div class="form-group row has-danger">
+				<div class="form-group row">
 					<label for="username"
 						class="col-sm-2 col-form-label col-form-label-lg">Username</label>
 					<div class="col-sm-10">
@@ -42,7 +42,7 @@
 						class="col-sm-2 col-form-label col-form-label-lg">Password</label>
 					<div class="col-sm-10">
 						<input type="password" class="form-control form-control-lg"
-							id="username" placeholder="your password">
+							id="password" placeholder="your password">
 					</div>
 				</div>
 
