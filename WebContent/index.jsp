@@ -14,15 +14,6 @@
 </head>
 <body>
 
-
-	<!DOCTYPE html>
-<html>
-<head>
-<style>
-</style>
-</head>
-<body>
-
 	<div class="bgimg-1">
 		<div class="caption">
 			<span class="border">SEEDY MUSIC CLUB</span>
@@ -36,11 +27,11 @@
 		<p class="text-center" style="font-size: 16px; line-height: 2;'">
 			As a club member, you will get access to some of the oddest CDs
 			available on Earth for incredibly low prices!</p>
-			
+
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-3 justify-center center-block">
-						<img class="mx-auto d-block" src="assets/images/icon_cd.png" />
+					<img class="mx-auto d-block" src="assets/images/icon_cd.png" />
 				</div>
 
 				<div class="col-3 center-block">
@@ -51,32 +42,27 @@
 					<img class="mx-auto d-block" src="assets/images/icon_login.png" />
 				</div>
 			</div>
-			
-			<div class="row justify-content-center">
-   <div class="col-3 text-center">
-      <br/>
-      <a class="btn btn-success text-center" style="color: #fff"
-      role="button">Browse Seedy CDs</a>
-   </div>
 
-   <div class="col-3 text-center"> 
-      <br/>
-      <a class="btn btn-warning center-block" style="color: #fff"
-      role="button" href="register.jsp">Join the Seedy Club</a>
-   </div>
-   
-   <div class="col-3 text-center">
-      <br/>
-      <a class="btn btn-danger center-block" style="color: #fff"
-       role="button" href="login.jsp">Login</a>
-   </div>
-</div>
-			
-			
+			<div class="row justify-content-center">
+				<div class="col-3 text-center">
+					<br /> <a class="btn btn-success text-center" style="color: #fff"
+						role="button">Browse Seedy CDs</a>
+				</div>
+
+				<div class="col-3 text-center">
+					<br /> <a class="btn btn-warning center-block" style="color: #fff"
+						role="button" href="register.jsp">Join the Seedy Club</a>
+				</div>
+
+				<div class="col-3 text-center">
+					<br /> <a class="btn btn-danger center-block" style="color: #fff"
+						role="button" href="login.jsp">Login</a>
+				</div>
+			</div>
+
+
 		</div>
 	</div>
-	
-
 
 	<div class="bgimg-2">
 		<div class="caption">

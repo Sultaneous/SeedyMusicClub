@@ -38,7 +38,7 @@ public class ConfigurationManager
       {
          configuration = LoadConfiguration();
       }
-      catch (IOException e)
+      catch (Exception e)
       {
          // Critical failure - BUT we do not crash the app.
          // Instead, we will continue with no properties, and rely on
@@ -77,8 +77,11 @@ public class ConfigurationManager
          // Send them back
          return (properties);
       }
-      catch (IOException e)
+      catch (Exception e)
       {
+         // Could be IOException, FileNotFoundException, or other.
+         // We have no choice but to use a generic catch.
+
          // File error occurred
          throw (e);
       }
