@@ -2,12 +2,15 @@ package club.seedymusic.webservice;
 
 import javax.jws.WebService;
 
+import club.seedymusic.ecom.ShoppingCart;
 import club.seedymusic.exceptions.FailedLoginException;
 import club.seedymusic.exceptions.UserAlreadyExistsException;
 import club.seedymusic.exceptions.UserDoesNotExistException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.jpa.bean.Cd;
+import club.seedymusic.jpa.bean.Order;
 import club.seedymusic.jpa.dao.AccountDAO;
+import club.seedymusic.jpa.dao.OrderDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +20,8 @@ import javax.jws.WebMethod;
 @WebService(name="Order", serviceName="OrderWebService")
 public class OrderWS {
 	
-	AccountDAO accountDAO = new AccountDAO();
-	
+	private AccountDAO accountDAO;
+	private OrderDAO orderDAO;
 	/**
 	 * Creates an account. If an account already exists, throw an exception for the controller servlet to catch and use
 	 * to notify a user that the account already exists.
@@ -30,6 +33,7 @@ public class OrderWS {
 	 */
 	@WebMethod
 	public String createAccount(String accountName, Account accountInfo) throws UserAlreadyExistsException {
+		accountDAO = new AccountDAO();
 		// check if account already exists by username
 		if (accountDAO.getAccount(accountName) != null) {
 			throw new UserAlreadyExistsException();
@@ -51,6 +55,7 @@ public class OrderWS {
 	 */
 	@WebMethod
 	public Account getAccount(String accountName, String accountPassword, Account accountInfo) throws FailedLoginException{
+		accountDAO = new AccountDAO();
 		Account accountToCheck = accountDAO.getAccount(accountName);
 		if (accountToCheck != null) {
 			if (accountToCheck.getPassword().equals(accountPassword)) {
@@ -73,6 +78,7 @@ public class OrderWS {
 	 */
 	@WebMethod
 	public boolean verifyCredentials(String accountName, String accountPassword) {
+		accountDAO = new AccountDAO();
 		boolean accountLoginValid = false;
 		Account accountToCheck = accountDAO.getAccount(accountName);
 		// user should exist first of all and the user's password should be checked after
@@ -90,6 +96,7 @@ public class OrderWS {
 	 */
 	@WebMethod
 	public Account getAccountDetails(String accountName) throws UserDoesNotExistException{
+		accountDAO = new AccountDAO();
 		Account accountInfo = accountDAO.getAccount(accountName);
 		if (accountInfo != null) {
 			// don't send the password for security reasons
@@ -98,5 +105,21 @@ public class OrderWS {
 			throw new UserDoesNotExistException();
 		}
 		return accountInfo;
+	}
+	
+	@WebMethod
+	public boolean createOrder(ShoppingCart shoppingCartInfo, Account shippingInfo) {
+		orderDAO = new OrderDAO();
+		
+		Order order = new Order();
+		return orderDAO.addOrder(order);
+	}
+	
+	@WebMethod
+	public boolean confirmOrder(int purchaseOrder, Account shippingInfo, String paymentInfo) {
+		orderDAO = new OrderDAO();
+		boolean orderCorrect = false;
+		
+		return orderCorrect;
 	}
 }
