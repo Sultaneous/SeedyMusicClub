@@ -13,7 +13,6 @@ import javax.ws.rs.QueryParam;
 @Path("catalog")
 public class CatalogService {
 
-
 	public static Integer pageSize =9;
 	
 	/**
