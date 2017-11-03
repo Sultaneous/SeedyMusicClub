@@ -1,6 +1,5 @@
 package club.seedymusic.webservice;
 
-import javax.jws.WebService;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
@@ -19,8 +18,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.jws.WebMethod;
 
 @Path("order")
 public class OrderWS {
