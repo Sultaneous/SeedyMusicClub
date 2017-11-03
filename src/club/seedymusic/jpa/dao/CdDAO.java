@@ -604,7 +604,7 @@ public class CdDAO
 
          // Using criteria requires no HQL or SQL or XML config data
          Criteria criteria = session.createCriteria(Cd.class);
-         long records = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
+         long records = ((Number)criteria.setProjection(Projections.rowCount()).uniqueResult()).longValue();
 
          session.flush();
          transaction.commit();
@@ -667,7 +667,7 @@ public class CdDAO
          }
 
          // Get the count
-         long records = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
+         long records = ((Number)criteria.setProjection(Projections.rowCount()).uniqueResult()).longValue();
 
          transaction.commit();
 
