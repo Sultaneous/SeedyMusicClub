@@ -235,7 +235,7 @@ public class OrderDAO
 
          // Using criteria requires no HQL or SQL or XML config data
          Criteria criteria = session.createCriteria(Order.class);
-         long records = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
+         long records = ((Number) criteria.setProjection(Projections.rowCount()).uniqueResult()).longValue();
 
          transaction.commit();
 

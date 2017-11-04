@@ -1,9 +1,9 @@
 package club.seedymusic.controller;
 import java.io.BufferedReader;
-import java.io.IOException;
+//import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
+//import java.net.HttpURLConnection;
+//import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.security.Security;
@@ -18,15 +18,18 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+
+/*
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+*/
 
-import org.glassfish.jersey.client.ClientConfig;
-import org.json.simple.JSONArray;
+//import org.glassfish.jersey.client.ClientConfig;
+//import org.json.simple.JSONArray;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

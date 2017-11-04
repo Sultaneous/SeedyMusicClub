@@ -33,7 +33,7 @@ public class AccountCreateControllerServlet extends HttpServlet {
 	}
 	
 	@Override
-	protected void doPost(HttpServletRequest request,
+	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		orderWebService = new OrderWS();
 		
@@ -51,10 +51,10 @@ public class AccountCreateControllerServlet extends HttpServlet {
 		boolean postalCodeInvalid = !(postalCodeMatcher.find());
 		
 		boolean passwordMismatch = request.getAttribute("passwordRetyped").equals(request.getAttribute("password"));
+		
 		if (emailInvalid || phoneInvalid || postalCodeInvalid || passwordMismatch) {
 			if (emailInvalid) {
-				request.setAttribute("emailError", "Email format incorrect. Should be of example format: example@host.com");
-				
+				request.setAttribute("emailError", "Email format incorrect. Should be of example format: example@host.com");		
 			}
 			
 			if (phoneInvalid) {
@@ -73,7 +73,9 @@ public class AccountCreateControllerServlet extends HttpServlet {
 		}
 		
 		Account accountToBeAdded = new Account();
-		accountToBeAdded.setUsername(request.getParameter("username"));
+		String accountUsername = request.getParameter("username");
+		
+		accountToBeAdded.setUsername(accountUsername);
 		accountToBeAdded.setPassword(request.getParameter("password"));
 		accountToBeAdded.setFirstName(request.getParameter("firstName"));
 		accountToBeAdded.setLastName(request.getParameter("lastName"));
@@ -86,7 +88,7 @@ public class AccountCreateControllerServlet extends HttpServlet {
 		accountToBeAdded.setEmail(emailStr);
 
 		try {
-			orderWebService.createAccount(request.getParameter("username"), accountToBeAdded);
+			orderWebService.createAccount(accountUsername, accountToBeAdded);
 		} catch (UserAlreadyExistsException exception) {
 			request.setAttribute("userExistsError", "This user already exists.");
 			request.getRequestDispatcher("/create.jsp").forward(request,  response);
@@ -94,5 +96,14 @@ public class AccountCreateControllerServlet extends HttpServlet {
 		
 		// check on how to send data back to server
 		response.sendRedirect(request.getHeader("referer"));
+	}
+	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 }

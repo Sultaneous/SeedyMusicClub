@@ -47,11 +47,11 @@ public class OrderController extends HttpServlet {
             //createOrder 
 		    OrderWS orderWS= new OrderWS();
 		    
-		    Object userId= session.getAttribute("userId");
+		    Object userId = session.getAttribute("userId");
 		    
 		    Account acc=null;
 			try {
-				acc = orderWS.getAccountDetails((String)userId);
+				acc = orderWS.getAccountDetails(Integer.parseInt(userId.toString()));
 			} catch (UserDoesNotExistException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -98,7 +98,7 @@ public class OrderController extends HttpServlet {
 		
 		if(tempCntr!=null)
 		{
-		  cntr=(int)tempCntr;
+		  cntr=Integer.parseInt(tempCntr.toString());
 		  cntr++;
 		  session.setAttribute("cntr", cntr);
 		}else
@@ -121,7 +121,7 @@ public class OrderController extends HttpServlet {
 		    
 		    Account acc=null;
 			try {
-				acc = orderWS.getAccountDetails((String)userId);
+				acc = orderWS.getAccountDetails(Integer.parseInt((userId.toString())));
 			} catch (UserDoesNotExistException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -131,7 +131,7 @@ public class OrderController extends HttpServlet {
 		       //accept cc info and confirm order
 					if(acc!=null) {
 						// cause a decline on 5th use of credit card
-						int timesCreditCardUsed = (int)(session.getAttribute("timesCreditCardUsed"))+ 1;
+						int timesCreditCardUsed = Integer.parseInt(session.getAttribute("timesCreditCardUsed").toString()) + 1;
 						
 						int accountId = acc.getId();
 						session.setAttribute("timesCreditCardUsed", timesCreditCardUsed );

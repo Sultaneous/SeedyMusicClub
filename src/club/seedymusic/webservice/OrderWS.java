@@ -57,7 +57,7 @@ public class OrderWS {
 	 * user that the login details were wrong
 	 */
 	@WebMethod
-	public Account getAccount(String accountName, String accountPassword, Account accountInfo) throws FailedLoginException{
+	public Account getAccount(String accountName, String accountPassword, Account accountInfo) throws UserDoesNotExistException, FailedLoginException {
 		accountDAO = new AccountDAO();
 		Account accountToCheck = accountDAO.getAccount(accountName);
 		if (accountToCheck != null) {
@@ -67,7 +67,7 @@ public class OrderWS {
 				throw new FailedLoginException();
 			}
 		} else {
-			throw new FailedLoginException();
+			throw new UserDoesNotExistException();
 		}
 		return accountInfo;
 	}
@@ -98,9 +98,9 @@ public class OrderWS {
 	 * @throws UserDoesNotExistException Notify the user that the user being checked for details does not exist.
 	 */
 	@WebMethod
-	public Account getAccountDetails(String accountName) throws UserDoesNotExistException{
+	public Account getAccountDetails(int userId) throws UserDoesNotExistException{
 		accountDAO = new AccountDAO();
-		Account accountInfo = accountDAO.getAccount(accountName);
+		Account accountInfo = accountDAO.getAccount(userId);
 		if (accountInfo != null) {
 			// don't send the password for security reasons
 			accountInfo.setPassword(null);
