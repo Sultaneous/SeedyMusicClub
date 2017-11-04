@@ -23,12 +23,17 @@ import club.seedymusic.jpa.dao.OrderDAO;
 
 /**
  * Servlet implementation class TestDAO
+ * This DAO is testing populating the database and returning values when called.
  */
 @WebServlet("/test/TestDAO")
+/**
+ * The testDAO uses Http servlet
+ */
 public class TestDAO extends HttpServlet
 {
    /**
     * Serial version ID for servlet.
+    * SerialVersionID to be used during serialization
     */
    private static final long serialVersionUID = 1L;
 

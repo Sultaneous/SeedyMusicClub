@@ -14,6 +14,11 @@ import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.webservice.OrderWS;
 
 @WebServlet("/account/AccountCreateControllerServlet")
+/**
+ * @author Karim Sultan
+ * Servlet implements class AccountCreateController.
+ *
+ */
 public class AccountCreateControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	// credit to Jason at https://stackoverflow.com/questions/8204680/java-regex-email
@@ -37,7 +42,7 @@ public class AccountCreateControllerServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		orderWebService = new OrderWS();
 		
-		// check if password, email, phone number (North American) and postal code(Canadian) are valid
+		// check if password, email, phone number (North American) and postal code(Canadian) are valid and passwords match
 		String emailStr = request.getParameter("email");
 		Matcher emailMatcher = VALID_PHONE_REGEX .matcher(emailStr);
 		boolean emailInvalid = !(emailMatcher.find());
@@ -72,6 +77,9 @@ public class AccountCreateControllerServlet extends HttpServlet {
 			request.getRequestDispatcher("/create.jsp").forward(request,  response);
 		}
 		
+		/**
+		 * @param AccountToBeAdded gets parameters to be set from register.jsp.
+		 */
 		Account accountToBeAdded = new Account();
 		String accountUsername = request.getParameter("username");
 		
