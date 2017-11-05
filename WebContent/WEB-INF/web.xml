@@ -13,7 +13,7 @@
   </resource-ref>
   <security-constraint>
     <web-resource-collection>
-      <web-resource-name>MyMusicStore</web-resource-name>
+      <web-resource-name>SeedyMusicClub</web-resource-name>
       <url-pattern>/*</url-pattern>
       <http-method>GET</http-method>
       <http-method>POST</http-method>
