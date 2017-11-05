@@ -6,33 +6,33 @@ import club.seedymusic.webservice.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/*
- * CLASS IS UNDER CONSTRUCTION THIS IS A SOURCE PLACEHOLDER
+/**
+ * 
+ * @author Ahmad Traboulsi
+ * @version 1.0 Oct. 29, 2017
+ *
  */
+
 
 public class ShoppingCart
 {
-   
+  
    private ArrayList<Cd> allCartItems = new ArrayList<Cd>();
    
-   private double dblOrderTotal ;
-    
+   private double dblOrderTotal ;   
    
    /***
-    * 
+    * Returns the number of cds in the shopping list
     * @return count of cds in the shopping cart
     */
    public int getLineItemCount() {
     return allCartItems.size();
    }
-   
-  
-   
+       
    
    /**
-    * 
-    * @param cartItem is a cd to be added to the shopping cart. Also recalculates total
+    * this  adds a cd to the shaopping cart and recalculates total
+    * @param cartItem is a cd to be added to the shopping cart. 
     */
    @SuppressWarnings("unchecked")
 public void addCartItem(Cd cartItem) {
@@ -86,7 +86,6 @@ public ArrayList<Cd> getCartItems() {
    
    /**
     * Sets the shopping cartItems
-    * 
     * @param CartItems this is a shopping cart that might have been retrieved from a session.
     */
    public void setCartItems(ArrayList<Cd> CartItems) {
@@ -114,22 +113,23 @@ public ArrayList<Cd> getCartItems() {
     * Calculates the shopping cart Total cost
     */
    protected void calculateOrderTotal() {
+	   
     double dblTotal = 0;
     for(int counter=0;counter<allCartItems.size();counter++) {
     	 Cd cd= allCartItems.get(counter);
      dblTotal+=cd.getPrice();
-      
     }
+    
     setOrderTotal(dblTotal);
    }
    
    
    /**
     * deletes an item from the cart 
-    * 
+    *
     * @param strItemIndex this is the index of the item to be deleted from the cart
     */
-   public void deleteCartItem(String strItemIndex) {
+   public void  (String strItemIndex) {
 	   int iItemIndex = 0;
 	   try {
 	    iItemIndex = Integer.parseInt(strItemIndex);
