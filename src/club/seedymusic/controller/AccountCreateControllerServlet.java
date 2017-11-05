@@ -40,7 +40,6 @@ public class AccountCreateControllerServlet extends HttpServlet {
 	 */	
 	private static final Pattern VALID_POSTAL_CODE_REGEX = 
 			Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
 	private final String postalCodeRegex = "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$";
 	 
 	private OrderWS orderWebService;
@@ -92,7 +91,7 @@ public class AccountCreateControllerServlet extends HttpServlet {
 		}
 		
 		/**
-		 *  it gets parameters to be set from register.jsp.
+		 * @param AccountToBeAdded gets parameters to be set from register.jsp.
 		 */
 		Account accountToBeAdded = new Account();
 		String accountUsername = request.getParameter("username");
