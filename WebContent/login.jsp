@@ -17,10 +17,6 @@
 
 <body>
 
-<%
-//TODO: Remove this temp test code
-session.setAttribute("userId", 10);
-%>
 
 	<div class="bgimg-4">
 
