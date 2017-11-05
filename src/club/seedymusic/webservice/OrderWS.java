@@ -1,6 +1,7 @@
 package club.seedymusic.webservice;
 
-import javax.jws.WebService;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 
 import club.seedymusic.ecom.ShoppingCart;
 import club.seedymusic.exceptions.FailedLoginException;
@@ -18,9 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.jws.WebMethod;
-
-@WebService(name="Order", serviceName="OrderWebService")
+@Path("order")
 public class OrderWS {
 	
 	private AccountDAO accountDAO;
@@ -34,7 +33,8 @@ public class OrderWS {
 	 * @throws UserAlreadyExistsException Thrown exception caught by a controller servlet and used to inform the user 
 	 * that the user already exists in the DB 
 	 */
-	@WebMethod
+	@GET
+	@Path("createAccount")
 	public String createAccount(String accountName, Account accountInfo) throws UserAlreadyExistsException {
 		accountDAO = new AccountDAO();
 		// check if account already exists by username
@@ -56,7 +56,8 @@ public class OrderWS {
 	 * @throws FailedLoginException Throws an exception  caught by a controller servlet and used to inform the
 	 * user that the login details were wrong
 	 */
-	@WebMethod
+	@GET
+	@Path("getAccount")
 	public Account getAccount(String accountName, String accountPassword, Account accountInfo) throws UserDoesNotExistException, FailedLoginException {
 		accountDAO = new AccountDAO();
 		Account accountToCheck = accountDAO.getAccount(accountName);
@@ -79,7 +80,8 @@ public class OrderWS {
 	 * @param accountPassword Password of the user to login as.
 	 * @return True if user has the correct login details, false if the user entered invalid information.
 	 */
-	@WebMethod
+	@GET
+	@Path("verifyCredentials")
 	public boolean verifyCredentials(String accountName, String accountPassword) {
 		accountDAO = new AccountDAO();
 		boolean accountLoginValid = false;
@@ -97,10 +99,31 @@ public class OrderWS {
 	 * @return Account info without the password.
 	 * @throws UserDoesNotExistException Notify the user that the user being checked for details does not exist.
 	 */
-	@WebMethod
+	@GET
+	@Path("getAccountDetails")
 	public Account getAccountDetails(int userId) throws UserDoesNotExistException{
 		accountDAO = new AccountDAO();
 		Account accountInfo = accountDAO.getAccount(userId);
+		if (accountInfo != null) {
+			// don't send the password for security reasons
+			accountInfo.setPassword(null);
+		} else {
+			throw new UserDoesNotExistException();
+		}
+		return accountInfo;
+	}
+	
+	/**
+	 * Returns account details, with the exception of the account password.
+	 * @param accountName Name of the account to get details from.
+	 * @return Account info without the password.
+	 * @throws UserDoesNotExistException Notify the user that the user being checked for details does not exist.
+	 */
+	@GET
+	@Path("getAccountDetails")
+	public Account getAccountDetails(String userName) throws UserDoesNotExistException{
+		accountDAO = new AccountDAO();
+		Account accountInfo = accountDAO.getAccount(userName);
 		if (accountInfo != null) {
 			// don't send the password for security reasons
 			accountInfo.setPassword(null);
@@ -116,7 +139,8 @@ public class OrderWS {
 	 * @param shippingInfo shipping information of the user. Retrievable as long as we keep the userId of the user to ship to.
 	 * @return Order object to be persisted, or null if the order fails to be created.
 	 */
-	@WebMethod
+	@GET
+	@Path("createOrder")
 	public Order createOrder(ShoppingCart shoppingCartInfo, Account shippingInfo) {
 		orderDAO = new OrderDAO();
 		ArrayList<Cd> shoppingCartCds = shoppingCartInfo.getCartItems();
@@ -152,7 +176,8 @@ public class OrderWS {
 	 * @param paymentInfo Credit card number, though it is not used for now.
 	 * @return True if the order is succesfully made, false if it isn't.
 	 */
-	@WebMethod
+	@GET
+	@Path("confirmOrder")
 	public boolean confirmOrder(Order purchaseOrder, Account shippingInfo, String paymentInfo) {
 		boolean orderCorrect = false;
 		if (purchaseOrder.getAccountId() == shippingInfo.getId()) {

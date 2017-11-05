@@ -8,8 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import club.seedymusic.exceptions.UserAlreadyExistsException;
+import club.seedymusic.exceptions.UserDoesNotExistException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.webservice.OrderWS;
 
@@ -47,55 +49,22 @@ public class AccountCreateControllerServlet extends HttpServlet {
 	public AccountCreateControllerServlet() {
 		super();
 	}
-	
-	@Override
+
 	/**
-	 * checks if password, email, phone number (North American) and postal code(Canadian) are valid and passwords match
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		orderWebService = new OrderWS();
 		
-		String emailStr = request.getParameter("email");
-		Matcher emailMatcher = VALID_PHONE_REGEX .matcher(emailStr);
-		boolean emailInvalid = !(emailMatcher.find());
-		
-		String phoneStr = request.getParameter("email");
-		Matcher phoneMatcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
-		boolean phoneInvalid = !(phoneMatcher.find());
-		
-		String postalCodeStr = request.getParameter("email");
-		Matcher postalCodeMatcher = VALID_POSTAL_CODE_REGEX .matcher(emailStr);
-		boolean postalCodeInvalid = !(postalCodeMatcher.find());
-		
-		boolean passwordMismatch = request.getAttribute("passwordRetyped").equals(request.getAttribute("password"));
-		
-		if (emailInvalid || phoneInvalid || postalCodeInvalid || passwordMismatch) {
-			if (emailInvalid) {
-				request.setAttribute("emailError", "Email format incorrect. Should be of example format: example@host.com");		
-			}
-			
-			if (phoneInvalid) {
-				request.setAttribute("phoneError", "Phone number format incorrect. Should be of example format: 123-456-7890, (123) 456-7890, or 123 456 7890.");
-			}
-			
-			if (postalCodeInvalid) {
-				request.setAttribute("postalCodeError", "Postal code format incorrect. Should be of example format:  K1A 0B1");
-			}
-			
-			if (passwordMismatch) {
-				request.setAttribute("passwordMismatchError", "Passwords do not match.");
-			}
-			
-			request.getRequestDispatcher("/create.jsp").forward(request,  response);
+		if (!validateInput(request, response)) {
+			request.getRequestDispatcher("/create.jsp").forward(request, response);
 		}
 		
-		/**
-		 * @param AccountToBeAdded gets parameters to be set from register.jsp.
-		 */
 		Account accountToBeAdded = new Account();
 		String accountUsername = request.getParameter("username");
-		
+
 		accountToBeAdded.setUsername(accountUsername);
 		accountToBeAdded.setPassword(request.getParameter("password"));
 		accountToBeAdded.setFirstName(request.getParameter("firstName"));
@@ -106,13 +75,22 @@ public class AccountCreateControllerServlet extends HttpServlet {
 		accountToBeAdded.setCountry(request.getParameter("country"));
 		accountToBeAdded.setPostalCode(request.getParameter("postalCode"));
 		accountToBeAdded.setPhone(request.getParameter("phone"));
-		accountToBeAdded.setEmail(emailStr);
+		accountToBeAdded.setEmail(request.getParameter("email"));
 
 		try {
 			orderWebService.createAccount(accountUsername, accountToBeAdded);
+			HttpSession session = request.getSession();
+			Account accountDetails = orderWebService.getAccountDetails(accountUsername);
+			session.setAttribute("userId", accountDetails.getId());
+			session.setAttribute("firstName", accountDetails.getFirstName());
+			session.setAttribute("lastName", accountDetails.getLastName()); 
+			session.setAttribute("account", accountDetails);
+			
 		} catch (UserAlreadyExistsException exception) {
 			request.setAttribute("userExistsError", "This user already exists.");
 			request.getRequestDispatcher("/create.jsp").forward(request,  response);
+		} catch (UserDoesNotExistException exception) {
+			request.setAttribute("loginErrorMessage", "Account created, but an issue occured on login. Try logging in or contact us about the issue.");
 		}
 		
 		// check on how to send data back to server
@@ -126,5 +104,54 @@ public class AccountCreateControllerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+
+	/**
+	 * called to validate the input fields. If there is anything out of place the user will 
+	 * @param request
+	 * @param response
+	 * @return True if all fields matched regex requirements, false otherwise
+	 * @throws IOException
+	 * @throws ServletException 
+	 */
+	private boolean validateInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// check if password, email, phone number (North American) and postal code(Canadian) are valid
+		String emailStr = request.getParameter("email");
+		Matcher emailMatcher = VALID_PHONE_REGEX .matcher(emailStr);
+		boolean emailInvalid = !(emailMatcher.find());
+
+		String phoneStr = request.getParameter("phone");
+		Matcher phoneMatcher = VALID_EMAIL_ADDRESS_REGEX .matcher(phoneStr);
+		boolean phoneInvalid = !(phoneMatcher.find());
+
+		String postalCodeStr = request.getParameter("postalCode");
+		Matcher postalCodeMatcher = VALID_POSTAL_CODE_REGEX .matcher(postalCodeStr);
+		boolean postalCodeInvalid = !(postalCodeMatcher.find());
+
+		boolean passwordMismatch = request.getAttribute("passwordRetyped").equals(request.getAttribute("password"));
+
+		boolean validInput = true;
+		if (emailInvalid || phoneInvalid || postalCodeInvalid || passwordMismatch) {
+			if (emailInvalid) {
+				request.setAttribute("emailError", "Email format incorrect. Should be of example format: example@host.com");		
+				validInput = false;
+			}
+
+			if (phoneInvalid) {
+				request.setAttribute("phoneError", "Phone number format incorrect. Should be of example format: 123-456-7890, (123) 456-7890, or 123 456 7890.");
+				validInput = false;
+			}
+
+			if (postalCodeInvalid) {
+				request.setAttribute("postalCodeError", "Postal code format incorrect. Should be of example format:  K1A 0B1");
+				validInput = false;
+			}
+
+			if (passwordMismatch) {
+				request.setAttribute("passwordMismatchError", "Passwords do not match.");
+				validInput = false;
+			}
+		}
+		return validInput;
 	}
 }
