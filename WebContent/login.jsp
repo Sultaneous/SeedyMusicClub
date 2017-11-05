@@ -28,7 +28,9 @@
 
 			<form
 				action="${pageContext.request.contextPath}/account/AccountLoginControllerServlet"
-				method="post">
+				method="get">
+				
+				<span style="color: #FF0000;">${loginErrorMessage}</span>
 
 				<div class="form-group row">
 					<label for="username"
