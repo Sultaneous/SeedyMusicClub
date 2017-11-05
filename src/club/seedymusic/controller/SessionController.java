@@ -54,7 +54,7 @@ public class SessionController extends HttpServlet
 	   
 	 		String strAction = request.getParameter("action");
 	 	   
-	 	   
+	 	
 	 		  if(strAction!=null && !strAction.equals("")) {
 	 		   if(strAction.equals("add")) {
 	 		    addToCart(request);
