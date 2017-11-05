@@ -15,34 +15,48 @@ import club.seedymusic.webservice.OrderWS;
 
 @WebServlet("/account/AccountCreateControllerServlet")
 /**
- * @author Karim Sultan
+ * @author Daniel Hong
+ * @version 1.0 , Oct 27 2017
  * Servlet implements class AccountCreateController.
  *
  */
 public class AccountCreateControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	// credit to Jason at https://stackoverflow.com/questions/8204680/java-regex-email
+	
+	/* credit to Jason at https://stackoverflow.com/questions/8204680/java-regex-email
+	 * validate email addresses
+	 */	
 	private static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
 			Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-	// credit to Ravi at https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number
+	/*
+	 *  credit to Ravi at https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number
+     *  Standard type phone number 	
+	 */
 	private static final Pattern VALID_PHONE_REGEX = 
 			Pattern.compile("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$", Pattern.CASE_INSENSITIVE);
-	// credit to Lokesh at https://howtodoinjava.com/regex/java-regex-validate-canadian-postal-zip-codes/
+	/*
+	 *  credit to Lokesh at https://howtodoinjava.com/regex/java-regex-validate-canadian-postal-zip-codes/
+	 *  validate Canadian Postal Zip Code
+	 */	
 	private static final Pattern VALID_POSTAL_CODE_REGEX = 
 			Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
 	private final String postalCodeRegex = "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$";
-	
+	 
 	private OrderWS orderWebService;
+	
 	public AccountCreateControllerServlet() {
 		super();
 	}
 	
 	@Override
+	/**
+	 * checks if password, email, phone number (North American) and postal code(Canadian) are valid and passwords match
+	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		orderWebService = new OrderWS();
 		
-		// check if password, email, phone number (North American) and postal code(Canadian) are valid and passwords match
 		String emailStr = request.getParameter("email");
 		Matcher emailMatcher = VALID_PHONE_REGEX .matcher(emailStr);
 		boolean emailInvalid = !(emailMatcher.find());
@@ -78,7 +92,7 @@ public class AccountCreateControllerServlet extends HttpServlet {
 		}
 		
 		/**
-		 * @param AccountToBeAdded gets parameters to be set from register.jsp.
+		 *  it gets parameters to be set from register.jsp.
 		 */
 		Account accountToBeAdded = new Account();
 		String accountUsername = request.getParameter("username");

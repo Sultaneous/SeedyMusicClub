@@ -29,7 +29,7 @@ public class Account
     * Constants
     */
 
-   /**
+   /** 
     * Default field value for string fields. Marked transient so Hibernate doesn't put it into the
     * database table as a column.
     */
