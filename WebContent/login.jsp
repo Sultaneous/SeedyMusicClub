@@ -16,6 +16,12 @@
 </head>
 
 <body>
+
+<%
+//TODO: Remove this temp test code
+session.setAttribute("userId", 10);
+%>
+
 	<div class="bgimg-4">
 
 		<br />
@@ -26,11 +32,13 @@
 
 			<form
 				action="${pageContext.request.contextPath}/account/AccountLoginControllerServlet"
-				method="post">
+				method="get">
+				
+				<span style="color: #FF0000;">${loginErrorMessage}</span>
 
 				<div class="form-group row">
 					<label for="username"
-						class="col-sm-2 col-form-label col-form-label-lg">USERNAME</label>
+						class="col-sm-2 col-form-label col-form-label-lg">Username</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control form-control-lg"
 							id="username" placeholder="your username">
@@ -39,7 +47,7 @@
 
 				<div class="form-group row">
 					<label for="password"
-						class="col-sm-2 col-form-label col-form-label-lg">PASSWORD</label>
+						class="col-sm-2 col-form-label col-form-label-lg">Password</label>
 					<div class="col-sm-10">
 						<input type="password" class="form-control form-control-lg"
 							id="password" placeholder="your password">

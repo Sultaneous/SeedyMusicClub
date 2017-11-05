@@ -114,6 +114,26 @@ public class OrderWS {
 	}
 	
 	/**
+	 * Returns account details, with the exception of the account password.
+	 * @param accountName Name of the account to get details from.
+	 * @return Account info without the password.
+	 * @throws UserDoesNotExistException Notify the user that the user being checked for details does not exist.
+	 */
+	@GET
+	@Path("getAccountDetails")
+	public Account getAccountDetails(String userName) throws UserDoesNotExistException{
+		accountDAO = new AccountDAO();
+		Account accountInfo = accountDAO.getAccount(userName);
+		if (accountInfo != null) {
+			// don't send the password for security reasons
+			accountInfo.setPassword(null);
+		} else {
+			throw new UserDoesNotExistException();
+		}
+		return accountInfo;
+	}
+	
+	/**
 	 * Returns an order object to be persisted as the user's active order.
 	 * @param shoppingCartInfo Shopping cart of the user to use to make an order
 	 * @param shippingInfo shipping information of the user. Retrievable as long as we keep the userId of the user to ship to.

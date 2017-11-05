@@ -1,6 +1,5 @@
 package club.seedymusic.util;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -64,15 +63,12 @@ public class ConfigurationManager
       try
       {
          // Load the configuration file
-         inputStream = new FileInputStream(CONFIG_FILE);
+         // It is at the root level so we need to determine runtime path
+         ClassLoader classLoader = getClass().getClassLoader();
+         inputStream = classLoader.getResourceAsStream(CONFIG_FILE);
 
          // Load the keys
          properties.load(inputStream);
-
-         // Yes, you have to close an InputStream, because it is really a FileInputStream.
-         // And with that, I end a multi-year debate with the Java community.
-         // Drop the mic.
-         inputStream.close();
 
          // Send them back
          return (properties);
@@ -84,6 +80,13 @@ public class ConfigurationManager
 
          // File error occurred
          throw (e);
+      }
+      finally
+      {
+         // Yes, you have to close an InputStream, because it is really a FileInputStream.
+         // And with that, I end a multi-year debate with the Java community.
+         // Drop the mic.
+         if (inputStream != null) inputStream.close();
       }
    }
 

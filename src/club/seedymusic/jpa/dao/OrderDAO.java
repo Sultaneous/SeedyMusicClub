@@ -269,7 +269,7 @@ public class OrderDAO
     *           The id of the order to update.
     * @param status
     *           The new value for the status.
-    * @return
+    * @return Returns true on success, false otherwise
     */
    public boolean setStatus(int id, String status)
    {
