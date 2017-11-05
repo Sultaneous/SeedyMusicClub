@@ -3,13 +3,31 @@ package club.seedymusic.controller;
 import club.seedymusic.webservice.*;
 import club.seedymusic.jpa.bean.*;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.security.SecureRandom;
+import java.security.Security;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import club.seedymusic.ecom.ShoppingCart;
 import club.seedymusic.exceptions.UserDoesNotExistException;
@@ -49,6 +67,10 @@ public class OrderController extends HttpServlet {
 		    
 		    Object userId = session.getAttribute("userId");
 		    
+		    //if userId is null redirect to login page with returnUrl to this action
+		    
+		   
+		    
 		    Account acc=null;
 			try {
 				acc = orderWS.getAccountDetails(Integer.parseInt(userId.toString()));
@@ -77,7 +99,7 @@ public class OrderController extends HttpServlet {
 		    }
 		   
 		
-		
+		response.getWriter().append("Served at lemon");
 		// TODO Auto-generated method stub
 	}
 
@@ -166,4 +188,96 @@ public class OrderController extends HttpServlet {
 		doGet(request, response);
 	}
 
+	
+	public Order CreateOrder(String baseUrl)
+	{
+		
+		/*
+		Order temp= new Order();
+		return temp;
+		
+		
+	      		   
+	      
+		    //String url = request.getRequestURL().toString();
+			//String baseUrl = url.substring(0, url.length() - request.getRequestURI().length()) + request.getContextPath() + "/";
+	
+	     
+	       
+	      URL url;
+			try {
+		
+			url= new URL(baseUrl + "rest/catalog/cd/"+ Integer.toString(cdID));
+		
+	 		//bypassing ssl
+    			doTrustToCertificates();
+
+    			HttpsURLConnection con= (HttpsURLConnection)url.openConnection();
+    	        
+    			
+    			
+    			BufferedReader reader= new BufferedReader(new InputStreamReader(con.getInputStream()));
+    
+    			String result="";
+    
+    			String input="";
+    
+    while((input =reader.readLine())!=null)
+    {
+    	result+=input;
+    }
+    
+    
+    //ObjectMapper objectMapper= new ObjectMapper();
+    
+    //Cd cd= objectMapper.readValue(result, new TypeReference<Cd>() {});
+    //return cd;
+	}
+	catch(Exception e)
+	{
+		
+	}
+	return null;
+	    		*/
+		return null;
+	}
+	
+	
+	
+	
+	public static void doTrustToCertificates() throws Exception {
+	    Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+	    TrustManager[] trustAllCerts = new TrustManager[]{
+	        new X509TrustManager() {
+	            @Override
+	            public X509Certificate[] getAcceptedIssuers() {
+	                return null;
+	            }
+
+	            @Override
+	            public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException {
+	            }
+
+	            @Override
+	            public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException {
+	            }
+	        }
+	    };
+
+	    SSLContext sc = SSLContext.getInstance("SSL");
+	    sc.init(null, trustAllCerts, new SecureRandom());
+	    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+	    HostnameVerifier hv = new HostnameVerifier() {
+	        @Override
+	        public boolean verify(String urlHostName, SSLSession session) {
+	            if (!urlHostName.equalsIgnoreCase(session.getPeerHost())) {
+	               // logger.warn("Warning: URL host '" + urlHostName + "' is different to SSLSession host '" + session.getPeerHost() + "'.");
+	            }
+	            return true;
+	        }
+	    };
+	    HttpsURLConnection.setDefaultHostnameVerifier(hv);
+	}
+	
+	
 }

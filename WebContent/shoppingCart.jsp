@@ -83,7 +83,7 @@ Guest
 				<tr>
 				<td colspan="3"></td>
 				<td>
-				<form action="">
+				<form action="${pageContext.request.contextPath}/OrderController" method="get">
 				
 				<input type="hidden" value=""/>
 				<button class="btn btn-primary" type="submit">Confirm Order</button>
@@ -94,6 +94,9 @@ Guest
 		</c:if>
 	</div>
 
+	<div>
+	<a class="btn btn-primary" href="${returnUrl}">Back to Browsing</a>
+	</div>
 
 </body>
 </html>

@@ -22,19 +22,6 @@
       <transport-guarantee>CONFIDENTIAL</transport-guarantee>
     </user-data-constraint>
   </security-constraint>
-  
-   
-  
-  <servlet>
-    <servlet-name>TestServlet</servlet-name>
-    <servlet-class>TestServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>TestServlet</servlet-name>
-    <url-pattern>/TestServlet</url-pattern>
-  </servlet-mapping>
- 
-  
   <servlet>
     <servlet-name>Jersey RESTful Application</servlet-name>
     <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
@@ -49,11 +36,4 @@
     <servlet-name>Jersey RESTful Application</servlet-name>
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
-  
-  
-   
-  
-  
-  
-  
 </web-app>
