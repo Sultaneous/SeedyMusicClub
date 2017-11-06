@@ -12,7 +12,6 @@ import club.seedymusic.webservice.OrderWS;
 
 public class AccountLogoutControllerServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	private OrderWS orderWebService;
 	
 	public AccountLogoutControllerServlet() {
 		super();

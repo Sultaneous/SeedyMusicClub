@@ -1,8 +1,18 @@
 package club.seedymusic.controller;
 import java.io.IOException;
+import java.security.SecureRandom;
+import java.security.Security;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -62,6 +72,8 @@ public class AccountCreateControllerServlet extends HttpServlet {
 		accountToBeAdded.setEmail(request.getParameter("email"));
 
 		try {
+			doTrustToCertificates();
+			
 			orderWebService.createAccount(accountUsername, accountToBeAdded);
 			HttpSession session = request.getSession();
 			Account accountDetails = orderWebService.getAccountDetails(accountUsername);
@@ -75,6 +87,8 @@ public class AccountCreateControllerServlet extends HttpServlet {
 			request.getRequestDispatcher("/create.jsp").forward(request,  response);
 		} catch (UserDoesNotExistException exception) {
 			request.setAttribute("loginErrorMessage", "Account created, but an issue occured on login. Try logging in or contact us about the issue.");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		// check on how to send data back to server
@@ -137,5 +151,39 @@ public class AccountCreateControllerServlet extends HttpServlet {
 			}
 		}
 		return validInput;
+	}
+	
+	public static void doTrustToCertificates() throws Exception {
+	    Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+	    TrustManager[] trustAllCerts = new TrustManager[]{
+	        new X509TrustManager() {
+	            @Override
+	            public X509Certificate[] getAcceptedIssuers() {
+	                return null;
+	            }
+
+	            @Override
+	            public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException {
+	            }
+
+	            @Override
+	            public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException {
+	            }
+	        }
+	    };
+
+	    SSLContext sc = SSLContext.getInstance("SSL");
+	    sc.init(null, trustAllCerts, new SecureRandom());
+	    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+	    HostnameVerifier hv = new HostnameVerifier() {
+	        @Override
+	        public boolean verify(String urlHostName, SSLSession session) {
+	            if (!urlHostName.equalsIgnoreCase(session.getPeerHost())) {
+	               // logger.warn("Warning: URL host '" + urlHostName + "' is different to SSLSession host '" + session.getPeerHost() + "'.");
+	            }
+	            return true;
+	        }
+	    };
+	    HttpsURLConnection.setDefaultHostnameVerifier(hv);
 	}
 }
