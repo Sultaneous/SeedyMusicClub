@@ -52,7 +52,7 @@ public class AccountCreateControllerServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-	/*	orderWebService = new OrderWS();
+		orderWebService = new OrderWS();
 		
 		if (!validateInput(request, response)) {
 			request.getRequestDispatcher("/create.jsp").forward(request, response);
@@ -96,7 +96,6 @@ public class AccountCreateControllerServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-*/
 		// check on how to send data back to server
 		response.sendRedirect(request.getHeader("referer"));
 	}
