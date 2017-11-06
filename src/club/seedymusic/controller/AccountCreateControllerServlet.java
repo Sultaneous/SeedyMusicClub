@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import club.seedymusic.exceptions.UserAlreadyExistsException;
 import club.seedymusic.exceptions.UserDoesNotExistException;
 import club.seedymusic.jpa.bean.Account;
@@ -74,6 +76,10 @@ public class AccountCreateControllerServlet extends HttpServlet {
 		try {
 			doTrustToCertificates();
 			
+			String baseUrl = getBaseURL(request);
+			//prepare data
+			ObjectMapper objectMapper= new ObjectMapper();
+			
 			orderWebService.createAccount(accountUsername, accountToBeAdded);
 			HttpSession session = request.getSession();
 			Account accountDetails = orderWebService.getAccountDetails(accountUsername);
@@ -102,6 +108,13 @@ public class AccountCreateControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doPost(request, response);
+	}
+	
+	private String getBaseURL(HttpServletRequest request) throws ServletException, IOException {
+		String url = request.getRequestURL().toString();
+		String baseUrl = url.substring(0, url.length() - request.getRequestURI().length()) + 
+				request.getContextPath() + "/";
+		return baseUrl;
 	}
 
 	/**

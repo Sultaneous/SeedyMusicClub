@@ -45,7 +45,7 @@ public class AccountLoginControllerServlet extends HttpServlet {
 		String userPassword = request.getParameter("password");
 		try {
 			doTrustToCertificates();
-			
+			String baseUrl = getBaseURL(request);
 			if (orderWebService.verifyCredentials(userToVerify, userPassword)) {
 				try {
 					Account accountDetails = new Account();
@@ -77,6 +77,13 @@ public class AccountLoginControllerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	private String getBaseURL(HttpServletRequest request) throws ServletException, IOException {
+		String url = request.getRequestURL().toString();
+		String baseUrl = url.substring(0, url.length() - request.getRequestURI().length()) + 
+				request.getContextPath() + "/";
+		return baseUrl;
 	}
 	
 	public static void doTrustToCertificates() throws Exception {
