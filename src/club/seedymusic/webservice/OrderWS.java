@@ -5,6 +5,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import club.seedymusic.ecom.ShoppingCart;
 import club.seedymusic.exceptions.FailedLoginException;
 import club.seedymusic.exceptions.UserAlreadyExistsException;
@@ -16,6 +19,7 @@ import club.seedymusic.jpa.bean.OrderItem;
 import club.seedymusic.jpa.dao.AccountDAO;
 import club.seedymusic.jpa.dao.OrderDAO;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -144,8 +148,30 @@ public class OrderWS {
 	 */
 	@POST
 	@Path("createOrder")
-	public Order createOrder(ShoppingCart shoppingCartInfo, Account shippingInfo) {
-		orderDAO = new OrderDAO();
+	public Order createOrder(String msg) {
+
+//	public Order createOrder(ShoppingCart shoppingCartInfo, Account shippingInfo) {
+		
+		//temp code
+		ObjectMapper objectMapper=  new ObjectMapper();
+		ShoppingCart shoppingCartInfo=null;
+		Account shippingInfo= new Account();// just to get rid of errors remove when wrapper class is created.
+	
+		 Object shoppingCart;
+		try {
+			shoppingCart = objectMapper.readValue(msg, ShoppingCart.class);
+			 shoppingCartInfo= (ShoppingCart)shoppingCart;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		 
+		
+		
+		// end of temp code
+		
+		OrderDAO orderDAO = new OrderDAO();
 		ArrayList<Cd> shoppingCartCds = shoppingCartInfo.getCartItems();
 		Set<OrderItem> orderItems = new HashSet<OrderItem>();
 		for (Cd currentCd: shoppingCartCds) {
