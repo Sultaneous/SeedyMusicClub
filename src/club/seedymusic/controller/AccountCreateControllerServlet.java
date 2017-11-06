@@ -1,5 +1,6 @@
 package club.seedymusic.controller;
 import java.io.IOException;
+import java.net.URL;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.security.cert.CertificateException;
@@ -76,9 +77,18 @@ public class AccountCreateControllerServlet extends HttpServlet {
 		try {
 			doTrustToCertificates();
 			
+			URL serviceUrl;
 			String baseUrl = getBaseURL(request);
+			serviceUrl = new URL(baseUrl);
 			//prepare data
 			ObjectMapper objectMapper= new ObjectMapper();
+			
+			HttpsURLConnection con= (HttpsURLConnection)serviceUrl.openConnection();
+			con.setDoOutput(true);
+			con.setDoInput(true);
+			con.setRequestProperty("Content-Type", "application/json");
+			con.setRequestProperty("Accept", "application/json");
+	        con.setRequestMethod("POST");
 			
 			orderWebService.createAccount(accountUsername, accountToBeAdded);
 			HttpSession session = request.getSession();
