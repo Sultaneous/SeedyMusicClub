@@ -26,6 +26,7 @@ public class AccountDetailControllerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		/*
 		orderWebService = new OrderWS();
 		Account accountInfo = new Account();
 		HttpSession session = request.getSession();
@@ -34,7 +35,7 @@ public class AccountDetailControllerServlet extends HttpServlet {
 		} catch (UserDoesNotExistException exception) {
 			response.sendRedirect("loginFailure.jsp");
 		}
-        request.setAttribute("account", accountInfo);
+        request.setAttribute("account", accountInfo); */
 	}
 	
 	/**

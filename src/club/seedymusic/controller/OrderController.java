@@ -6,6 +6,7 @@ import club.seedymusic.jpa.bean.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.security.Security;
@@ -31,6 +32,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import club.seedymusic.ecom.ShoppingCart;
 import club.seedymusic.exceptions.UserDoesNotExistException;
+ 
+import org.json.*;
 
 /**
  * Servlet implementation class OrderController
@@ -62,16 +65,20 @@ public class OrderController extends HttpServlet {
 		    cartBean = (ShoppingCart) objCartBean ;
 		   }
 		
+		   //get base Url
+		     String url = request.getRequestURL().toString();
+			 String baseUrl = url.substring(0, url.length() - request.getRequestURI().length()) + request.getContextPath() + "/";
+	       
+		   
             //createOrder 
-		    OrderWS orderWS= new OrderWS();
+		    //OrderWS orderWS= new OrderWS();
 		    
-		    Object userId = session.getAttribute("userId");
+		    //Object userId = session.getAttribute("userId");
 		    
 		    //if userId is null redirect to login page with returnUrl to this action
+		    createOrder(baseUrl,cartBean);		   
 		    
-		   
-		    
-		    Account acc=null;
+		  /*  Account acc=null;
 			try {
 				acc = orderWS.getAccountDetails(Integer.parseInt(userId.toString()));
 			} catch (UserDoesNotExistException e) {
@@ -96,7 +103,7 @@ public class OrderController extends HttpServlet {
 				response.getWriter().append("failed").append(request.getContextPath());
 
 		    }
-		    }
+		    } */
 		   
 		
 		response.getWriter().append("Served at lemon");
@@ -107,7 +114,7 @@ public class OrderController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		/*
 		 HttpSession session = request.getSession();
 		
 		 //this is were cc info are posted 
@@ -182,51 +189,62 @@ public class OrderController extends HttpServlet {
 
 					
 		}
-		
+		*/
 		
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
 	
-	public Order CreateOrder(String baseUrl)
+	public Order createOrder(String baseUrl, ShoppingCart shoppingCart)
 	{
 		
-		/*
+		
 		Order temp= new Order();
-		return temp;
 		
 		
 	      		   
 	      
-		    //String url = request.getRequestURL().toString();
-			//String baseUrl = url.substring(0, url.length() - request.getRequestURI().length()) + request.getContextPath() + "/";
-	
-	     
-	       
+		    
 	      URL url;
 			try {
 		
-			url= new URL(baseUrl + "rest/catalog/cd/"+ Integer.toString(cdID));
+			url= new URL(baseUrl + "rest/order/createOrder/");
 		
 	 		//bypassing ssl
     			doTrustToCertificates();
 
+    			//prepare data
+    			ObjectMapper objectMapper= new ObjectMapper();
+    			
+    			String cart= objectMapper.writeValueAsString(shoppingCart);
+    			 
+    			
     			HttpsURLConnection con= (HttpsURLConnection)url.openConnection();
-    	        
+    			con.setDoOutput(true);
+    			con.setDoInput(true);
+    			con.setRequestProperty("Content-Type", "application/json");
+    			con.setRequestProperty("Accept", "application/json");
+    	        con.setRequestMethod("POST");
     			
+    			OutputStreamWriter wr= new OutputStreamWriter(con.getOutputStream());
+    			wr.write(cart);
+    			wr.flush();
     			
+    			//int HttpsResult = con.getResponseCode(); 
+    			//if (HttpsResult == HttpsURLConnection.HTTP_OK)
+    			{
     			BufferedReader reader= new BufferedReader(new InputStreamReader(con.getInputStream()));
-    
+    			
     			String result="";
     
     			String input="";
     
-    while((input =reader.readLine())!=null)
-    {
-    	result+=input;
-    }
-    
+    			while((input =reader.readLine())!=null)
+    			{
+    			 result+=input;
+    			}
+    			}
     
     //ObjectMapper objectMapper= new ObjectMapper();
     
@@ -238,8 +256,7 @@ public class OrderController extends HttpServlet {
 		
 	}
 	return null;
-	    		*/
-		return null;
+	    		
 	}
 	
 	

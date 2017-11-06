@@ -1,6 +1,11 @@
 package club.seedymusic.webservice;
 
-import javax.jws.WebService;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import club.seedymusic.ecom.ShoppingCart;
 import club.seedymusic.exceptions.FailedLoginException;
@@ -13,16 +18,15 @@ import club.seedymusic.jpa.bean.OrderItem;
 import club.seedymusic.jpa.dao.AccountDAO;
 import club.seedymusic.jpa.dao.OrderDAO;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.jws.WebMethod;
-
-@WebService(name="Order", serviceName="OrderWebService")
+@Path("order")
 public class OrderWS {
-	
+	/*
 	private AccountDAO accountDAO;
 	private OrderDAO orderDAO;
 	/**
@@ -33,8 +37,9 @@ public class OrderWS {
 	 * @return Returns a String to display, stating that the account has been successfully created.
 	 * @throws UserAlreadyExistsException Thrown exception caught by a controller servlet and used to inform the user 
 	 * that the user already exists in the DB 
-	 */
-	@WebMethod
+	 *
+	@GET
+	@Path("createAccount")
 	public String createAccount(String accountName, Account accountInfo) throws UserAlreadyExistsException {
 		accountDAO = new AccountDAO();
 		// check if account already exists by username
@@ -55,8 +60,9 @@ public class OrderWS {
 	 * @return The Account model containing the specified user's info if the given password was correct.
 	 * @throws FailedLoginException Throws an exception  caught by a controller servlet and used to inform the
 	 * user that the login details were wrong
-	 */
-	@WebMethod
+	 *
+	@GET
+	@Path("getAccount")
 	public Account getAccount(String accountName, String accountPassword, Account accountInfo) throws UserDoesNotExistException, FailedLoginException {
 		accountDAO = new AccountDAO();
 		Account accountToCheck = accountDAO.getAccount(accountName);
@@ -78,8 +84,9 @@ public class OrderWS {
 	 * @param accountName Name of the user to login as.
 	 * @param accountPassword Password of the user to login as.
 	 * @return True if user has the correct login details, false if the user entered invalid information.
-	 */
-	@WebMethod
+	 *
+	@GET
+	@Path("verifyCredentials")
 	public boolean verifyCredentials(String accountName, String accountPassword) {
 		accountDAO = new AccountDAO();
 		boolean accountLoginValid = false;
@@ -96,11 +103,32 @@ public class OrderWS {
 	 * @param accountName Name of the account to get details from.
 	 * @return Account info without the password.
 	 * @throws UserDoesNotExistException Notify the user that the user being checked for details does not exist.
-	 */
-	@WebMethod
+	 *
+	@GET
+	@Path("getAccountDetails")
 	public Account getAccountDetails(int userId) throws UserDoesNotExistException{
 		accountDAO = new AccountDAO();
 		Account accountInfo = accountDAO.getAccount(userId);
+		if (accountInfo != null) {
+			// don't send the password for security reasons
+			accountInfo.setPassword(null);
+		} else {
+			throw new UserDoesNotExistException();
+		}
+		return accountInfo;
+	}
+	
+	/**
+	 * Returns account details, with the exception of the account password.
+	 * @param accountName Name of the account to get details from.
+	 * @return Account info without the password.
+	 * @throws UserDoesNotExistException Notify the user that the user being checked for details does not exist.
+	 *
+	@GET
+	@Path("getAccountDetails")
+	public Account getAccountDetails(String userName) throws UserDoesNotExistException{
+		accountDAO = new AccountDAO();
+		Account accountInfo = accountDAO.getAccount(userName);
 		if (accountInfo != null) {
 			// don't send the password for security reasons
 			accountInfo.setPassword(null);
@@ -116,9 +144,32 @@ public class OrderWS {
 	 * @param shippingInfo shipping information of the user. Retrievable as long as we keep the userId of the user to ship to.
 	 * @return Order object to be persisted, or null if the order fails to be created.
 	 */
-	@WebMethod
-	public Order createOrder(ShoppingCart shoppingCartInfo, Account shippingInfo) {
-		orderDAO = new OrderDAO();
+	@POST
+	@Path("createOrder")
+	public Order createOrder(String msg) {
+
+//	public Order createOrder(ShoppingCart shoppingCartInfo, Account shippingInfo) {
+		
+		//temp code
+		ObjectMapper objectMapper=  new ObjectMapper();
+		ShoppingCart shoppingCartInfo=null;
+		Account shippingInfo= new Account();// just to get rid of errors remove when wrapper class is created.
+	
+		 Object shoppingCart;
+		try {
+			shoppingCart = objectMapper.readValue(msg, ShoppingCart.class);
+			 shoppingCartInfo= (ShoppingCart)shoppingCart;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		 
+		
+		
+		// end of temp code
+		
+		OrderDAO orderDAO = new OrderDAO();
 		ArrayList<Cd> shoppingCartCds = shoppingCartInfo.getCartItems();
 		Set<OrderItem> orderItems = new HashSet<OrderItem>();
 		for (Cd currentCd: shoppingCartCds) {
@@ -145,14 +196,15 @@ public class OrderWS {
 		return mostRecentOrder;
 	}
 	
-	/**
+	/*
 	 * Verifies that the userId of the shipping info and the purchase order match up. Sets the status of the order to either paid or credit card declined.
 	 * @param purchaseOrder Information for the user's current active order.
 	 * @param shippingInfo Information for the account to ship to.
 	 * @param paymentInfo Credit card number, though it is not used for now.
 	 * @return True if the order is succesfully made, false if it isn't.
-	 */
-	@WebMethod
+	 
+	@GET
+	@Path("confirmOrder")
 	public boolean confirmOrder(Order purchaseOrder, Account shippingInfo, String paymentInfo) {
 		boolean orderCorrect = false;
 		if (purchaseOrder.getAccountId() == shippingInfo.getId()) {
@@ -163,5 +215,5 @@ public class OrderWS {
 		}
 		
 		return orderCorrect;
-	}
+	} */
 }

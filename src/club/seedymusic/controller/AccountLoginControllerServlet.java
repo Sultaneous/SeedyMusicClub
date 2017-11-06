@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import club.seedymusic.exceptions.FailedLoginException;
 import club.seedymusic.exceptions.UserDoesNotExistException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.webservice.OrderWS;
@@ -23,34 +22,36 @@ public class AccountLoginControllerServlet extends HttpServlet {
 		super();
 	}
 	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		/*
 		orderWebService = new OrderWS();
 		
 		String userToVerify = request.getParameter("username");
 		String userPassword = request.getParameter("password");
 		if (orderWebService.verifyCredentials(userToVerify, userPassword)) {
 			try {
-				Account accountInfo = new Account();
-				accountInfo = orderWebService.getAccount(userToVerify, userPassword, accountInfo);
-				HttpSession httpSession = request.getSession(true);
+				Account accountDetails = new Account();
+				accountDetails = orderWebService.getAccountDetails(userToVerify);
+				HttpSession session = request.getSession(true);
 				// store the userId, the first and last name of the user are also stored for ease of access
-				httpSession.setAttribute("userId", accountInfo.getId()); 
-				httpSession.setAttribute("firstName", accountInfo.getFirstName());
-				httpSession.setAttribute("lastName", accountInfo.getLastName()); 
+				session.setAttribute("userId", accountDetails.getId()); 
+				session.setAttribute("firstName", accountDetails.getFirstName());
+				session.setAttribute("lastName", accountDetails.getLastName()); 
+				session.setAttribute("account", accountDetails);
 				response.sendRedirect(request.getHeader("referer"));
 			} catch (UserDoesNotExistException exception) {
-				request.setAttribute("errorMessage", "User does not exist.");
-				request.getRequestDispatcher("/login.jsp").forward(request,  response);
-			} catch (FailedLoginException exception) {
-				request.setAttribute("errorMessage", "Login failed. Username/Password mismatch.");
+				request.setAttribute("loginErrorMessage", "User does not exist.");
 				request.getRequestDispatcher("/login.jsp").forward(request,  response);
 			}
 		} else {
-			request.setAttribute("errorMessage", "Login failed. Username/Password mismatch.");
+			request.setAttribute("loginErrorMessage", "Login failed. Username/Password mismatch.");
 			request.getRequestDispatcher("/login.jsp").forward(request,  response);
-		}
+		}  */
 	}
 	
 	/**
