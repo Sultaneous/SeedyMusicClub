@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html >
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -13,18 +13,6 @@
 <link rel="stylesheet" href="assets/css/splash.css">
 </head>
 <body>
-
-<%
-   boolean isLoggedIn;
-
-   // Look for userId in session; if it is null, user isn't logged in
-   Object object = session.getAttribute("userId");
-   if (object==null)
-      isLoggedIn = false;
-   else
-      isLoggedIn = true;
-   
-%>
 
 	<div class="bgimg-1">
 		<div class="caption">
@@ -44,39 +32,17 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-3 justify-center center-block">
-					<img class="mx-auto d-block"
-               style="width: 80px; height: 80px;" 				 
-					src="assets/images/icon_cd.png" />
+					<img class="mx-auto d-block" src="assets/images/icon_cd.png" />
 				</div>
 
 				<div class="col-3 center-block">
-					<img class="mx-auto d-block" 
-               style="width: 80px; height: 80px;" 					
-					src="assets/images/icon_club.png" />
+					<img class="mx-auto d-block" src="assets/images/icon_club.png" />
 				</div>
 
-<%
-   // If user is logged out, show a login icon
-   if (!isLoggedIn)
-   {
-%>
 				<div class="col-3 center-block">
-					<img class="mx-auto d-block"
-               style="width: 80px; height: 80px;" 				 
-					src="assets/images/icon_login.png" />
+					<img class="mx-auto d-block" src="assets/images/icon_login.png" />
 				</div>
-<%
-   // User is logged in tehn show logout icon
-   } else {
-%>
-            <div class="col-3 center-block">
-               <img class="mx-auto d-block"
-               style="width: 80px; height: 80px;" 
-               src="assets/images/icon_logout.png" />
-            </div>
-<% } %>
 			</div>
-			
 
 			<div class="row justify-content-center">
 				<div class="col-3 text-center">
@@ -89,25 +55,13 @@
 						role="button" href="register.jsp">Join the Seedy Club</a>
 				</div>
 
-<%
-   // User is not logged in, offer login option
-   if (!isLoggedIn)
-   {
-%>
 				<div class="col-3 text-center">
 					<br /> <a class="btn btn-danger center-block" style="color: #fff"
-						role="button" href="login.jsp">Log In</a>
+						role="button" href="login.jsp">Login</a>
 				</div>
-<%
-   // User is logged in, offer a logout option instead
-   } else {
-%>
-            <div class="col-3 text-center">
-               <br /> <a class="btn btn-danger center-block" style="color: #fff"
-                  role="button" href="logout.jsp">Log Out</a>
-            </div>
-<% } %>
-         </div>
+			</div>
+
+
 		</div>
 	</div>
 
