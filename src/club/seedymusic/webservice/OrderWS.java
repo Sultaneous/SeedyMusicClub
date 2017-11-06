@@ -3,6 +3,7 @@ package club.seedymusic.webservice;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,7 +27,7 @@ import java.util.Set;
 
 @Path("order")
 public class OrderWS {
-	/*
+	
 	private AccountDAO accountDAO;
 	private OrderDAO orderDAO;
 	/**
@@ -37,8 +38,8 @@ public class OrderWS {
 	 * @return Returns a String to display, stating that the account has been successfully created.
 	 * @throws UserAlreadyExistsException Thrown exception caught by a controller servlet and used to inform the user 
 	 * that the user already exists in the DB 
-	 *
-	@GET
+	 */
+	@POST
 	@Path("createAccount")
 	public String createAccount(String accountName, Account accountInfo) throws UserAlreadyExistsException {
 		accountDAO = new AccountDAO();
@@ -60,8 +61,8 @@ public class OrderWS {
 	 * @return The Account model containing the specified user's info if the given password was correct.
 	 * @throws FailedLoginException Throws an exception  caught by a controller servlet and used to inform the
 	 * user that the login details were wrong
-	 *
-	@GET
+	 */
+	@POST
 	@Path("getAccount")
 	public Account getAccount(String accountName, String accountPassword, Account accountInfo) throws UserDoesNotExistException, FailedLoginException {
 		accountDAO = new AccountDAO();
@@ -84,8 +85,8 @@ public class OrderWS {
 	 * @param accountName Name of the user to login as.
 	 * @param accountPassword Password of the user to login as.
 	 * @return True if user has the correct login details, false if the user entered invalid information.
-	 *
-	@GET
+	 */
+	@POST
 	@Path("verifyCredentials")
 	public boolean verifyCredentials(String accountName, String accountPassword) {
 		accountDAO = new AccountDAO();
@@ -103,12 +104,13 @@ public class OrderWS {
 	 * @param accountName Name of the account to get details from.
 	 * @return Account info without the password.
 	 * @throws UserDoesNotExistException Notify the user that the user being checked for details does not exist.
-	 *
+	 */
 	@GET
-	@Path("getAccountDetails")
-	public Account getAccountDetails(int userId) throws UserDoesNotExistException{
+	@Path("getAccountDetailsById")
+	public Account getAccountDetailsById(@QueryParam("userId") String userId) throws UserDoesNotExistException {
 		accountDAO = new AccountDAO();
-		Account accountInfo = accountDAO.getAccount(userId);
+		int userIdInt = Integer.parseInt(userId);
+		Account accountInfo = accountDAO.getAccount(userIdInt);
 		if (accountInfo != null) {
 			// don't send the password for security reasons
 			accountInfo.setPassword(null);
@@ -123,10 +125,10 @@ public class OrderWS {
 	 * @param accountName Name of the account to get details from.
 	 * @return Account info without the password.
 	 * @throws UserDoesNotExistException Notify the user that the user being checked for details does not exist.
-	 *
+	 */
 	@GET
 	@Path("getAccountDetails")
-	public Account getAccountDetails(String userName) throws UserDoesNotExistException{
+	public Account getAccountDetails(@QueryParam("userName") String userName) throws UserDoesNotExistException{
 		accountDAO = new AccountDAO();
 		Account accountInfo = accountDAO.getAccount(userName);
 		if (accountInfo != null) {
@@ -196,14 +198,14 @@ public class OrderWS {
 		return mostRecentOrder;
 	}
 	
-	/*
+	/**
 	 * Verifies that the userId of the shipping info and the purchase order match up. Sets the status of the order to either paid or credit card declined.
 	 * @param purchaseOrder Information for the user's current active order.
 	 * @param shippingInfo Information for the account to ship to.
 	 * @param paymentInfo Credit card number, though it is not used for now.
 	 * @return True if the order is succesfully made, false if it isn't.
-	 
-	@GET
+	 */
+	@POST
 	@Path("confirmOrder")
 	public boolean confirmOrder(Order purchaseOrder, Account shippingInfo, String paymentInfo) {
 		boolean orderCorrect = false;
@@ -215,5 +217,5 @@ public class OrderWS {
 		}
 		
 		return orderCorrect;
-	} */
+	}
 }

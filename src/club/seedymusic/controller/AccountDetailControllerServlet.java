@@ -31,7 +31,7 @@ public class AccountDetailControllerServlet extends HttpServlet {
 		Account accountInfo = new Account();
 		HttpSession session = request.getSession();
 		try {
-			accountInfo = orderWebService.getAccountDetails(Integer.parseInt(request.getParameter("userId")));
+			accountInfo = orderWebService.getAccountDetailsById(request.getParameter("userId"));
 		} catch (UserDoesNotExistException exception) {
 			response.sendRedirect("loginFailure.jsp");
 		}
