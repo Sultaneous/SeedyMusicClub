@@ -13,9 +13,7 @@ import club.seedymusic.exceptions.FailedLoginException;
 import club.seedymusic.exceptions.UserDoesNotExistException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.webservice.OrderWS;
-/**
- * servlet implements AccountDetailController
- */
+
 @WebServlet("/account/AccountDetailControllerServlet")
 public class AccountDetailControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,15 +26,16 @@ public class AccountDetailControllerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		/*
 		orderWebService = new OrderWS();
 		Account accountInfo = new Account();
 		HttpSession session = request.getSession();
 		try {
-			accountInfo = orderWebService.getAccountDetails(Integer.parseInt(request.getParameter("userId")));
+			accountInfo = orderWebService.getAccountDetailsById(request.getParameter("userId"));
 		} catch (UserDoesNotExistException exception) {
 			response.sendRedirect("loginFailure.jsp");
 		}
-        request.setAttribute("account", accountInfo);
+        request.setAttribute("account", accountInfo); */
 	}
 	
 	/**

@@ -12,9 +12,7 @@ import javax.servlet.http.HttpSession;
 import club.seedymusic.exceptions.UserDoesNotExistException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.webservice.OrderWS;
-/**
- * Servlet implements AccountLoginControllerServlet
- */
+
 @WebServlet("/account/AccountLoginControllerServlet")
 public class AccountLoginControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,13 +28,9 @@ public class AccountLoginControllerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		/*
 		orderWebService = new OrderWS();
-		/**
-		 * verify the username and password entered by the user matches the record and inform the user on the status of the login process
-		 * @param userToVerify username entered by the user
-		 * @param userPassword password entered by the user
-		 * 
-		 */
+	
 		String userToVerify = request.getParameter("username");
 		String userPassword = request.getParameter("password");
 		if (orderWebService.verifyCredentials(userToVerify, userPassword)) {
@@ -57,7 +51,7 @@ public class AccountLoginControllerServlet extends HttpServlet {
 		} else {
 			request.setAttribute("loginErrorMessage", "Login failed. Username/Password mismatch.");
 			request.getRequestDispatcher("/login.jsp").forward(request,  response);
-		}
+		}  */
 	}
 	
 	/**

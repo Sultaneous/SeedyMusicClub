@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
  * CLASS IS UNDER CONSTRUCTION THIS IS A SOURCE PLACEHOLDER
  */
 /**
- * Servlet implements class SessionController
+ * Servlet implementation class SessionController
  */
 @WebServlet("/SessionController")
 public class SessionController extends HttpServlet
@@ -53,18 +53,20 @@ public class SessionController extends HttpServlet
    {
 	   
 	 		String strAction = request.getParameter("action");
-	 		/**
-	 		 * @param strAction tracks content of shopping cart, delete and add CDs
-	 		 */	 	   
 	 	   
+	 	
 	 		  if(strAction!=null && !strAction.equals("")) {
 	 		   if(strAction.equals("add")) {
 	 		    addToCart(request);
+	 			String requestUrl= request.getHeader("Referer");
+		 		HttpSession session=request.getSession();
+		 		session.setAttribute("returnUrl", requestUrl);
 	 		   }  else if (strAction.equals("delete")) {
 	 		    deleteCart(request);
 	 		   }
 	 		  }
-	 		  response.sendRedirect("shoppingCart.jsp");  
+	 		  response.sendRedirect("shoppingCart.jsp");
+	   
 	   
 	   
       // TODO Auto-generated method stub

@@ -1,3 +1,4 @@
+
 package club.seedymusic.controller;
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -16,36 +17,20 @@ import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.webservice.OrderWS;
 
 @WebServlet("/account/AccountCreateControllerServlet")
-/**
- * @author Daniel Hong
- * @version 1.0 , Oct 27 2017
- * Servlet implements class AccountCreateController.
- *
- */
 public class AccountCreateControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	/* credit to Jason at https://stackoverflow.com/questions/8204680/java-regex-email
-	 * validate email addresses
-	 */	
+	// credit to Jason at https://stackoverflow.com/questions/8204680/java-regex-email
 	private static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
 			Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-	/*
-	 *  credit to Ravi at https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number
-     *  Standard type phone number 	
-	 */
+	// credit to Ravi at https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number
 	private static final Pattern VALID_PHONE_REGEX = 
 			Pattern.compile("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$", Pattern.CASE_INSENSITIVE);
-	/*
-	 *  credit to Lokesh at https://howtodoinjava.com/regex/java-regex-validate-canadian-postal-zip-codes/
-	 *  validate Canadian Postal Zip Code
-	 */	
+	// credit to Lokesh at https://howtodoinjava.com/regex/java-regex-validate-canadian-postal-zip-codes/
 	private static final Pattern VALID_POSTAL_CODE_REGEX = 
 			Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 	private final String postalCodeRegex = "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$";
-	 
+
 	private OrderWS orderWebService;
-	
 	public AccountCreateControllerServlet() {
 		super();
 	}
@@ -54,14 +39,14 @@ public class AccountCreateControllerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request,
+	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		orderWebService = new OrderWS();
+	/*	orderWebService = new OrderWS();
 		
 		if (!validateInput(request, response)) {
 			request.getRequestDispatcher("/create.jsp").forward(request, response);
 		}
-		
+
 		Account accountToBeAdded = new Account();
 		String accountUsername = request.getParameter("username");
 
@@ -92,18 +77,18 @@ public class AccountCreateControllerServlet extends HttpServlet {
 		} catch (UserDoesNotExistException exception) {
 			request.setAttribute("loginErrorMessage", "Account created, but an issue occured on login. Try logging in or contact us about the issue.");
 		}
-		
+*/
 		// check on how to send data back to server
 		response.sendRedirect(request.getHeader("referer"));
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		doPost(request, response);
 	}
 
 	/**
