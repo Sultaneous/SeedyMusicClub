@@ -118,8 +118,7 @@ public class AccountDAO
       catch (HibernateException e)
       {
          // Rollback if necessary
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 
@@ -167,8 +166,7 @@ public class AccountDAO
       catch (HibernateException e)
       {
          // Check if rollback is required
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 
@@ -220,8 +218,7 @@ public class AccountDAO
       catch (HibernateException e)
       {
          // Check if rollback is required
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 
@@ -269,7 +266,6 @@ public class AccountDAO
          @SuppressWarnings("unchecked")
          List<Account> accounts = criteria.list();
 
-         session.flush();
          transaction.commit();
 
          // Make sure we have a result
@@ -281,8 +277,7 @@ public class AccountDAO
       catch (HibernateException e)
       {
          // Check if rollback is required
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 
@@ -292,6 +287,7 @@ public class AccountDAO
       finally
       {
          // Close session to clean up
+         session.flush();
          session.close();
       }
    }
@@ -314,7 +310,8 @@ public class AccountDAO
 
          // Using criteria requires no HQL or SQL or XML config data
          Criteria criteria = session.createCriteria(Account.class);
-         long records = ((Number)criteria.setProjection(Projections.rowCount()).uniqueResult()).longValue();
+         long records = ((Number) criteria.setProjection(Projections.rowCount()).uniqueResult())
+                  .longValue();
 
          transaction.commit();
 
@@ -324,8 +321,7 @@ public class AccountDAO
       catch (HibernateException e)
       {
          // Check if rollback is required
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 
@@ -335,8 +331,59 @@ public class AccountDAO
       finally
       {
          // Close session to clean up
+         session.flush();
          session.close();
       }
    }
+
+   /**
+    * Deletes a single account object from the database based on its id.
+    * 
+    * NOTE: Do NOT use this call in a web-accessible tier! This call is for internal administration
+    * and tools only.
+    * 
+    * @param id
+    *           The account id to delete from database.
+    * @return True if successful, false otherwise.
+    */
+   public boolean deleteAccount(int id)
+   {
+      // Create session
+      Session session = createSession();
+      Transaction transaction = null;
+
+      try
+      {
+         // Transaction
+         transaction = session.beginTransaction();
+
+         Account account = new Account();
+         account.setId(id);
+
+         session.delete(account);
+
+         transaction.commit();
+
+         // Success
+         return (true);
+      }
+      catch (HibernateException e)
+      {
+         // Check if rollback is required
+         if (transaction != null) transaction.rollback();
+
+         e.printStackTrace();
+
+         // Failure
+         return false;
+      }
+      finally
+      {
+         // Close session to clean up
+         session.flush();
+         session.close();
+      }
+   }
+
 
 } // Class
