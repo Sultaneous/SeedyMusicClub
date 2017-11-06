@@ -3,6 +3,7 @@ package club.seedymusic.webservice;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 
 import club.seedymusic.ecom.ShoppingCart;
 import club.seedymusic.exceptions.FailedLoginException;
@@ -100,11 +101,12 @@ public class OrderWS {
 	 * @return Account info without the password.
 	 * @throws UserDoesNotExistException Notify the user that the user being checked for details does not exist.
 	 */
-	@POST
-	@Path("getAccountDetails")
-	public Account getAccountDetails(int userId) throws UserDoesNotExistException{
+	@GET
+	@Path("getAccountDetailsById")
+	public Account getAccountDetailsById(@QueryParam("userId") String userId) throws UserDoesNotExistException {
 		accountDAO = new AccountDAO();
-		Account accountInfo = accountDAO.getAccount(userId);
+		int userIdInt = Integer.parseInt(userId);
+		Account accountInfo = accountDAO.getAccount(userIdInt);
 		if (accountInfo != null) {
 			// don't send the password for security reasons
 			accountInfo.setPassword(null);
@@ -120,9 +122,9 @@ public class OrderWS {
 	 * @return Account info without the password.
 	 * @throws UserDoesNotExistException Notify the user that the user being checked for details does not exist.
 	 */
-	@POST
+	@GET
 	@Path("getAccountDetails")
-	public Account getAccountDetails(String userName) throws UserDoesNotExistException{
+	public Account getAccountDetails(@QueryParam("userName") String userName) throws UserDoesNotExistException{
 		accountDAO = new AccountDAO();
 		Account accountInfo = accountDAO.getAccount(userName);
 		if (accountInfo != null) {
