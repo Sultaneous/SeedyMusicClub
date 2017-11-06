@@ -1,6 +1,7 @@
 package club.seedymusic.webservice;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
 import club.seedymusic.ecom.ShoppingCart;
@@ -33,7 +34,7 @@ public class OrderWS {
 	 * @throws UserAlreadyExistsException Thrown exception caught by a controller servlet and used to inform the user 
 	 * that the user already exists in the DB 
 	 */
-	@GET
+	@POST
 	@Path("createAccount")
 	public String createAccount(String accountName, Account accountInfo) throws UserAlreadyExistsException {
 		accountDAO = new AccountDAO();
@@ -56,7 +57,7 @@ public class OrderWS {
 	 * @throws FailedLoginException Throws an exception  caught by a controller servlet and used to inform the
 	 * user that the login details were wrong
 	 */
-	@GET
+	@POST
 	@Path("getAccount")
 	public Account getAccount(String accountName, String accountPassword, Account accountInfo) throws UserDoesNotExistException, FailedLoginException {
 		accountDAO = new AccountDAO();
@@ -80,7 +81,7 @@ public class OrderWS {
 	 * @param accountPassword Password of the user to login as.
 	 * @return True if user has the correct login details, false if the user entered invalid information.
 	 */
-	@GET
+	@POST
 	@Path("verifyCredentials")
 	public boolean verifyCredentials(String accountName, String accountPassword) {
 		accountDAO = new AccountDAO();
@@ -99,7 +100,7 @@ public class OrderWS {
 	 * @return Account info without the password.
 	 * @throws UserDoesNotExistException Notify the user that the user being checked for details does not exist.
 	 */
-	@GET
+	@POST
 	@Path("getAccountDetails")
 	public Account getAccountDetails(int userId) throws UserDoesNotExistException{
 		accountDAO = new AccountDAO();
@@ -119,7 +120,7 @@ public class OrderWS {
 	 * @return Account info without the password.
 	 * @throws UserDoesNotExistException Notify the user that the user being checked for details does not exist.
 	 */
-	@GET
+	@POST
 	@Path("getAccountDetails")
 	public Account getAccountDetails(String userName) throws UserDoesNotExistException{
 		accountDAO = new AccountDAO();
@@ -139,7 +140,7 @@ public class OrderWS {
 	 * @param shippingInfo shipping information of the user. Retrievable as long as we keep the userId of the user to ship to.
 	 * @return Order object to be persisted, or null if the order fails to be created.
 	 */
-	@GET
+	@POST
 	@Path("createOrder")
 	public Order createOrder(ShoppingCart shoppingCartInfo, Account shippingInfo) {
 		orderDAO = new OrderDAO();
@@ -176,7 +177,7 @@ public class OrderWS {
 	 * @param paymentInfo Credit card number, though it is not used for now.
 	 * @return True if the order is succesfully made, false if it isn't.
 	 */
-	@GET
+	@POST
 	@Path("confirmOrder")
 	public boolean confirmOrder(Order purchaseOrder, Account shippingInfo, String paymentInfo) {
 		boolean orderCorrect = false;
