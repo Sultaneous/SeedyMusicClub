@@ -1,4 +1,3 @@
-
 package club.seedymusic.controller;
 
 import club.seedymusic.webservice.*;
