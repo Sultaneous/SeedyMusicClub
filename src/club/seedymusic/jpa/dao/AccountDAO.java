@@ -361,6 +361,7 @@ public class AccountDAO
          account.setId(id);
 
          session.delete(account);
+         session.flush();
 
          transaction.commit();
 
@@ -380,7 +381,6 @@ public class AccountDAO
       finally
       {
          // Close session to clean up
-         session.flush();
          session.close();
       }
    }

@@ -77,10 +77,7 @@ public class Order
    {
       this.accountId = 0;
       this.orderItems = new HashSet<OrderItem>();
-
-      // CHANGED: No longer need to set date; as the
-      // DB will set this on creation and on updates
-      // this.date = new Date();
+      this.date = new Date();
    }
 
    /*

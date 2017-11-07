@@ -8,7 +8,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Register</title>
+<title>Test DAO Account</title>
 
 <link rel="stylesheet"
    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
@@ -47,15 +47,15 @@ if (action != null)
 
 %>
 <div>      
-<table class="table table-inverse">
+<table class="table table-inverse" style="width: 50%">
   <tbody>
     <tr>
-      <td>Action performed</td>
-      <td>${action}</td>
+      <td><b>Action performed</b></td>
+      <td><%=action %></td>
     </tr>
     <tr>
-      <th>Action result</th>
-      <td>${result}</td>
+      <td><b>Action result</b></td>
+      <td><%=result.toUpperCase() %></td>
     </tr>
   </tbody>
 </table>
@@ -70,15 +70,15 @@ if (action != null)
 
 %>      
 <div>      
-<table class="table table-inverse">
+<table class="table table-inverse" style="width: 50%">
   <tbody>
     <tr>
-      <td>Action performed</td>
-      <td>${action}</td>
+      <td><b>Action performed</b></td>
+      <td><%=action %></td>
     </tr>
     <tr>
-      <th>Action result</th>
-      <td>${result}</td>
+      <td><b>Action result</b></td>
+      <td><%=result.toUpperCase() %></td>
     </tr>
   </tbody>
 </table>
@@ -90,13 +90,134 @@ if (action != null)
    else if (action.equals("account.get"))
    {
       Account account = (Account) session.getAttribute("account");
+     
 %>
+<div>      
+<table class="table table-inverse" style="width: 50%">
+  <tbody>
+    <tr>
+      <td><b>Action performed</b></td>
+      <td><%=action %></td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
+<c:choose>
+<c:when test="${empty account}">
+<h5>Did not receive valid response. An error may have occurred or input was invalid.</h5>
+</c:when>
 
+<c:otherwise>
+<div>      
+<table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Street</th>
+      <th>City</th>
+      <th>Province</th>
+      <th>Country</th>
+      <th>Postal Code</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Date</th>
+    </tr>
+  </thead>  
+  <tbody>
+    <tr>
+      <td>${account.id}</td>
+      <td>${account.username}</td>
+      <td>${account.firstName}</td>
+      <td>${account.lastName}</td>
+      <td>${account.street}</td>
+      <td>${account.city}</td>
+      <td>${account.province}</td>
+      <td>${account.country}</td>
+      <td>${account.postalCode}</td>
+      <td>${account.phone}</td>
+      <td>${account.email}</td>
+      <td>${account.password}</td>
+      <td>${account.date}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</c:otherwise>
+</c:choose>
 
 <% 
    }
+   else if (action.equals("account.list"))
+   {
+      @SuppressWarnings("unchecked")
+      List<Account> accounts = (List<Account>) session.getAttribute("accounts");
+     
 %>
+<div>      
+<table class="table table-inverse" style="width: 50%">
+  <tbody>
+    <tr>
+      <td><b>Action performed</b></td>
+      <td><%=action %></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<c:choose>
+<c:when test="${empty account}">
+<h5>Did not receive valid response. An error may have occurred or input was invalid.</h5>
+</c:when>
+
+<c:otherwise>
+<div>      
+<table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Street</th>
+      <th>City</th>
+      <th>Province</th>
+      <th>Country</th>
+      <th>Postal Code</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+   <c:forEach items="${accounts}" var="account">  
+    <tr>
+      <td>${account.id}</td>
+      <td>${account.username}</td>
+      <td>${account.firstName}</td>
+      <td>${account.lastName}</td>
+      <td>${account.street}</td>
+      <td>${account.city}</td>
+      <td>${account.province}</td>
+      <td>${account.country}</td>
+      <td>${account.postalCode}</td>
+      <td>${account.phone}</td>
+      <td>${account.email}</td>
+      <td>${account.password}</td>
+      <td>${account.date}</td>
+    </tr>
+   </c:forEach>
+  </tbody>
+</table>
+</div>
+</c:otherwise>
+</c:choose>
 
 
 <%
@@ -104,7 +225,10 @@ if (action != null)
 %>     
 No operation performed, no data returned, or session timed out.
 <br/>
-<% } %>
+<% 
+  }
+}
+%>
  
       <br/>
       <div id="accordion" role="tablist" aria-multiselectable="true">
@@ -119,7 +243,39 @@ No operation performed, no data returned, or session timed out.
 
     <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="account.get">
       <div class="card-block">
-        Enter the ID of the account you wish to retrieve:
+
+      <div class="container formtb">
+         <div>
+         <br/>
+            <h3>Enter Account ID to retrieve.</h3>
+         </div>
+
+         <div>
+         <form
+            action="${pageContext.request.contextPath}/test/TestDAOAccount"
+            method="get">
+            <input type="hidden" name="account.action" value="account.get">
+
+            <div class="form-group row">
+               <label for="account.id"
+                  class="col-sm-2 col-form-label col-form-label-lg">Account ID</label>
+               <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-lg" 
+                     name="account.id" id="account.id" placeholder="Account ID for retrieval">
+               </div>
+            </div>
+            
+            <div class="form-group row">
+               <div class="offset-sm-2 col-sm-10">
+                  <button type="submit" class="btn btn-primary btn-lg">Get account...</button>
+               </div>
+            </div>
+            
+         </form>
+         </div>
+      </div>
+
+
       </div>
     </div>
   </div>
@@ -277,8 +433,7 @@ No operation performed, no data returned, or session timed out.
 
          <div>
          <form
-            action="${pageContext.request.contextPath}/test/TestDAOAccount"
-            method="get">
+            action="${pageContext.request.contextPath}/test/TestDAOAccount" method="get">
             <input type="hidden" name="account.action" value="account.delete">
 
             <div class="form-group row">
@@ -298,29 +453,46 @@ No operation performed, no data returned, or session timed out.
             
          </form>
          </div>
-
-
+         
       </div>
+      
     </div>
   </div>
   
   <div class="card">
     <div class="card-header" role="tab" id="account.list">
       <h5 class="mb-0">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
           Test Operation: LIST Accounts...
         </a>
       </h5>
     </div>
-    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="account.list">
+    <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="account.list">
       <div class="card-block">
-         TODO: Add Form
+      
+         <div>
+         <form
+            action="${pageContext.request.contextPath}/test/TestDAOAccount" method="get">
+            <input type="hidden" name="account.action" value="account.list">
+            <br/>
+            <div class="form-group row">
+               <div class="offset-sm-2 col-sm-10">
+                  <button type="submit" class="btn btn-primary btn-lg">List all accounts...</button>
+               </div>
+            </div>
+            
+         </form>
+         </div>
+      
+      
       </div>
     </div>
   </div>
   
 </div>
       
+<br/>
+<br/>
 
    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

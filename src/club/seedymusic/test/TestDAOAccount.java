@@ -105,7 +105,7 @@ public class TestDAOAccount extends HttpServlet
          boolean result = accountDAO.addAccount(account);
 
          // Put it into the session object for the jsp
-         session.setAttribute("account.result", result);
+         session.setAttribute("account.result", String.valueOf(result));
       }
 
       else if (action.equals("account.delete"))
@@ -128,7 +128,7 @@ public class TestDAOAccount extends HttpServlet
             result = false;
 
          // Put it into the session object for the jsp
-         session.setAttribute("account.result", result);
+         session.setAttribute("account.result", String.valueOf(result));
       }
 
       // Return to the calling JSP page

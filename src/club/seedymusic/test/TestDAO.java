@@ -134,7 +134,7 @@ public class TestDAO extends HttpServlet
 
       // Add an account
       Account account = new Account();
-      account.setUsername("simplesimon");
+      account.setUsername("simplesimon2");
       account.setPassword("password");
       account.setFirstName("Simple");
       account.setLastName("Simon");
@@ -150,7 +150,7 @@ public class TestDAO extends HttpServlet
       result = accountDAO.addAccount(account);
 
       account = new Account();
-      account.setUsername("alibaba");
+      account.setUsername("alibaba2");
       account.setPassword("aAS3Jf4");
       account.setFirstName("Ali");
       account.setLastName("Babba");
@@ -263,8 +263,7 @@ public class TestDAO extends HttpServlet
                OrderItem orderItem = nestedIterator.next();
                out.println(orderItem.getCdid());
 
-               if (nestedIterator.hasNext())
-                  out.println(", ");
+               if (nestedIterator.hasNext()) out.println(", ");
             }
             out.println("</td>");
 

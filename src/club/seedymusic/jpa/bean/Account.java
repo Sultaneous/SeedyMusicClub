@@ -130,10 +130,7 @@ public class Account
       this.country = DEFAULT_VALUE;
       this.postalCode = DEFAULT_VALUE;
       this.phone = DEFAULT_VALUE;
-
-      // CHANGED: No longer need to set date; as the
-      // DB will set this on creation and on updates
-      // this.date = new Date();
+      this.date = new Date();
    }
 
    /*
