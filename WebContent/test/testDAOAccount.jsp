@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
    pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="club.seedymusic.jpa.bean.*, club.seedymusic.jpa.dao.*, java.util.*" %>
    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -29,17 +30,92 @@
       <br/>
       <h3>RESULTS OF LAST KNOWN OPERATION</h3>
       
+      
+<%
+String action= (String) session.getAttribute("account.action");
+               
+if (action != null)
+{
+%>
+
+   <div>
+<table class="table table-inverse">
+  <tbody>
+    <tr>
+      <th>Action performed</th>
+      <td>${action}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+   
+<%
+   if (action.equals("account.add"))
+   {
+      boolean result = (boolean) session.getAttribute("account.result");
+
+%>      
+<table class="table table-inverse">
+  <tbody>
+    <tr>
+      <th>Action result</th>
+      <td>${result}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<%
+   }
+   else if (action.equals("account.delete"))
+   {
+      boolean result = (boolean) session.getAttribute("account.result");
+
+%>      
+<table class="table table-inverse">
+  <tbody>
+    <tr>
+      <th>Action result</th>
+      <td>${result}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+<% 
+   }
+   else if (action.equals("account.get"))
+   {
+      Account account = (Account) session.getAttribute("account");
+%>
+
+
+
+<% 
+   }
+%>
+
+
+<%
+} else {
+%>     
+No operation performed, no data returned, or session timed out.
+<br/>
+<% } %>
+ 
+      <br/>
       <div id="accordion" role="tablist" aria-multiselectable="true">
   <div class="card">
     <div class="card-header" role="tab" id="account.get">
       <h5 class="mb-0">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
           Test Operation: GET Account...
         </a>
       </h5>
     </div>
 
-    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="account.get">
+    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="account.get">
       <div class="card-block">
         Enter the ID of the account you wish to retrieve:
       </div>
@@ -58,19 +134,20 @@
     <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="account.add">
       <div class="card-block">
 
-      <div class="container formtb" style="color: #fff;">
+      <div class="container formtb">
          <div>
          <br/>
-            <h3 style="color: #fff; background: #120012">Enter account info:</h3>
+            <h3>Enter account info:</h3>
          </div>
 
 <div>
          <form
             action="${pageContext.request.contextPath}/test/TestDAOAccount"
             method="get">
+            <input type="hidden" name="account.action" value="account.add">
 
             <div class="form-group row">
-               <label for="username"
+               <label for="account.username"
                   class="col-sm-2 col-form-label col-form-label-lg">Username</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg" 
@@ -79,7 +156,7 @@
             </div>
 
             <div class="form-group row">
-               <label for="password"
+               <label for="account.password"
                   class="col-sm-2 col-form-label col-form-label-lg">Password</label>
                <div class="col-sm-10">
                   <input type="password" class="form-control form-control-lg"
@@ -89,7 +166,7 @@
 
 
             <div class="form-group row">
-               <label for="firstName"
+               <label for="account.firstName"
                   class="col-sm-2 col-form-label col-form-label-lg">First Name</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
@@ -98,7 +175,7 @@
             </div>
 
             <div class="form-group row">
-               <label for="lastName"
+               <label for="account.lastName"
                   class="col-sm-2 col-form-label col-form-label-lg">Last Name</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
@@ -107,7 +184,7 @@
             </div>
 
             <div class="form-group row">
-               <label for="street"
+               <label for="account.street"
                   class="col-sm-2 col-form-label col-form-label-lg">Street</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
@@ -116,7 +193,7 @@
             </div>
 
             <div class="form-group row">
-               <label for="province"
+               <label for="account.province"
                   class="col-sm-2 col-form-label col-form-label-lg">Province</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
@@ -125,7 +202,7 @@
             </div>
 
             <div class="form-group row">
-               <label for="country"
+               <label for="account.country"
                   class="col-sm-2 col-form-label col-form-label-lg">Country</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
@@ -134,7 +211,7 @@
             </div>
 
             <div class="form-group row">
-               <label for="postalCode"
+               <label for="account.postalCode"
                   class="col-sm-2 col-form-label col-form-label-lg">Postal</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
@@ -143,7 +220,7 @@
             </div>
 
             <div class="form-group row">
-               <label for="phone"
+               <label for="account.phone"
                   class="col-sm-2 col-form-label col-form-label-lg">Phone</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
@@ -153,7 +230,7 @@
             </div>
 
             <div class="form-group row">
-               <label for="email"
+               <label for="account.email"
                   class="col-sm-2 col-form-label col-form-label-lg">Email</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
@@ -189,7 +266,38 @@
     </div>
     <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="account.delete">
       <div class="card-block">
-         TODO: Add Form
+
+      <div class="container formtb">
+         <div>
+         <br/>
+            <h3>Enter Account ID for deletion (#1-3 are protected)</h3>
+         </div>
+
+         <div>
+         <form
+            action="${pageContext.request.contextPath}/test/TestDAOAccount"
+            method="get">
+            <input type="hidden" name="account.action" value="account.delete">
+
+            <div class="form-group row">
+               <label for="account.id"
+                  class="col-sm-2 col-form-label col-form-label-lg">Account ID</label>
+               <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-lg" 
+                     name="account.id" id="account.id" placeholder="Account ID for deletion">
+               </div>
+            </div>
+            
+            <div class="form-group row">
+               <div class="offset-sm-2 col-sm-10">
+                  <button type="submit" class="btn btn-primary btn-lg">Delete account...</button>
+               </div>
+            </div>
+            
+         </form>
+         </div>
+
+
       </div>
     </div>
   </div>

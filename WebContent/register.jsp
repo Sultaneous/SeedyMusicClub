@@ -33,7 +33,7 @@
                   class="col-sm-2 col-form-label col-form-label-lg">Username</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg" 
-                     id="username" placeholder="your username">
+                     name="username" id="username" placeholder="your username">
                    <span style="color: #FF0000;">${userExistsError}</span>
                </div>
             </div>
@@ -43,7 +43,7 @@
                   class="col-sm-2 col-form-label col-form-label-lg">Password</label>
                <div class="col-sm-10">
                   <input type="password" class="form-control form-control-lg"
-                     id="password" placeholder="your password">
+                     name="password" id="password" placeholder="your password">
                </div>
             </div>
 
@@ -52,7 +52,7 @@
                   class="col-sm-2 col-form-label col-form-label-lg">Confirm</label>
                <div class="col-sm-10">
                   <input type="password" class="form-control form-control-lg"
-                     id="passwordRetyped" placeholder="confirm your password">
+                     name="passwordRetyped" id="passwordRetyped" placeholder="confirm your password">
                    <span style="color: #FF0000;">${passwordMismatchError}</span>
                </div>
             </div>
@@ -62,7 +62,7 @@
                   class="col-sm-2 col-form-label col-form-label-lg">First Name</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="firstName" placeholder="your first name">
+                     name="firstName" id="firstName" placeholder="your first name">
                </div>
             </div>
 
@@ -71,7 +71,7 @@
                   class="col-sm-2 col-form-label col-form-label-lg">Last Name</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="lastName" placeholder="your last name">
+                     name="lastName" id="lastName" placeholder="your last name">
                </div>
             </div>
 
@@ -80,7 +80,7 @@
                   class="col-sm-2 col-form-label col-form-label-lg">Street</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="street" placeholder="unit &amp; street">
+                     name="street" id="street" placeholder="unit &amp; street">
                </div>
             </div>
 
@@ -89,7 +89,7 @@
                   class="col-sm-2 col-form-label col-form-label-lg">Province</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="province" placeholder="your province or state">
+                     name="province" id="province" placeholder="your province or state">
                </div>
             </div>
 
@@ -98,7 +98,7 @@
                   class="col-sm-2 col-form-label col-form-label-lg">Country</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="country" placeholder="your country">
+                     name="country" id="country" placeholder="your country">
                </div>
             </div>
 
@@ -107,7 +107,7 @@
                   class="col-sm-2 col-form-label col-form-label-lg">Postal</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="postalCode" placeholder="your postal or zip code">
+                     name="postalCode" id="postalCode" placeholder="your postal or zip code">
                <span style="color: #FF0000;">${postalCodeError}</span>
                </div>
             </div>
@@ -117,7 +117,7 @@
                   class="col-sm-2 col-form-label col-form-label-lg">Phone</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="phone" placeholder="your phone number">
+                     name="phone" id="phone" placeholder="your phone number">
                <span style="color: #FF0000;">${phoneError}</span>
                </div>
             </div>
@@ -127,7 +127,7 @@
                   class="col-sm-2 col-form-label col-form-label-lg">Email</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="email" placeholder="your email address">
+                     name="email" id="email" placeholder="your email address">
                <span style="color: #FF0000;">${emailError}</span>
                </div>
             </div>

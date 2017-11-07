@@ -45,7 +45,11 @@ public class TestDAOAccount extends HttpServlet
             throws ServletException, IOException
    {
       // Determine type of lookup
-      String action = request.getParameter("action");
+      String action = request.getParameter("account.action");
+
+      // Stash it - it is used in the postback
+      HttpSession session = request.getSession();
+      session.setAttribute("account.action", action);
 
       if (action.equals("account.list"))
       {
@@ -56,7 +60,6 @@ public class TestDAOAccount extends HttpServlet
          List<Account> accounts = accountDAO.listAccounts();
 
          // Put it into the session object for the jsp
-         HttpSession session = request.getSession();
          session.setAttribute("accounts", accounts);
       }
 
@@ -73,7 +76,6 @@ public class TestDAOAccount extends HttpServlet
          Account account = accountDAO.getAccount(accountId);
 
          // Put it into the session object for the jsp
-         HttpSession session = request.getSession();
          session.setAttribute("account", account);
       }
 
@@ -87,7 +89,7 @@ public class TestDAOAccount extends HttpServlet
 
          // Retrieve form results and populate bean
          account.setCity(request.getParameter("account.city"));
-         account.setCity(request.getParameter("account.country"));
+         account.setCountry(request.getParameter("account.country"));
          account.setEmail(request.getParameter("account.email"));
          account.setFirstName(request.getParameter("account.firstName"));
          account.setLastName(request.getParameter("account.lastName"));
@@ -102,15 +104,14 @@ public class TestDAOAccount extends HttpServlet
          boolean result = accountDAO.addAccount(account);
 
          // Put it into the session object for the jsp
-         HttpSession session = request.getSession();
-         session.setAttribute("account", account);
+         session.setAttribute("account.result", result);
       }
 
       else if (action.equals("account.delete"))
       {
          // Create our DAO
          AccountDAO accountDAO = new AccountDAO();
-
+         System.out.println("ID: [" + request.getParameter("account.id") + "]");
          // The JSP form passes us the account id as a string parameter; retrieve and convert to int
          int accountId = Integer.parseInt(request.getParameter("account.id"));
 
@@ -121,7 +122,6 @@ public class TestDAOAccount extends HttpServlet
             boolean result = accountDAO.deleteAccount(accountId);
 
             // Put it into the session object for the jsp
-            HttpSession session = request.getSession();
             session.setAttribute("account.result", result);
          }
       }
