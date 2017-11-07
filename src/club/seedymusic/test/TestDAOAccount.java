@@ -116,14 +116,18 @@ public class TestDAOAccount extends HttpServlet
          int accountId = Integer.parseInt(request.getParameter("account.id"));
 
          // First three accounts are protected
+         boolean result;
          if (accountId > 3)
          {
             // Delete requested id
-            boolean result = accountDAO.deleteAccount(accountId);
+            result = accountDAO.deleteAccount(accountId);
 
-            // Put it into the session object for the jsp
-            session.setAttribute("account.result", result);
          }
+         else
+            result = false;
+
+         // Put it into the session object for the jsp
+         session.setAttribute("account.result", result);
       }
 
       // Return to the calling JSP page
