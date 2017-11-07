@@ -25,7 +25,7 @@
          </div>
 
          <form
-            action="${pageContext.request.contextPath}/account/AccountLoginControllerServlet"
+            action="${pageContext.request.contextPath}/account/AccountCreateControllerServlet"
             method="post">
 
             <div class="form-group row">

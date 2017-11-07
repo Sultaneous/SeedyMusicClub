@@ -3,7 +3,11 @@ package club.seedymusic.webservice;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
+import org.json.JSONObject;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,6 +22,7 @@ import club.seedymusic.jpa.bean.Order;
 import club.seedymusic.jpa.bean.OrderItem;
 import club.seedymusic.jpa.dao.AccountDAO;
 import club.seedymusic.jpa.dao.OrderDAO;
+import club.seedymusic.wrapper.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,6 +35,7 @@ public class OrderWS {
 	
 	private AccountDAO accountDAO;
 	private OrderDAO orderDAO;
+	
 	/**
 	 * Creates an account. If an account already exists, throw an exception for the controller servlet to catch and use
 	 * to notify a user that the account already exists.
@@ -41,15 +47,31 @@ public class OrderWS {
 	 */
 	@POST
 	@Path("createAccount")
-	public String createAccount(String accountName, Account accountInfo) throws UserAlreadyExistsException {
+	@Produces(MediaType.APPLICATION_JSON)
+	public String createAccount(String msg) {
 		accountDAO = new AccountDAO();
+		
+		// remap JSON string to object
+		CreateAccountWrapper createAccountWrapper = null;
+		try {
+			ObjectMapper objectMapper =  new ObjectMapper();
+			createAccountWrapper = (CreateAccountWrapper)(objectMapper.readValue(msg, CreateAccountWrapper.class));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String accountName = createAccountWrapper.getAccountName(); 
+		Account accountInfo = createAccountWrapper.getAccountInfo();
+		
+		String accountCreationStatus = "Account created successfully.";
 		// check if account already exists by username
 		if (accountDAO.getAccount(accountName) != null) {
-			throw new UserAlreadyExistsException();
+			accountCreationStatus = "Account Exists";
 		} else {
-			accountDAO.addAccount(accountInfo);			
+			accountDAO.addAccount(accountInfo);		
 		}
-		return "Account created successfully.";
+		return accountCreationStatus;
 	}
 	
 	/**
@@ -62,8 +84,10 @@ public class OrderWS {
 	 * @throws FailedLoginException Throws an exception  caught by a controller servlet and used to inform the
 	 * user that the login details were wrong
 	 */
+	/*
 	@POST
 	@Path("getAccount")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Account getAccount(String accountName, String accountPassword, Account accountInfo) throws UserDoesNotExistException, FailedLoginException {
 		accountDAO = new AccountDAO();
 		Account accountToCheck = accountDAO.getAccount(accountName);
@@ -77,7 +101,7 @@ public class OrderWS {
 			throw new UserDoesNotExistException();
 		}
 		return accountInfo;
-	}
+	} */
 	
 	/**
 	 * Verifies the user's account login information is correct. If the account does not exist, users should 
@@ -88,8 +112,23 @@ public class OrderWS {
 	 */
 	@POST
 	@Path("verifyCredentials")
-	public boolean verifyCredentials(String accountName, String accountPassword) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Boolean verifyCredentials(String msg) {
 		accountDAO = new AccountDAO();
+		// remap JSON string to object
+		LoginWrapper loginWrapper = null;
+		try {
+			ObjectMapper objectMapper=  new ObjectMapper();
+			loginWrapper = (LoginWrapper)(objectMapper.readValue(msg, LoginWrapper.class));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// get info
+		String accountName = loginWrapper.getAccountName();
+		String accountPassword = loginWrapper.getAccountPassword();
+		
 		boolean accountLoginValid = false;
 		Account accountToCheck = accountDAO.getAccount(accountName);
 		// user should exist first of all and the user's password should be checked after
@@ -107,6 +146,7 @@ public class OrderWS {
 	 */
 	@GET
 	@Path("getAccountDetailsById")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Account getAccountDetailsById(@QueryParam("userId") String userId) throws UserDoesNotExistException {
 		accountDAO = new AccountDAO();
 		int userIdInt = Integer.parseInt(userId);
@@ -115,7 +155,7 @@ public class OrderWS {
 			// don't send the password for security reasons
 			accountInfo.setPassword(null);
 		} else {
-			throw new UserDoesNotExistException();
+			return null;
 		}
 		return accountInfo;
 	}
@@ -128,6 +168,7 @@ public class OrderWS {
 	 */
 	@GET
 	@Path("getAccountDetails")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Account getAccountDetails(@QueryParam("userName") String userName) throws UserDoesNotExistException{
 		accountDAO = new AccountDAO();
 		Account accountInfo = accountDAO.getAccount(userName);
@@ -135,7 +176,7 @@ public class OrderWS {
 			// don't send the password for security reasons
 			accountInfo.setPassword(null);
 		} else {
-			throw new UserDoesNotExistException();
+			return null;
 		}
 		return accountInfo;
 	}
@@ -148,54 +189,56 @@ public class OrderWS {
 	 */
 	@POST
 	@Path("createOrder")
-	public Order createOrder(String msg) {
-
-//	public Order createOrder(ShoppingCart shoppingCartInfo, Account shippingInfo) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Order createOrder(String wrapper) {
 		
-		//temp code
-		ObjectMapper objectMapper=  new ObjectMapper();
-		ShoppingCart shoppingCartInfo=null;
-		Account shippingInfo= new Account();// just to get rid of errors remove when wrapper class is created.
-	
-		 Object shoppingCart;
+		ObjectMapper objectMapper=  new ObjectMapper();	
+		 CreateOrderWrapper createOrderWrapper= null;
 		try {
-			shoppingCart = objectMapper.readValue(msg, ShoppingCart.class);
-			 shoppingCartInfo= (ShoppingCart)shoppingCart;
+			createOrderWrapper = (CreateOrderWrapper)objectMapper.readValue(wrapper, CreateOrderWrapper.class);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}		
+		if(createOrderWrapper!=null)
+		{
+			
+		ArrayList<Cd> shoppingCartCds = createOrderWrapper.getShoppingCartInfo().getCartItems();
 		
-		 
 		
-		
-		// end of temp code
-		
-		OrderDAO orderDAO = new OrderDAO();
-		ArrayList<Cd> shoppingCartCds = shoppingCartInfo.getCartItems();
-		Set<OrderItem> orderItems = new HashSet<OrderItem>();
+		Order order = new Order();
+		 order.setAccountId(createOrderWrapper.getShippingInfo().getId());
+	     order.setStatus("open");
+		//Set<OrderItem> orderItems = new HashSet<OrderItem>();
 		for (Cd currentCd: shoppingCartCds) {
 			OrderItem currentOrder = new OrderItem();
 			currentOrder.setCdid(currentCd.getId());
-			orderItems.add(currentOrder);
+			//orderItems.add(currentOrder);
+		    order.getOrderItems().add(currentOrder);
 		}
-		
-		Order order = new Order();
-		order.setAccountId(shippingInfo.getId());
-		order.setOrderItems(orderItems);
+		OrderDAO orderDAO = new OrderDAO();		
 		boolean successfullOrder = orderDAO.addOrder(order);
+		
+		
+		
+		
 		
 		// get most recent order based on ID
 		Order mostRecentOrder = null;
 		for (Order currentOrder: orderDAO.listOrders()) {
 			// get initial mostRecentOrder
-			if (currentOrder.getAccountId() == shippingInfo.getId() && mostRecentOrder == null) {
+			if (currentOrder.getAccountId() == createOrderWrapper.getShippingInfo().getId() && mostRecentOrder == null) {
 				mostRecentOrder = currentOrder;
-			} else if (currentOrder.getAccountId() == shippingInfo.getId() && (currentOrder.getId() > mostRecentOrder.getId())) {
+			} else if (currentOrder.getAccountId() == createOrderWrapper.getShippingInfo().getId() && (currentOrder.getId() > mostRecentOrder.getId())) {
 				mostRecentOrder = currentOrder;
 			}
 		}
+		
 		return mostRecentOrder;
+		}
+		
+		return null;
+		
 	}
 	
 	/**
@@ -207,15 +250,30 @@ public class OrderWS {
 	 */
 	@POST
 	@Path("confirmOrder")
-	public boolean confirmOrder(Order purchaseOrder, Account shippingInfo, String paymentInfo) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean confirmOrder(String wrapper) {
+		
+		ConfirmOrderWrapper confirmOrderWrapper = null;
+		
 		boolean orderCorrect = false;
-		if (purchaseOrder.getAccountId() == shippingInfo.getId()) {
-			purchaseOrder.setStatus("paid");
+		
+		ObjectMapper objectMapper=  new ObjectMapper();
+		
+		try {
+			confirmOrderWrapper = (ConfirmOrderWrapper)objectMapper.readValue(wrapper, ConfirmOrderWrapper.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		if(confirmOrderWrapper!=null)
+		{
+		if (confirmOrderWrapper.getPurchaseOrder().getAccountId() == confirmOrderWrapper.getShippingInfo().getId()) {
+			confirmOrderWrapper.getPurchaseOrder().setStatus("paid");
 			orderCorrect = true;
 		} else {
-			purchaseOrder.setStatus("credit card declined");
+			confirmOrderWrapper.getPurchaseOrder().setStatus("credit card declined");
 		}
-		
+		}
 		return orderCorrect;
 	}
 }
