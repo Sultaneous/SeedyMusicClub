@@ -46,6 +46,7 @@ public class TestDAOAccount extends HttpServlet
    {
       // Determine type of lookup
       String action = request.getParameter("account.action");
+      if (action == null) action = "action.unknown";
 
       // Stash it - it is used in the postback
       HttpSession session = request.getSession();

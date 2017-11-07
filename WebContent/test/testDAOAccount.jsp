@@ -38,25 +38,21 @@ if (action != null)
 {
 %>
 
-   <div>
-<table class="table table-inverse">
-  <tbody>
-    <tr>
-      <th>Action performed</th>
-      <td>${action}</td>
-    </tr>
-  </tbody>
-</table>
-</div>
    
 <%
    if (action.equals("account.add"))
    {
-      boolean result = (boolean) session.getAttribute("account.result");
+      String result = (String) session.getAttribute("account.result");
+      if (result==null) result="Unknown";
 
-%>      
+%>
+<div>      
 <table class="table table-inverse">
   <tbody>
+    <tr>
+      <td>Action performed</td>
+      <td>${action}</td>
+    </tr>
     <tr>
       <th>Action result</th>
       <td>${result}</td>
@@ -69,11 +65,17 @@ if (action != null)
    }
    else if (action.equals("account.delete"))
    {
-      boolean result = (boolean) session.getAttribute("account.result");
+      String result = (String) session.getAttribute("account.result");
+      if (result==null) result="Unknown";
 
 %>      
+<div>      
 <table class="table table-inverse">
   <tbody>
+    <tr>
+      <td>Action performed</td>
+      <td>${action}</td>
+    </tr>
     <tr>
       <th>Action result</th>
       <td>${result}</td>
