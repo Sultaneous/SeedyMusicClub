@@ -22,6 +22,8 @@ import club.seedymusic.jpa.bean.Order;
 import club.seedymusic.jpa.bean.OrderItem;
 import club.seedymusic.jpa.dao.AccountDAO;
 import club.seedymusic.jpa.dao.OrderDAO;
+import club.seedymusic.wrapper.CreateAccountWrapper;
+import club.seedymusic.wrapper.LoginWrapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,10 +47,21 @@ public class OrderWS {
 	 */
 	@POST
 	@Path("createAccount")
-	public String createAccount(String accountName, Account accountInfo) {
+	public String createAccount(String msg) {
 		accountDAO = new AccountDAO();
 		
-		JSONObject accountCreationStatusJSON = new JSONObject();
+		// remap JSON string to object
+		CreateAccountWrapper createAccountWrapper = null;
+		try {
+			ObjectMapper objectMapper =  new ObjectMapper();
+			createAccountWrapper = (CreateAccountWrapper)(objectMapper.readValue(msg, CreateAccountWrapper.class));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String accountName = createAccountWrapper.getAccountName(); 
+		Account accountInfo = createAccountWrapper.getAccountInfo();
 		
 		String accountCreationStatus = "Account created successfully.";
 		// check if account already exists by username
@@ -96,8 +109,22 @@ public class OrderWS {
 	 */
 	@POST
 	@Path("verifyCredentials")
-	public Boolean verifyCredentials(String accountName, String accountPassword) {
+	public Boolean verifyCredentials(String msg) {
 		accountDAO = new AccountDAO();
+		// remap JSON string to object
+		LoginWrapper loginWrapper = null;
+		try {
+			ObjectMapper objectMapper=  new ObjectMapper();
+			loginWrapper = (LoginWrapper)(objectMapper.readValue(msg, LoginWrapper.class));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// get info
+		String accountName = loginWrapper.getAccountName();
+		String accountPassword = loginWrapper.getAccountPassword();
+		
 		boolean accountLoginValid = false;
 		Account accountToCheck = accountDAO.getAccount(accountName);
 		// user should exist first of all and the user's password should be checked after
