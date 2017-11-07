@@ -31,9 +31,9 @@
 	<p>
 	<div>
 
-		<label> Hello <c:if test="${not empty username}">
-				<c:out value="${username}" />
-			</c:if> <c:if test="${empty username}">
+		<label> Hello <c:if test="${not empty firstName}">
+				<c:out value="${firstName}" />
+			</c:if> <c:if test="${empty firstName}">
 Guest
 </c:if>
 

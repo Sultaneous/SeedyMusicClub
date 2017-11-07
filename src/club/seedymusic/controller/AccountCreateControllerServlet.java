@@ -46,7 +46,7 @@ public class AccountCreateControllerServlet extends HttpServlet {
 			Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 	private final String postalCodeRegex = "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$";
 
-	private OrderWS orderWebService;
+	//private OrderWS orderWebService;
 	public AccountCreateControllerServlet() {
 		super();
 	}
@@ -57,10 +57,10 @@ public class AccountCreateControllerServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		orderWebService = new OrderWS();
+		//orderWebService = new OrderWS();
 		
 		if (!validateInput(request, response)) {
-			request.getRequestDispatcher("/create.jsp").forward(request, response);
+			request.getRequestDispatcher("/register.jsp").forward(request, response);
 		}
 
 		Account accountToBeAdded = new Account();
@@ -157,7 +157,7 @@ public class AccountCreateControllerServlet extends HttpServlet {
 			
 		} catch (UserAlreadyExistsException exception) {
 			request.setAttribute("userExistsError", "This user already exists.");
-			request.getRequestDispatcher("/create.jsp").forward(request,  response);
+			request.getRequestDispatcher("/register.jsp").forward(request,  response);
 		} catch (UserDoesNotExistException exception) {
 			request.setAttribute("loginErrorMessage", "Account created, but an issue occured on login. Try logging in or contact us about the issue.");
 			request.getRequestDispatcher("/login.jsp").forward(request,  response);
@@ -195,16 +195,17 @@ public class AccountCreateControllerServlet extends HttpServlet {
 	private boolean validateInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// check if password, email, phone number (North American) and postal code(Canadian) are valid
 		String emailStr = request.getParameter("email");
-		Matcher emailMatcher = VALID_PHONE_REGEX .matcher(emailStr);
+		Matcher emailMatcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
 		boolean emailInvalid = !(emailMatcher.find());
-
+		
 		String phoneStr = request.getParameter("phone");
-		Matcher phoneMatcher = VALID_EMAIL_ADDRESS_REGEX .matcher(phoneStr);
+		Matcher phoneMatcher = VALID_PHONE_REGEX .matcher(phoneStr);
 		boolean phoneInvalid = !(phoneMatcher.find());
 
 		String postalCodeStr = request.getParameter("postalCode");
-		Matcher postalCodeMatcher = VALID_POSTAL_CODE_REGEX .matcher(postalCodeStr);
+		Matcher postalCodeMatcher = VALID_POSTAL_CODE_REGEX.matcher(postalCodeStr);
 		boolean postalCodeInvalid = !(postalCodeMatcher.find());
+		 postalCodeInvalid= false;
 
 		boolean passwordMismatch = request.getAttribute("passwordRetyped").equals(request.getAttribute("password"));
 

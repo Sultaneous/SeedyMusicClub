@@ -73,7 +73,7 @@ public class OrderController extends HttpServlet {
 	       
 		    Object userId = session.getAttribute("userId");
 		    
-		   Account acc = getAccountDetails(baseUrl,(String)userId);
+		   Account acc = getAccountDetails(baseUrl,userId.toString());
 			
 		    if(acc!=null)
 		    {
@@ -137,7 +137,7 @@ public class OrderController extends HttpServlet {
 		    Account acc=null;
 			try {
 				
-				acc=getAccountDetails(baseUrl,(String)userId);
+				acc=getAccountDetails(baseUrl,userId.toString());
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -148,7 +148,8 @@ public class OrderController extends HttpServlet {
 		       //accept cc info and confirm order
 					if(acc!=null) {
 						// cause a decline on 5th use of credit card
-						int timesCreditCardUsedInt= Integer.parseInt((String)timesCreditCardUsed);
+						
+						int timesCreditCardUsedInt= cntr;
 						
 						int accountId = acc.getId();
 						
@@ -172,14 +173,14 @@ public class OrderController extends HttpServlet {
 					
     				session.setAttribute("orderStatus", orderStatus);
 
-    		     	response.sendRedirect("orderStatus.jsp");
+    		     	response.sendRedirect(baseUrl+"/orderStatus.jsp");
 
 					
 		
 		
 		
 		// TODO Auto-generated method stub
-		doGet(request, response);
+        //doGet(request, response);
 	}
 
 	public Order createOrder(String baseUrl, ShoppingCart shoppingCart, Account acc)

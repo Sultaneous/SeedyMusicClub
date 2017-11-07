@@ -123,9 +123,9 @@ public class AccountLoginControllerServlet extends HttpServlet {
 					session.setAttribute("firstName", responseAccount.getFirstName());
 					session.setAttribute("lastName", responseAccount.getLastName()); 
 					session.setAttribute("account", responseAccount);
-					response.sendRedirect(request.getHeader("referer"));
+					response.sendRedirect(baseUrl+"/browse");
 				} catch (UserDoesNotExistException exception) {
-					request.setAttribute("loginErrorMessage", "User does not exist.");
+					request.setAttribute("loginErrorMessage", "User does not exist.");			
 					request.getRequestDispatcher("/login.jsp").forward(request,  response);
 				}
 			} else {

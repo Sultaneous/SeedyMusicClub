@@ -35,6 +35,7 @@ public class OrderWS {
 	
 	private AccountDAO accountDAO;
 	private OrderDAO orderDAO;
+	
 	/**
 	 * Creates an account. If an account already exists, throw an exception for the controller servlet to catch and use
 	 * to notify a user that the account already exists.
@@ -46,6 +47,7 @@ public class OrderWS {
 	 */
 	@POST
 	@Path("createAccount")
+	@Produces(MediaType.APPLICATION_JSON)
 	public String createAccount(String msg) {
 		accountDAO = new AccountDAO();
 		
@@ -82,8 +84,10 @@ public class OrderWS {
 	 * @throws FailedLoginException Throws an exception  caught by a controller servlet and used to inform the
 	 * user that the login details were wrong
 	 */
+	/*
 	@POST
 	@Path("getAccount")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Account getAccount(String accountName, String accountPassword, Account accountInfo) throws UserDoesNotExistException, FailedLoginException {
 		accountDAO = new AccountDAO();
 		Account accountToCheck = accountDAO.getAccount(accountName);
@@ -97,7 +101,7 @@ public class OrderWS {
 			throw new UserDoesNotExistException();
 		}
 		return accountInfo;
-	}
+	} */
 	
 	/**
 	 * Verifies the user's account login information is correct. If the account does not exist, users should 
@@ -108,6 +112,7 @@ public class OrderWS {
 	 */
 	@POST
 	@Path("verifyCredentials")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Boolean verifyCredentials(String msg) {
 		accountDAO = new AccountDAO();
 		// remap JSON string to object
@@ -184,6 +189,7 @@ public class OrderWS {
 	 */
 	@POST
 	@Path("createOrder")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Order createOrder(String wrapper) {
 		
 		ObjectMapper objectMapper=  new ObjectMapper();	
@@ -196,19 +202,26 @@ public class OrderWS {
 		}		
 		if(createOrderWrapper!=null)
 		{
-		OrderDAO orderDAO = new OrderDAO();
+			
 		ArrayList<Cd> shoppingCartCds = createOrderWrapper.getShoppingCartInfo().getCartItems();
-		Set<OrderItem> orderItems = new HashSet<OrderItem>();
+		
+		
+		Order order = new Order();
+		 order.setAccountId(createOrderWrapper.getShippingInfo().getId());
+	     order.setStatus("open");
+		//Set<OrderItem> orderItems = new HashSet<OrderItem>();
 		for (Cd currentCd: shoppingCartCds) {
 			OrderItem currentOrder = new OrderItem();
 			currentOrder.setCdid(currentCd.getId());
-			orderItems.add(currentOrder);
+			//orderItems.add(currentOrder);
+		    order.getOrderItems().add(currentOrder);
 		}
-		
-		Order order = new Order();
-		order.setAccountId(createOrderWrapper.getShippingInfo().getId());
-		order.setOrderItems(orderItems);
+		OrderDAO orderDAO = new OrderDAO();		
 		boolean successfullOrder = orderDAO.addOrder(order);
+		
+		
+		
+		
 		
 		// get most recent order based on ID
 		Order mostRecentOrder = null;
@@ -237,6 +250,7 @@ public class OrderWS {
 	 */
 	@POST
 	@Path("confirmOrder")
+	@Produces(MediaType.APPLICATION_JSON)
 	public boolean confirmOrder(String wrapper) {
 		
 		ConfirmOrderWrapper confirmOrderWrapper = null;
