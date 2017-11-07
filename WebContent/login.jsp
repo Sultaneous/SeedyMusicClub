@@ -33,7 +33,7 @@
 						class="col-sm-2 col-form-label col-form-label-lg">USERNAME</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control form-control-lg"
-							id="username" placeholder="your username">
+							name="username" id="username" placeholder="your username">
 					</div>
 				</div>
 
@@ -42,7 +42,7 @@
 						class="col-sm-2 col-form-label col-form-label-lg">PASSWORD</label>
 					<div class="col-sm-10">
 						<input type="password" class="form-control form-control-lg"
-							id="password" placeholder="your password">
+							name="password" id="password" placeholder="your password">
 					</div>
 				</div>
 
