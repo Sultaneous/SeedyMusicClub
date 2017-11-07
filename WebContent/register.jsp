@@ -117,7 +117,7 @@
                   class="col-sm-2 col-form-label col-form-label-lg">Phone</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="postalCode" placeholder="your phone number">
+                     id="phone" placeholder="your phone number">
                <span style="color: #FF0000;">${phoneError}</span>
                </div>
             </div>
