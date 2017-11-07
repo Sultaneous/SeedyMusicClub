@@ -3,7 +3,11 @@ package club.seedymusic.webservice;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
+import org.json.JSONObject;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,15 +45,19 @@ public class OrderWS {
 	 */
 	@POST
 	@Path("createAccount")
-	public String createAccount(String accountName, Account accountInfo) throws UserAlreadyExistsException {
+	public String createAccount(String accountName, Account accountInfo) {
 		accountDAO = new AccountDAO();
+		
+		JSONObject accountCreationStatusJSON = new JSONObject();
+		
+		String accountCreationStatus = "Account created successfully.";
 		// check if account already exists by username
 		if (accountDAO.getAccount(accountName) != null) {
-			throw new UserAlreadyExistsException();
+			accountCreationStatus = "Account Exists";
 		} else {
-			accountDAO.addAccount(accountInfo);			
+			accountDAO.addAccount(accountInfo);		
 		}
-		return "Account created successfully.";
+		return accountCreationStatus;
 	}
 	
 	/**
@@ -107,6 +115,7 @@ public class OrderWS {
 	 */
 	@GET
 	@Path("getAccountDetailsById")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Account getAccountDetailsById(@QueryParam("userId") String userId) throws UserDoesNotExistException {
 		accountDAO = new AccountDAO();
 		int userIdInt = Integer.parseInt(userId);
@@ -115,7 +124,7 @@ public class OrderWS {
 			// don't send the password for security reasons
 			accountInfo.setPassword(null);
 		} else {
-			throw new UserDoesNotExistException();
+			return null;
 		}
 		return accountInfo;
 	}
@@ -128,6 +137,7 @@ public class OrderWS {
 	 */
 	@GET
 	@Path("getAccountDetails")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Account getAccountDetails(@QueryParam("userName") String userName) throws UserDoesNotExistException{
 		accountDAO = new AccountDAO();
 		Account accountInfo = accountDAO.getAccount(userName);
@@ -135,7 +145,7 @@ public class OrderWS {
 			// don't send the password for security reasons
 			accountInfo.setPassword(null);
 		} else {
-			throw new UserDoesNotExistException();
+			return null;
 		}
 		return accountInfo;
 	}

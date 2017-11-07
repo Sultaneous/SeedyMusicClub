@@ -1,5 +1,8 @@
 package club.seedymusic.controller;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.security.Security;
@@ -27,6 +30,7 @@ import club.seedymusic.exceptions.UserAlreadyExistsException;
 import club.seedymusic.exceptions.UserDoesNotExistException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.webservice.OrderWS;
+import club.seedymusic.wrapper.CreateAccountWrapper;
 
 @WebServlet("/account/AccountCreateControllerServlet")
 public class AccountCreateControllerServlet extends HttpServlet {
@@ -76,33 +80,87 @@ public class AccountCreateControllerServlet extends HttpServlet {
 
 		try {
 			doTrustToCertificates();
-			
+				
+			// generate mappedURL of the webservice
 			URL serviceUrl;
 			String baseUrl = getBaseURL(request);
-			serviceUrl = new URL(baseUrl);
-			//prepare data
-			ObjectMapper objectMapper= new ObjectMapper();
+			serviceUrl = new URL(baseUrl + "rest/order/createAccount/");
 			
-			HttpsURLConnection con= (HttpsURLConnection)serviceUrl.openConnection();
+			// wrap data to send to webservice
+			CreateAccountWrapper createAccountWrapper = new CreateAccountWrapper();
+			createAccountWrapper.setAccountName(accountUsername);
+			createAccountWrapper.setAccountInfo(accountToBeAdded);
+			
+			// map object into a JSON string
+			ObjectMapper objectMapper = new ObjectMapper();
+			String createAccountString = objectMapper.writeValueAsString(createAccountWrapper);
+			
+			// prepare connection to the URL mapping of the service method
+			HttpsURLConnection con = (HttpsURLConnection)serviceUrl.openConnection();
 			con.setDoOutput(true);
 			con.setDoInput(true);
 			con.setRequestProperty("Content-Type", "application/json");
 			con.setRequestProperty("Accept", "application/json");
 	        con.setRequestMethod("POST");
+	        
+	        // send object as JSON string across connection to the service method
+	        OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+			wr.write(createAccountString);
+			wr.flush();
 			
-			orderWebService.createAccount(accountUsername, accountToBeAdded);
+			// take the response JSON string and re-map to an expected return object type (String in this case)
+			BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			String result="";
+			String input="";
+			
+			while((input = reader.readLine())!= null)
+            {
+            	result += input;
+            }
+			
+			// process any errors
+			String accountCreateStatusString = objectMapper.readValue(result, String.class);
+			if (accountCreateStatusString.equals("Account Exists")) {
+				throw new UserAlreadyExistsException();
+			}
+			
+			// fetch account details now as hibernate will have automatically assigned a new ID for the user
+			
+			// setup URL which will do a GET against an account username
+			serviceUrl = new URL(baseUrl + "rest/order/getAccountDetails?userName=" + accountUsername);
+			
+			// setup new connection
+			con = (HttpsURLConnection)serviceUrl.openConnection();
+	        
+			// prepare to read the response
+			reader= new BufferedReader(new InputStreamReader(con.getInputStream()));
+			result="";
+			input="";
+			
+			while((input =reader.readLine())!=null)
+	        {
+	        	result += input;
+	        }
+			
+			Account responseAccount = objectMapper.readValue(result, Account.class);
+			
+			if (responseAccount == null) {
+				throw new UserDoesNotExistException();
+			}
+			
+			// store session attributes
 			HttpSession session = request.getSession();
-			Account accountDetails = orderWebService.getAccountDetails(accountUsername);
-			session.setAttribute("userId", accountDetails.getId());
-			session.setAttribute("firstName", accountDetails.getFirstName());
-			session.setAttribute("lastName", accountDetails.getLastName()); 
-			session.setAttribute("account", accountDetails);
+			session.setAttribute("userId", responseAccount.getId());
+			session.setAttribute("firstName", responseAccount.getFirstName());
+			session.setAttribute("lastName", responseAccount.getLastName()); 
+			session.setAttribute("account", responseAccount);
 			
 		} catch (UserAlreadyExistsException exception) {
 			request.setAttribute("userExistsError", "This user already exists.");
 			request.getRequestDispatcher("/create.jsp").forward(request,  response);
 		} catch (UserDoesNotExistException exception) {
 			request.setAttribute("loginErrorMessage", "Account created, but an issue occured on login. Try logging in or contact us about the issue.");
+			request.getRequestDispatcher("/login.jsp").forward(request,  response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
