@@ -2,6 +2,7 @@ package club.seedymusic.controller;
 
 import club.seedymusic.webservice.*;
 import club.seedymusic.jpa.bean.*;
+import club.seedymusic.wrapper.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -197,13 +198,15 @@ public class OrderController extends HttpServlet {
     			//prepare data
     			
     			//create wrapper class instance 
-    			
+    			CreateOrderWrapper createOrderWrapper= new CreateOrderWrapper();
+    			createOrderWrapper.setShoppingCartInfo(shoppingCart);
+    			createOrderWrapper.setShippingInfo(acc);
     			
     			
     			ObjectMapper objectMapper= new ObjectMapper();
     			
     			//map wrapper class to a JSON string
-    			String cart= objectMapper.writeValueAsString(shoppingCart);
+    			String createOrderWrapperJSON= objectMapper.writeValueAsString(createOrderWrapper);
     			 
     			HttpsURLConnection con= (HttpsURLConnection)url.openConnection();
     			con.setDoOutput(true);
@@ -214,7 +217,7 @@ public class OrderController extends HttpServlet {
     			
     			OutputStreamWriter wr= new OutputStreamWriter(con.getOutputStream());
     			//write the wrapper JSON string
-    			wr.write(cart);
+    			wr.write(createOrderWrapperJSON);
     			wr.flush();
     			
     			//int HttpsResult = con.getResponseCode(); 
@@ -283,9 +286,7 @@ public class OrderController extends HttpServlet {
 	}
 	
 	public boolean confirmOrder(String baseUrl, Order order, Account acc, String cc)
-	{
-	  
-	       
+	{	  	       
 	      URL url;
 	      boolean orderCorrect=false;
 			try {
@@ -298,12 +299,15 @@ public class OrderController extends HttpServlet {
   			//prepare data
   			
   			//create wrapper class instance 
-  		
+  		     ConfirmOrderWrapper confirmOrderWrapper= new ConfirmOrderWrapper(); 
+  		   confirmOrderWrapper.setPaymentInfo(cc);
+  		   confirmOrderWrapper.setPurchaseOrder(order);
+  		   confirmOrderWrapper.setShippingInfo(acc);
   			
   			ObjectMapper objectMapper= new ObjectMapper();
   			
   			//map wrapper class to a JSON string
-  			String orderJSON= objectMapper.writeValueAsString(order);
+  			String confirmOrderWrapperJSON= objectMapper.writeValueAsString(confirmOrderWrapper);
   			 
   			HttpsURLConnection con= (HttpsURLConnection)url.openConnection();
   			con.setDoOutput(true);
@@ -314,7 +318,7 @@ public class OrderController extends HttpServlet {
   			
   			OutputStreamWriter wr= new OutputStreamWriter(con.getOutputStream());
   			//write the wrapper JSON string
-  			wr.write(orderJSON);
+  			wr.write(confirmOrderWrapperJSON);
   			wr.flush();
   			
   			//int HttpsResult = con.getResponseCode(); 

@@ -18,6 +18,7 @@ import club.seedymusic.jpa.bean.Order;
 import club.seedymusic.jpa.bean.OrderItem;
 import club.seedymusic.jpa.dao.AccountDAO;
 import club.seedymusic.jpa.dao.OrderDAO;
+import club.seedymusic.wrapper.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -148,31 +149,20 @@ public class OrderWS {
 	 */
 	@POST
 	@Path("createOrder")
-	public Order createOrder(String msg) {
-
-//	public Order createOrder(ShoppingCart shoppingCartInfo, Account shippingInfo) {
+	public Order createOrder(String wrapper) {
 		
-		//temp code
-		ObjectMapper objectMapper=  new ObjectMapper();
-		ShoppingCart shoppingCartInfo=null;
-		Account shippingInfo= new Account();// just to get rid of errors remove when wrapper class is created.
-	
-		 Object shoppingCart;
+		ObjectMapper objectMapper=  new ObjectMapper();	
+		 CreateOrderWrapper createOrderWrapper= null;
 		try {
-			shoppingCart = objectMapper.readValue(msg, ShoppingCart.class);
-			 shoppingCartInfo= (ShoppingCart)shoppingCart;
+			createOrderWrapper = (CreateOrderWrapper)objectMapper.readValue(wrapper, CreateOrderWrapper.class);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		 
-		
-		
-		// end of temp code
-		
+		}		
+		if(createOrderWrapper!=null)
+		{
 		OrderDAO orderDAO = new OrderDAO();
-		ArrayList<Cd> shoppingCartCds = shoppingCartInfo.getCartItems();
+		ArrayList<Cd> shoppingCartCds = createOrderWrapper.getShoppingCartInfo().getCartItems();
 		Set<OrderItem> orderItems = new HashSet<OrderItem>();
 		for (Cd currentCd: shoppingCartCds) {
 			OrderItem currentOrder = new OrderItem();
@@ -181,7 +171,7 @@ public class OrderWS {
 		}
 		
 		Order order = new Order();
-		order.setAccountId(shippingInfo.getId());
+		order.setAccountId(createOrderWrapper.getShippingInfo().getId());
 		order.setOrderItems(orderItems);
 		boolean successfullOrder = orderDAO.addOrder(order);
 		
@@ -189,13 +179,18 @@ public class OrderWS {
 		Order mostRecentOrder = null;
 		for (Order currentOrder: orderDAO.listOrders()) {
 			// get initial mostRecentOrder
-			if (currentOrder.getAccountId() == shippingInfo.getId() && mostRecentOrder == null) {
+			if (currentOrder.getAccountId() == createOrderWrapper.getShippingInfo().getId() && mostRecentOrder == null) {
 				mostRecentOrder = currentOrder;
-			} else if (currentOrder.getAccountId() == shippingInfo.getId() && (currentOrder.getId() > mostRecentOrder.getId())) {
+			} else if (currentOrder.getAccountId() == createOrderWrapper.getShippingInfo().getId() && (currentOrder.getId() > mostRecentOrder.getId())) {
 				mostRecentOrder = currentOrder;
 			}
 		}
+		
 		return mostRecentOrder;
+		}
+		
+		return null;
+		
 	}
 	
 	/**
@@ -207,15 +202,29 @@ public class OrderWS {
 	 */
 	@POST
 	@Path("confirmOrder")
-	public boolean confirmOrder(Order purchaseOrder, Account shippingInfo, String paymentInfo) {
+	public boolean confirmOrder(String wrapper) {
+		
+		ConfirmOrderWrapper confirmOrderWrapper = null;
+		
 		boolean orderCorrect = false;
-		if (purchaseOrder.getAccountId() == shippingInfo.getId()) {
-			purchaseOrder.setStatus("paid");
+		
+		ObjectMapper objectMapper=  new ObjectMapper();
+		
+		try {
+			confirmOrderWrapper = (ConfirmOrderWrapper)objectMapper.readValue(wrapper, ConfirmOrderWrapper.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		if(confirmOrderWrapper!=null)
+		{
+		if (confirmOrderWrapper.getPurchaseOrder().getAccountId() == confirmOrderWrapper.getShippingInfo().getId()) {
+			confirmOrderWrapper.getPurchaseOrder().setStatus("paid");
 			orderCorrect = true;
 		} else {
-			purchaseOrder.setStatus("credit card declined");
+			confirmOrderWrapper.getPurchaseOrder().setStatus("credit card declined");
 		}
-		
+		}
 		return orderCorrect;
 	}
 }
