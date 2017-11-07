@@ -54,10 +54,13 @@ public class SessionController extends HttpServlet
 	   
 	 		String strAction = request.getParameter("action");
 	 	   
-	 	   
+	 	
 	 		  if(strAction!=null && !strAction.equals("")) {
 	 		   if(strAction.equals("add")) {
 	 		    addToCart(request);
+	 			String requestUrl= request.getHeader("Referer");
+		 		HttpSession session=request.getSession();
+		 		session.setAttribute("returnUrl", requestUrl);
 	 		   }  else if (strAction.equals("delete")) {
 	 		    deleteCart(request);
 	 		   }

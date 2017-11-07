@@ -35,10 +35,6 @@ public class TestServlet extends HttpServlet
    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
    {
-      // Compiler will complain about potential resource leak, but rule of thum
-      // is that if we didn't open the stream, we don't close it. That's the
-      // container's job.
-      @SuppressWarnings("resource")
       PrintWriter out = response.getWriter();
       out.append(
                "<html><head><title>Servlet Success</title></head><body><h1>SERVLET Test Succesful</h1>");

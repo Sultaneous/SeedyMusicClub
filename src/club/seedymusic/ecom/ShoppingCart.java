@@ -14,9 +14,11 @@ import java.util.List;
 public class ShoppingCart
 {
    
-   private ArrayList<Cd> allCartItems = new ArrayList<Cd>();
+   private ArrayList<Cd> cartItems = new ArrayList<Cd>();
    
-   private double dblOrderTotal ;
+   private double orderTotal ;
+   
+   private int lineItemCount;
     
    
    /***
@@ -24,7 +26,9 @@ public class ShoppingCart
     * @return count of cds in the shopping cart
     */
    public int getLineItemCount() {
-    return allCartItems.size();
+   
+	   lineItemCount= cartItems.size();
+	   return lineItemCount;
    }
    
   
@@ -38,24 +42,24 @@ public class ShoppingCart
 public void addCartItem(Cd cartItem) {
 	   
 	   //check if this item already exists
-	   if(allCartItems.size()==0)
+	   if(cartItems.size()==0)
 	   {
-		   allCartItems.add(cartItem);
+		   cartItems.add(cartItem);
 		    calculateOrderTotal();
 	   }
 	   else
 	   {
 		   boolean exists=false;
-	   for(int i=0; i<allCartItems.size();i++)
+	   for(int i=0; i<cartItems.size();i++)
 	   {
-		   if(allCartItems.get(i).getId()==cartItem.getId())
+		   if(cartItems.get(i).getId()==cartItem.getId())
 			   {
 			     exists=true;
 			   }
 	   }
 	     if(!exists)
 	     {
-	    	 allCartItems.add(cartItem);
+	    	 cartItems.add(cartItem);
 			    calculateOrderTotal();
 	     }
 	   }
@@ -69,8 +73,8 @@ public void addCartItem(Cd cartItem) {
     */
    public Cd getCartItem(int iItemIndex) {
     Cd cartItem = null;
-    if(allCartItems.size()>iItemIndex) {
-     cartItem = (Cd) allCartItems.get(iItemIndex);
+    if(cartItems.size()>iItemIndex) {
+     cartItem = (Cd) cartItems.get(iItemIndex);
     }
     return cartItem;
    }
@@ -81,7 +85,7 @@ public void addCartItem(Cd cartItem) {
     */
 public ArrayList<Cd> getCartItems() {
 	   
-    return allCartItems;
+    return cartItems;
    }
    
    /**
@@ -90,7 +94,7 @@ public ArrayList<Cd> getCartItems() {
     * @param CartItems this is a shopping cart that might have been retrieved from a session.
     */
    public void setCartItems(ArrayList<Cd> CartItems) {
-   this.allCartItems = CartItems;
+   this.cartItems = CartItems;
    }
    
    /**
@@ -98,7 +102,7 @@ public ArrayList<Cd> getCartItems() {
     * @return the total cost of the shopping Cart
     */
    public double getOrderTotal() {
-    return dblOrderTotal;
+    return orderTotal;
    }
    
    /**
@@ -107,7 +111,7 @@ public ArrayList<Cd> getCartItems() {
     * @param dblOrderTotal sets the cost of the total order
     */
    public void setOrderTotal(double dblOrderTotal) {
-    this.dblOrderTotal = dblOrderTotal;
+    this.orderTotal = dblOrderTotal;
    }
     
    /**
@@ -115,8 +119,8 @@ public ArrayList<Cd> getCartItems() {
     */
    protected void calculateOrderTotal() {
     double dblTotal = 0;
-    for(int counter=0;counter<allCartItems.size();counter++) {
-    	 Cd cd= allCartItems.get(counter);
+    for(int counter=0;counter<cartItems.size();counter++) {
+    	 Cd cd= cartItems.get(counter);
      dblTotal+=cd.getPrice();
       
     }
@@ -133,7 +137,7 @@ public ArrayList<Cd> getCartItems() {
 	   int iItemIndex = 0;
 	   try {
 	    iItemIndex = Integer.parseInt(strItemIndex);
-	    allCartItems.remove(iItemIndex);
+	    cartItems.remove(iItemIndex);
 	    calculateOrderTotal();
 	   } catch(NumberFormatException nfe) {
 	    System.out.println("Error while deleting cart item: "+nfe.getMessage());

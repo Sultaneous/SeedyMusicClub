@@ -1,7 +1,12 @@
 package club.seedymusic.webservice;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import club.seedymusic.ecom.ShoppingCart;
 import club.seedymusic.exceptions.FailedLoginException;
@@ -14,6 +19,7 @@ import club.seedymusic.jpa.bean.OrderItem;
 import club.seedymusic.jpa.dao.AccountDAO;
 import club.seedymusic.jpa.dao.OrderDAO;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +39,7 @@ public class OrderWS {
 	 * @throws UserAlreadyExistsException Thrown exception caught by a controller servlet and used to inform the user 
 	 * that the user already exists in the DB 
 	 */
-	@GET
+	@POST
 	@Path("createAccount")
 	public String createAccount(String accountName, Account accountInfo) throws UserAlreadyExistsException {
 		accountDAO = new AccountDAO();
@@ -56,7 +62,7 @@ public class OrderWS {
 	 * @throws FailedLoginException Throws an exception  caught by a controller servlet and used to inform the
 	 * user that the login details were wrong
 	 */
-	@GET
+	@POST
 	@Path("getAccount")
 	public Account getAccount(String accountName, String accountPassword, Account accountInfo) throws UserDoesNotExistException, FailedLoginException {
 		accountDAO = new AccountDAO();
@@ -80,7 +86,7 @@ public class OrderWS {
 	 * @param accountPassword Password of the user to login as.
 	 * @return True if user has the correct login details, false if the user entered invalid information.
 	 */
-	@GET
+	@POST
 	@Path("verifyCredentials")
 	public boolean verifyCredentials(String accountName, String accountPassword) {
 		accountDAO = new AccountDAO();
@@ -100,10 +106,11 @@ public class OrderWS {
 	 * @throws UserDoesNotExistException Notify the user that the user being checked for details does not exist.
 	 */
 	@GET
-	@Path("getAccountDetails")
-	public Account getAccountDetails(int userId) throws UserDoesNotExistException{
+	@Path("getAccountDetailsById")
+	public Account getAccountDetailsById(@QueryParam("userId") String userId) throws UserDoesNotExistException {
 		accountDAO = new AccountDAO();
-		Account accountInfo = accountDAO.getAccount(userId);
+		int userIdInt = Integer.parseInt(userId);
+		Account accountInfo = accountDAO.getAccount(userIdInt);
 		if (accountInfo != null) {
 			// don't send the password for security reasons
 			accountInfo.setPassword(null);
@@ -121,7 +128,7 @@ public class OrderWS {
 	 */
 	@GET
 	@Path("getAccountDetails")
-	public Account getAccountDetails(String userName) throws UserDoesNotExistException{
+	public Account getAccountDetails(@QueryParam("userName") String userName) throws UserDoesNotExistException{
 		accountDAO = new AccountDAO();
 		Account accountInfo = accountDAO.getAccount(userName);
 		if (accountInfo != null) {
@@ -139,10 +146,32 @@ public class OrderWS {
 	 * @param shippingInfo shipping information of the user. Retrievable as long as we keep the userId of the user to ship to.
 	 * @return Order object to be persisted, or null if the order fails to be created.
 	 */
-	@GET
+	@POST
 	@Path("createOrder")
-	public Order createOrder(ShoppingCart shoppingCartInfo, Account shippingInfo) {
-		orderDAO = new OrderDAO();
+	public Order createOrder(String msg) {
+
+//	public Order createOrder(ShoppingCart shoppingCartInfo, Account shippingInfo) {
+		
+		//temp code
+		ObjectMapper objectMapper=  new ObjectMapper();
+		ShoppingCart shoppingCartInfo=null;
+		Account shippingInfo= new Account();// just to get rid of errors remove when wrapper class is created.
+	
+		 Object shoppingCart;
+		try {
+			shoppingCart = objectMapper.readValue(msg, ShoppingCart.class);
+			 shoppingCartInfo= (ShoppingCart)shoppingCart;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		 
+		
+		
+		// end of temp code
+		
+		OrderDAO orderDAO = new OrderDAO();
 		ArrayList<Cd> shoppingCartCds = shoppingCartInfo.getCartItems();
 		Set<OrderItem> orderItems = new HashSet<OrderItem>();
 		for (Cd currentCd: shoppingCartCds) {
@@ -176,7 +205,7 @@ public class OrderWS {
 	 * @param paymentInfo Credit card number, though it is not used for now.
 	 * @return True if the order is succesfully made, false if it isn't.
 	 */
-	@GET
+	@POST
 	@Path("confirmOrder")
 	public boolean confirmOrder(Order purchaseOrder, Account shippingInfo, String paymentInfo) {
 		boolean orderCorrect = false;

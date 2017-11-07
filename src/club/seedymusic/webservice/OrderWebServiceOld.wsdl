@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:OrderWebService="http://www.seedymusic.club/OrderWebService/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="OrderWebService" targetNamespace="http://www.seedymusic.club/OrderWebService/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.seedymusic.club/OrderWebService/">
+      <xsd:element name="createAccount">
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element name="accountName" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          	<xsd:element name="accountInfo" type="OrderWebService:Account" minOccurs="1" maxOccurs="1"></xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createAccountResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="accountDetails" type="OrderWebService:Account" minOccurs="1" maxOccurs="1"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    
+      <xsd:complexType name="Account">
+      	<xsd:sequence>
+      		<xsd:element name="username" type="xsd:string"></xsd:element>
+      		<xsd:element name="password" type="xsd:string"></xsd:element>
+      		<xsd:element name="firstName" type="xsd:string"></xsd:element>
+      		<xsd:element name="lastName" type="xsd:string"></xsd:element>
+      		<xsd:element name="street" type="xsd:string"></xsd:element>
+      		<xsd:element name="city" type="xsd:string"></xsd:element>
+      		<xsd:element name="province" type="xsd:string"></xsd:element>
+      		<xsd:element name="country" type="xsd:string"></xsd:element>
+      		<xsd:element name="postalCode" type="xsd:string"></xsd:element>
+      		<xsd:element name="phone" type="xsd:string"></xsd:element>
+      		<xsd:element name="email" type="xsd:string"></xsd:element>
+      		<xsd:element name="date" type="xsd:dateTime"></xsd:element>
+      	</xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getAccount">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="accountName" type="xsd:string"></xsd:element>
+      			<xsd:element name="accountPassword"
+      				type="xsd:string">
+      			</xsd:element>
+      			<xsd:element name="accountInfo" type="OrderWebService:Account"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getAccountResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="out" type="OrderWebService:Account" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="createAccountRequest">
+    <wsdl:part element="OrderWebService:createAccount" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="createAccountResponse">
+    <wsdl:part element="OrderWebService:createAccountResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getAccountRequest">
+  	<wsdl:part name="parameters" element="OrderWebService:getAccount"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAccountResponse">
+  	<wsdl:part name="parameters" element="OrderWebService:getAccountResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="OrderWebService">
+    <wsdl:operation name="createAccount">
+      <wsdl:input message="OrderWebService:createAccountRequest"/>
+      <wsdl:output message="OrderWebService:createAccountResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getAccount">
+    	<wsdl:input message="OrderWebService:getAccountRequest"></wsdl:input>
+    	<wsdl:output message="OrderWebService:getAccountResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OrderWebServiceSOAP" type="OrderWebService:OrderWebService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="createAccount">
+      <soap:operation soapAction="http://www.seedymusic.club/OrderWebService/createAccount"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OrderWebService">
+    <wsdl:port binding="OrderWebService:OrderWebServiceSOAP" name="OrderWebServiceSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -26,7 +26,7 @@
 
          <form
             action="${pageContext.request.contextPath}/account/AccountLoginControllerServlet"
-            method="get">
+            method="post">
 
             <div class="form-group row">
                <label for="username"

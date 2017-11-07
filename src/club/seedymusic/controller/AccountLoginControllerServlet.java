@@ -28,6 +28,7 @@ public class AccountLoginControllerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		/*
 		orderWebService = new OrderWS();
 		
 		String userToVerify = request.getParameter("username");
@@ -50,7 +51,7 @@ public class AccountLoginControllerServlet extends HttpServlet {
 		} else {
 			request.setAttribute("loginErrorMessage", "Login failed. Username/Password mismatch.");
 			request.getRequestDispatcher("/login.jsp").forward(request,  response);
-		}
+		}  */
 	}
 	
 	/**

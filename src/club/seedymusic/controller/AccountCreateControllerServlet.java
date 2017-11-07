@@ -38,9 +38,9 @@ public class AccountCreateControllerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request,
+	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		orderWebService = new OrderWS();
+	/*	orderWebService = new OrderWS();
 		
 		if (!validateInput(request, response)) {
 			request.getRequestDispatcher("/create.jsp").forward(request, response);
@@ -76,7 +76,7 @@ public class AccountCreateControllerServlet extends HttpServlet {
 		} catch (UserDoesNotExistException exception) {
 			request.setAttribute("loginErrorMessage", "Account created, but an issue occured on login. Try logging in or contact us about the issue.");
 		}
-
+*/
 		// check on how to send data back to server
 		response.sendRedirect(request.getHeader("referer"));
 	}
@@ -85,9 +85,9 @@ public class AccountCreateControllerServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		doPost(request, response);
 	}
 
 	/**
