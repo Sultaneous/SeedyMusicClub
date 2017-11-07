@@ -170,7 +170,7 @@ if (action != null)
 </div>
 
 <c:choose>
-<c:when test="${empty account}">
+<c:when test="${empty accounts}">
 <h5>Did not receive valid response. An error may have occurred or input was invalid.</h5>
 </c:when>
 
@@ -309,7 +309,7 @@ No operation performed, no data returned, or session timed out.
                   class="col-sm-2 col-form-label col-form-label-lg">Username</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg" 
-                     id="account.username" placeholder="your username">
+                     name="account.username" id="account.username" placeholder="your username">
                </div>
             </div>
 
@@ -318,7 +318,7 @@ No operation performed, no data returned, or session timed out.
                   class="col-sm-2 col-form-label col-form-label-lg">Password</label>
                <div class="col-sm-10">
                   <input type="password" class="form-control form-control-lg"
-                     id="account.password" placeholder="your password">
+                     name="account.password" id="account.password" placeholder="your password">
                </div>
             </div>
 
@@ -328,7 +328,7 @@ No operation performed, no data returned, or session timed out.
                   class="col-sm-2 col-form-label col-form-label-lg">First Name</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="account.firstName" placeholder="your first name">
+                     name="account.firstName" id="account.firstName" placeholder="your first name">
                </div>
             </div>
 
@@ -337,7 +337,7 @@ No operation performed, no data returned, or session timed out.
                   class="col-sm-2 col-form-label col-form-label-lg">Last Name</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="account.lastName" placeholder="your last name">
+                     name="account.lastName" id="account.lastName" placeholder="your last name">
                </div>
             </div>
 
@@ -346,7 +346,7 @@ No operation performed, no data returned, or session timed out.
                   class="col-sm-2 col-form-label col-form-label-lg">Street</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="account.street" placeholder="unit &amp; street">
+                     name="account.street" id="account.street" placeholder="unit &amp; street">
                </div>
             </div>
 
@@ -355,7 +355,7 @@ No operation performed, no data returned, or session timed out.
                   class="col-sm-2 col-form-label col-form-label-lg">Province</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="account.province" placeholder="your province or state">
+                     name="account.province" id="account.province" placeholder="your province or state">
                </div>
             </div>
 
@@ -364,7 +364,7 @@ No operation performed, no data returned, or session timed out.
                   class="col-sm-2 col-form-label col-form-label-lg">Country</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="account.country" placeholder="your country">
+                     name=""account.country id="account.country" placeholder="your country">
                </div>
             </div>
 
@@ -373,7 +373,7 @@ No operation performed, no data returned, or session timed out.
                   class="col-sm-2 col-form-label col-form-label-lg">Postal</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="account.postalCode" placeholder="your postal or zip code">
+                     name="account.postalCode" id="account.postalCode" placeholder="your postal or zip code">
                </div>
             </div>
 
@@ -382,8 +382,7 @@ No operation performed, no data returned, or session timed out.
                   class="col-sm-2 col-form-label col-form-label-lg">Phone</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="account.phone" placeholder="your phone number">
-               <span style="color: #FF0000;">${phoneError}</span>
+                     name=""account.phone"" id="account.phone" placeholder="your phone number">
                </div>
             </div>
 
@@ -392,8 +391,7 @@ No operation performed, no data returned, or session timed out.
                   class="col-sm-2 col-form-label col-form-label-lg">Email</label>
                <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg"
-                     id="account.email" placeholder="your email address">
-               <span style="color: #FF0000;">${emailError}</span>
+                     name="account.email" id="account.email" placeholder="your email address">
                </div>
             </div>
 
