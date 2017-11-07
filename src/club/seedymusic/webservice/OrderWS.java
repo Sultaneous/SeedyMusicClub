@@ -96,7 +96,7 @@ public class OrderWS {
 	 */
 	@POST
 	@Path("verifyCredentials")
-	public boolean verifyCredentials(String accountName, String accountPassword) {
+	public Boolean verifyCredentials(String accountName, String accountPassword) {
 		accountDAO = new AccountDAO();
 		boolean accountLoginValid = false;
 		Account accountToCheck = accountDAO.getAccount(accountName);

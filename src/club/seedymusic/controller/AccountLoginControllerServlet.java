@@ -1,6 +1,10 @@
 package club.seedymusic.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.security.cert.CertificateException;
@@ -13,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -20,9 +26,11 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import club.seedymusic.exceptions.UserAlreadyExistsException;
 import club.seedymusic.exceptions.UserDoesNotExistException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.webservice.OrderWS;
+import club.seedymusic.wrapper.LoginWrapper;
 
 @WebServlet("/account/AccountLoginControllerServlet")
 public class AccountLoginControllerServlet extends HttpServlet {
@@ -46,16 +54,75 @@ public class AccountLoginControllerServlet extends HttpServlet {
 		try {
 			doTrustToCertificates();
 			String baseUrl = getBaseURL(request);
-			if (orderWebService.verifyCredentials(userToVerify, userPassword)) {
+			URL serviceUrl = new URL(baseUrl + "rest/order/verifyCredentials/");
+			
+			// wrap data to send to webservice
+			LoginWrapper loginWrapper = new LoginWrapper();
+			loginWrapper.setAccountName(userToVerify);
+			loginWrapper.setAccountPassword(userPassword);
+			
+			// map object into a JSON string
+			ObjectMapper objectMapper = new ObjectMapper();
+			String createAccountString = objectMapper.writeValueAsString(loginWrapper);
+			
+			// prepare connection to the URL mapping of the service method
+			HttpsURLConnection con = (HttpsURLConnection)serviceUrl.openConnection();
+			con.setDoOutput(true);
+			con.setDoInput(true);
+			con.setRequestProperty("Content-Type", "application/json");
+			con.setRequestProperty("Accept", "application/json");
+			con.setRequestMethod("POST");
+			
+			// send object as JSON string across connection to the service method
+	        OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+			wr.write(createAccountString);
+			wr.flush();
+			
+			// take the response JSON string and re-map to an expected return object type (String in this case)
+			BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			String result="";
+			String input="";
+						
+			while((input = reader.readLine())!= null)
+			{
+				result += input;
+			}
+			
+			// process any errors
+			Boolean loginValid = objectMapper.readValue(result, Boolean.class);
+			
+			if (loginValid) {
 				try {
-					Account accountDetails = new Account();
-					accountDetails = orderWebService.getAccountDetails(userToVerify);
+					// fetch account details now as hibernate will have automatically assigned a new ID for the user
+					
+					// setup URL which will do a GET against an account username
+					serviceUrl = new URL(baseUrl + "rest/order/getAccountDetails?userName=" + userToVerify);
+					
+					// setup new connection
+					con = (HttpsURLConnection)serviceUrl.openConnection();
+			        
+					// prepare to read the response
+					reader= new BufferedReader(new InputStreamReader(con.getInputStream()));
+					result="";
+					input="";
+					
+					while((input =reader.readLine())!=null)
+			        {
+			        	result += input;
+			        }
+					
+					Account responseAccount = objectMapper.readValue(result, Account.class);
+					
+					if (responseAccount == null) {
+						throw new UserDoesNotExistException();
+					}
+					
 					HttpSession session = request.getSession(true);
 					// store the userId, the first and last name of the user are also stored for ease of access
-					session.setAttribute("userId", accountDetails.getId()); 
-					session.setAttribute("firstName", accountDetails.getFirstName());
-					session.setAttribute("lastName", accountDetails.getLastName()); 
-					session.setAttribute("account", accountDetails);
+					session.setAttribute("userId", responseAccount.getId()); 
+					session.setAttribute("firstName", responseAccount.getFirstName());
+					session.setAttribute("lastName", responseAccount.getLastName()); 
+					session.setAttribute("account", responseAccount);
 					response.sendRedirect(request.getHeader("referer"));
 				} catch (UserDoesNotExistException exception) {
 					request.setAttribute("loginErrorMessage", "User does not exist.");
