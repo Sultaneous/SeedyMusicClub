@@ -9,7 +9,11 @@
 <title>Order Status JSP</title>
 </head>
 <body>
-<h1>Order Status JSP</h1>
+<jsp:include page="assets/fragments/libs.jsp"/>
+<jsp:include page="assets/fragments/navbar.jsp"/>
+<br/><br/>
+
+<h1>Order Status</h1>
 <p>
 
 <table>

@@ -6,7 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Failed to login</title>
 </head>
-<body>
+<body> 
+<jsp:include page="assets/fragments/libs.jsp"/>
+<jsp:include page="assets/fragments/navbar.jsp"/>
+<br/><br/>
+
 <div>Invalid login information...</div>
 </body>
 </html>

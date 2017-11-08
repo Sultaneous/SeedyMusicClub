@@ -10,23 +10,13 @@
 <title>Shopping Cart</title>
 
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 </head>
 
-
-
 <body>
+<jsp:include page="assets/fragments/libs.jsp"/>
+<jsp:include page="assets/fragments/navbar.jsp"/>
+<br/><br/>
+
 	<h1>Shopping Cart</h1>
 	<p>
 	<div>

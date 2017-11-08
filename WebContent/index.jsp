@@ -1,36 +1,19 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Marketplace
-Explore
- @Sultaneous
- Sign out
- Unwatch 4
-  Star 0  Fork 0 Sultaneous/SeedyMusicClub
- Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights  Settings
-Branch: Sultaneous-cle… Find file Copy pathSeedyMusicClub/WebContent/index.jsp
-e22aa53  4 days ago
-@Sultaneous Sultaneous Added login/logout toggle on splash screen.
-1 contributor
-RawBlameHistory     
-159 lines (138 sloc)  4.78 KB
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
    pageEncoding="ISO-8859-1"%>
+
+<!-- JSTL -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Seedy Music Club</title>
-
-<link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-   integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
-   crossorigin="anonymous">
-<link rel="stylesheet" href="assets/css/splash.css">
 </head>
 <body>
+
+<jsp:include page="assets/fragments/libs.jsp"/>
+<jsp:include page="assets/fragments/navbar.jsp"/>
 
 <%
    boolean isLoggedIn;

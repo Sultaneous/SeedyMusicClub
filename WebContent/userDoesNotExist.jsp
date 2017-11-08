@@ -7,6 +7,10 @@
 <title>User does not exist</title>
 </head>
 <body>
-<div>The user you are looking for does not exist...</div>
+<jsp:include page="assets/fragments/libs.jsp"/>
+<jsp:include page="assets/fragments/navbar.jsp"/>
+<br/><br/>
+
+<div><p>The user you are looking for does not exist...</div>
 </body>
 </html>

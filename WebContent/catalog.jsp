@@ -8,19 +8,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Seedy Music Club -Browse Cds</title>
 
-<!-- Latest compiled and minified CSS -->
+<!-- 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<!-- jQuery library -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	-->
 </head>
 <body>
+<jsp:include page="assets/fragments/libs.jsp"/>
+<jsp:include page="assets/fragments/navbar.jsp"/>
 
 	<script>
 		function change(sourceUrl) {
@@ -45,12 +46,12 @@
 
 		<div class="row">
 		
-		<div class="col-xs-12 col-md-3">
+		<div class="col-12 col-lg-3">
 		<div class="row">
-			<div class="panel panel-primary center-block text-center">
+         <div class="card text-white bg-primary mx-auto text-center">
 
-				<div class="panel-heading">Search for Cds</div>
-				<div class="panel-body">
+				<div class="card-header">Search for Cds</div>
+				<div class="card-body">
 					<form action="${pageContext.request.contextPath}/browse">
 						<table>
 							<tr>
@@ -98,7 +99,7 @@
 		
 		</div>
 		
-			<div class="col-xs-12 col-md-9">
+			<div class="col-12 col-lg-9">
 
 			<c:set var="counter" scope="session" value="${0}" />
 
@@ -110,15 +111,15 @@
 				<c:set var="counter" scope="session" value="${counter=counter+1}" />
 
 
-				<div class="col-xs-12 col-md-4">
-					<div class="panel panel-info">
+				<div class="col-12 col-lg-4">
+					<div class="card text-white bg-info">
 
-						<div class="panel-heading">
+						<div class="card-header">
 							<label>${cd.title}</label>
 						</div>
 
-						<div class="panel-body">
-							<td><img class="img-responsive"
+						<div class="card-body">
+							<td><img class="img-fluid"
 								src="${pageContext.request.contextPath}/assets/covers/${cd.cover}" />
 							</td>
 							<div class="table-responsive">
@@ -172,7 +173,7 @@
 
 
 	<div class="row">
-		<div class="center-block text-center">
+		<div class="mx-auto text-center">
 			<ul class="pagination">
 				<c:forEach items="${paginationItems}" var="item">
 
