@@ -27,7 +27,7 @@
 
   <meta name="viewport" content="width=device-width">
   
-  <title>SeedyMusicClub/icon_login.png at Sultaneous-cleanup · Sultaneous/SeedyMusicClub</title>
+  <title>SeedyMusicClub/LoginFilter.java at Sultaneous-cleanup · Sultaneous/SeedyMusicClub</title>
   <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
   <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
   <meta property="fb:app_id" content="1401488693436528">
@@ -36,10 +36,10 @@
     <meta content="https://avatars3.githubusercontent.com/u/6903865?s=400&amp;v=4" property="og:image" /><meta content="GitHub" property="og:site_name" /><meta content="object" property="og:type" /><meta content="Sultaneous/SeedyMusicClub" property="og:title" /><meta content="https://github.com/Sultaneous/SeedyMusicClub" property="og:url" /><meta content="SeedyMusicClub - Team project repository for CSI5380 Fall 2017." property="og:description" />
 
   <link rel="assets" href="https://assets-cdn.github.com/">
-  <link rel="web-socket" href="wss://live.github.com/_sockets/VjI6MjEwNzkyMzM1OjViYzMwZWFiMGFmMDE0ZjIyNTRkZjIxZWUxZWQwMWEyYjliMGZkMzZjOTMwODhmMTUzNjdhNDk1MDcwMzcxNTg=--1ce76652c15f69f5daf0c8c7f34528bb2d688fda">
+  <link rel="web-socket" href="wss://live.github.com/_sockets/VjI6MjEwNzkyMzM1Ojc5MTRmODExOGE4NzE4OGM3OWVkZmQyNGMyNmU1MmZjNzE3ZTM1M2I5YjBlODBjNDI5MTdmOTBkNTE2MDlmN2Q=--5f8568da310ab26811bee88e33998e83ef5be5a8">
   <meta name="pjax-timeout" content="1000">
   <link rel="sudo-modal" href="/sessions/sudo_modal">
-  <meta name="request-id" content="DB4A:0529:26547:426DB:5A0356E5" data-pjax-transient>
+  <meta name="request-id" content="DB80:052A:2C5FC:4CF7E:5A0357DD" data-pjax-transient>
   
 
   <meta name="selected-link" value="repo_source" data-pjax-transient>
@@ -48,7 +48,7 @@
 <meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
     <meta name="google-analytics" content="UA-3769691-2">
 
-<meta content="collector.githubapp.com" name="octolytics-host" /><meta content="github" name="octolytics-app-id" /><meta content="https://collector.githubapp.com/github-external/browser_event" name="octolytics-event-url" /><meta content="DB4A:0529:26547:426DB:5A0356E5" name="octolytics-dimension-request_id" /><meta content="iad" name="octolytics-dimension-region_edge" /><meta content="iad" name="octolytics-dimension-region_render" /><meta content="6903865" name="octolytics-actor-id" /><meta content="Sultaneous" name="octolytics-actor-login" /><meta content="7ea2c1db7f74a6e06a8b0330fc213746431f3d4ec8386145b4904eb9f0991f48" name="octolytics-actor-hash" />
+<meta content="collector.githubapp.com" name="octolytics-host" /><meta content="github" name="octolytics-app-id" /><meta content="https://collector.githubapp.com/github-external/browser_event" name="octolytics-event-url" /><meta content="DB80:052A:2C5FC:4CF7E:5A0357DD" name="octolytics-dimension-request_id" /><meta content="iad" name="octolytics-dimension-region_edge" /><meta content="iad" name="octolytics-dimension-region_render" /><meta content="6903865" name="octolytics-actor-id" /><meta content="Sultaneous" name="octolytics-actor-login" /><meta content="7ea2c1db7f74a6e06a8b0330fc213746431f3d4ec8386145b4904eb9f0991f48" name="octolytics-actor-hash" />
 <meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show" data-pjax-transient="true" name="analytics-location" />
 
 
@@ -63,7 +63,7 @@
   <meta name="user-login" content="Sultaneous">
 
       <meta name="expected-hostname" content="github.com">
-    <meta name="js-proxy-site-detection-payload" content="Yjc1YmRkNmVkMTg2NDBhM2UxOTllOWM5NjliNGE3YzkwNzExOGZlY2ViYzEzMWRmNzhlNTQ2MDIxOWIxMGZjNXx7InJlbW90ZV9hZGRyZXNzIjoiMTQyLjAuMTQ0LjExNCIsInJlcXVlc3RfaWQiOiJEQjRBOjA1Mjk6MjY1NDc6NDI2REI6NUEwMzU2RTUiLCJ0aW1lc3RhbXAiOjE1MTAxNjgyOTQsImhvc3QiOiJnaXRodWIuY29tIn0=">
+    <meta name="js-proxy-site-detection-payload" content="ZTEwY2Y4YmQyODRhMWQ5MzBiYzkwYjZhMTliZWQ4ZmRmZDk1ZTEzOGZmNTM2MDBlYzI3MGRkMjMwNTRjOGMzM3x7InJlbW90ZV9hZGRyZXNzIjoiMTQyLjAuMTQ0LjExNCIsInJlcXVlc3RfaWQiOiJEQjgwOjA1MkE6MkM1RkM6NENGN0U6NUEwMzU3REQiLCJ0aW1lc3RhbXAiOjE1MTAxNjg1NDEsImhvc3QiOiJnaXRodWIuY29tIn0=">
 
     <meta name="enabled-features" content="UNIVERSE_BANNER,FREE_TRIALS">
 
@@ -80,7 +80,7 @@
   <meta content="6903865" name="octolytics-dimension-user_id" /><meta content="Sultaneous" name="octolytics-dimension-user_login" /><meta content="106057203" name="octolytics-dimension-repository_id" /><meta content="Sultaneous/SeedyMusicClub" name="octolytics-dimension-repository_nwo" /><meta content="true" name="octolytics-dimension-repository_public" /><meta content="false" name="octolytics-dimension-repository_is_fork" /><meta content="106057203" name="octolytics-dimension-repository_network_root_id" /><meta content="Sultaneous/SeedyMusicClub" name="octolytics-dimension-repository_network_root_nwo" /><meta content="true" name="octolytics-dimension-repository_explore_github_marketplace_ci_cta_shown" />
 
 
-    <link rel="canonical" href="https://github.com/Sultaneous/SeedyMusicClub/blob/Sultaneous-cleanup/WebContent/assets/images/icon_login.png" data-pjax-transient>
+    <link rel="canonical" href="https://github.com/Sultaneous/SeedyMusicClub/blob/Sultaneous-cleanup/src/club/seedymusic/filter/LoginFilter.java" data-pjax-transient>
 
 
   <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
@@ -127,7 +127,7 @@
               <div class="header-search scoped-search site-scoped-search js-site-search" role="search">
   <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Sultaneous/SeedyMusicClub/search" class="js-site-search-form" data-scoped-search-url="/Sultaneous/SeedyMusicClub/search" data-unscoped-search-url="/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
     <label class="form-control header-search-wrapper js-chromeless-input-container">
-        <a href="/Sultaneous/SeedyMusicClub/blob/Sultaneous-cleanup/WebContent/assets/images/icon_login.png" class="header-search-scope no-underline">This repository</a>
+        <a href="/Sultaneous/SeedyMusicClub/blob/Sultaneous-cleanup/src/club/seedymusic/filter/LoginFilter.java" class="header-search-scope no-underline">This repository</a>
       <input type="text"
         class="form-control header-search-input js-site-search-focus js-site-search-field is-clearable"
         data-hotkey="s"
@@ -253,7 +253,7 @@
           Settings
         </a></li>
 
-        <li><!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/logout" class="logout-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="ylLokh6jQYS7HS4dkQwR0whANQyCpCkLxeMkGERcvYRvhhslWGvz0L3VgcFSpOiAyVIN7nEA/IljtP3sSd0mOw==" /></div>
+        <li><!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/logout" class="logout-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="BwyJwzlXJGYQTRD8xzRsHgmKoqMCs8SQjsejIsxTw82i2Hp0f5+WMhaFvyAEnJVNyJiaQfEXERIokHrWwdJYcg==" /></div>
           <button type="submit" class="dropdown-item dropdown-signout" data-ga-click="Header, sign out, icon:logout">
             Sign out
           </button>
@@ -264,7 +264,7 @@
 </ul>
 
 
-        <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/logout" class="sr-only right-0" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="7JmjBHbv6/2YU8AzI+F5J5KgBPtiyb4icIri+nmtLRBJTVCzMCdZqZ6bb+/gSYB0U7I8GZFta6DW3TsOdCy2rw==" /></div>
+        <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/logout" class="sr-only right-0" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="/fklkqsmgljiMsYsYKTVYLvia40Cw7vARepip0GqAuJYLdYl7e4wDOT6afCjDCwzevBTb/FnbkLjvbtTTCuZXQ==" /></div>
           <button type="submit" class="dropdown-item dropdown-signout" data-ga-click="Header, sign out, icon:logout">
             Sign out
           </button>
@@ -299,7 +299,7 @@
 
         <ul class="pagehead-actions">
   <li>
-        <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="q65qCuIMr680uqk0sc/e5ULkWN9Ne5izHyaAUl76wNsIdOuP9gtE1XMfV9VaSH1ftRlhKuHIpk6zB/vpQYAhkQ==" /></div>      <input class="form-control" id="repository_id" name="repository_id" type="hidden" value="106057203" />
+        <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="nVNuCb/cxdZIaIODzjFSmzo7zBTITEC9SyTO7PMavcE+ie+Mq9surA/NfWIltvEhzcb14WT/fkDnBbVX7GBciw==" /></div>      <input class="form-control" id="repository_id" name="repository_id" type="hidden" value="106057203" />
 
         <div class="select-menu js-menu-container js-select-menu">
           <a href="/Sultaneous/SeedyMusicClub/subscription"
@@ -379,7 +379,7 @@
   <li>
     
   <div class="js-toggler-container js-social-container starring-container ">
-    <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Sultaneous/SeedyMusicClub/unstar" class="starred js-social-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="bKbY849X5rIOYUvQ6Jyu2NrSRwADlwn1UHcILXkSBKdIXQiAzHABCr/ud+XxctzEsiYvyq6pRM5LXN4ndIzoiw==" /></div>
+    <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Sultaneous/SeedyMusicClub/unstar" class="starred js-social-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="VRXo6WXfXK73DlHDpPu0BUrI1KvXjbJn13b+hm18B4Bx7jiaJvi7FkaBbfa9FcYZIjy8YXqz/1zMXSiMYOLrrA==" /></div>
       <input type="hidden" name="context" value="repository"></input>
       <button
         type="submit"
@@ -394,7 +394,7 @@
           0
         </a>
 </form>
-    <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Sultaneous/SeedyMusicClub/star" class="unstarred js-social-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="7eIsVXFO6+PS6ecrVGh46ieGVZ5jQwDeREju/Up/6Ljxup51j10NWyecAk4S/WbIABLMgQj0MWLYzL6p1PpJYQ==" /></div>
+    <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Sultaneous/SeedyMusicClub/star" class="unstarred js-social-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="PNXkntWXU6uIWQwM47/SNlAvu4+qjVzANRucMHF6MLcgjVa+K4S1E30s6WmlKswUd7sikME6bXypn8xk7/+Rbg==" /></div>
       <input type="hidden" name="context" value="repository"></input>
       <button
         type="submit"
@@ -413,7 +413,7 @@
   </li>
 
   <li>
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Sultaneous/SeedyMusicClub/fork" class="btn-with-count" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="HKh42O348FfC1UPdmjLlAQvb3u1DrwxbAoQIHDJydOO6mTJ4BMaiSp38ksKiRKZtdzuWTjFM0QvCqJcn+LbnVw==" /></div>
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Sultaneous/SeedyMusicClub/fork" class="btn-with-count" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="thoC8/z2UoBQKbggPa2BJmxU3Lf7fmFK7YXmb8qOwHAQK0hTFcgAnQ8AaT8F28JKELSUFImdvBotqXlUAEpTxA==" /></div>
             <button
                 type="submit"
                 class="btn btn-sm btn-with-count"
@@ -497,9 +497,9 @@
   <div class="repository-content">
 
     
-  <a href="/Sultaneous/SeedyMusicClub/blob/48b396c77e12bd7adb55e49decdbcb4da713156e/WebContent/assets/images/icon_login.png" class="d-none js-permalink-shortcut" data-hotkey="y">Permalink</a>
+  <a href="/Sultaneous/SeedyMusicClub/blob/48b396c77e12bd7adb55e49decdbcb4da713156e/src/club/seedymusic/filter/LoginFilter.java" class="d-none js-permalink-shortcut" data-hotkey="y">Permalink</a>
 
-  <!-- blob contrib key: blob_contributors:v21:174165be785c9ba67ea2c484c5d5e6f5 -->
+  <!-- blob contrib key: blob_contributors:v21:b5ccb2809c9e470e04bf5ca1af1837c0 -->
 
   <div class="file-navigation js-zeroclipboard-container">
     
@@ -541,7 +541,7 @@
 
 
             <a class="select-menu-item js-navigation-item js-navigation-open selected"
-               href="/Sultaneous/SeedyMusicClub/blob/Sultaneous-cleanup/WebContent/assets/images/icon_login.png"
+               href="/Sultaneous/SeedyMusicClub/blob/Sultaneous-cleanup/src/club/seedymusic/filter/LoginFilter.java"
                data-name="Sultaneous-cleanup"
                data-skip-pjax="true"
                rel="nofollow">
@@ -551,7 +551,7 @@
               </span>
             </a>
             <a class="select-menu-item js-navigation-item js-navigation-open "
-               href="/Sultaneous/SeedyMusicClub/blob/ahmadtrab/WebContent/assets/images/icon_login.png"
+               href="/Sultaneous/SeedyMusicClub/blob/ahmadtrab/src/club/seedymusic/filter/LoginFilter.java"
                data-name="ahmadtrab"
                data-skip-pjax="true"
                rel="nofollow">
@@ -561,7 +561,7 @@
               </span>
             </a>
             <a class="select-menu-item js-navigation-item js-navigation-open "
-               href="/Sultaneous/SeedyMusicClub/blob/catalog/WebContent/assets/images/icon_login.png"
+               href="/Sultaneous/SeedyMusicClub/blob/catalog/src/club/seedymusic/filter/LoginFilter.java"
                data-name="catalog"
                data-skip-pjax="true"
                rel="nofollow">
@@ -571,7 +571,7 @@
               </span>
             </a>
             <a class="select-menu-item js-navigation-item js-navigation-open "
-               href="/Sultaneous/SeedyMusicClub/blob/javaDocs/WebContent/assets/images/icon_login.png"
+               href="/Sultaneous/SeedyMusicClub/blob/javaDocs/src/club/seedymusic/filter/LoginFilter.java"
                data-name="javaDocs"
                data-skip-pjax="true"
                rel="nofollow">
@@ -581,7 +581,7 @@
               </span>
             </a>
             <a class="select-menu-item js-navigation-item js-navigation-open "
-               href="/Sultaneous/SeedyMusicClub/blob/master/WebContent/assets/images/icon_login.png"
+               href="/Sultaneous/SeedyMusicClub/blob/master/src/club/seedymusic/filter/LoginFilter.java"
                data-name="master"
                data-skip-pjax="true"
                rel="nofollow">
@@ -591,7 +591,7 @@
               </span>
             </a>
             <a class="select-menu-item js-navigation-item js-navigation-open "
-               href="/Sultaneous/SeedyMusicClub/blob/order-webservice/WebContent/assets/images/icon_login.png"
+               href="/Sultaneous/SeedyMusicClub/blob/order-webservice/src/club/seedymusic/filter/LoginFilter.java"
                data-name="order-webservice"
                data-skip-pjax="true"
                rel="nofollow">
@@ -602,7 +602,7 @@
             </a>
         </div>
 
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Sultaneous/SeedyMusicClub/branches" class="js-create-branch select-menu-item select-menu-new-item-form js-navigation-item js-new-item-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="mBF6oaUyPl9hFhCsblcj3ij93UTuS7x6jdtFZciAnwR9j23d0nTx92SboCEN/JQWwlkw8xYfGuB9Gy713xyJaA==" /></div>
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Sultaneous/SeedyMusicClub/branches" class="js-create-branch select-menu-item select-menu-new-item-form js-navigation-item js-new-item-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="ES6x+iwfY5Y8dcmnwJFy+bAlqQgcUT8UL7/h7uRbtT70sKaGW1msPjn4eSqjOsUxWoFEv+QFmY7ff4p+88ejUg==" /></div>
           <svg aria-hidden="true" class="octicon octicon-git-branch select-menu-item-icon" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 5c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v.3c-.02.52-.23.98-.63 1.38-.4.4-.86.61-1.38.63-.83.02-1.48.16-2 .45V4.72a1.993 1.993 0 0 0-1-3.72C.88 1 0 1.89 0 3a2 2 0 0 0 1 1.72v6.56c-.59.35-1 .99-1 1.72 0 1.11.89 2 2 2 1.11 0 2-.89 2-2 0-.53-.2-1-.53-1.36.09-.06.48-.41.59-.47.25-.11.56-.17.94-.17 1.05-.05 1.95-.45 2.75-1.25S8.95 7.77 9 6.73h-.02C9.59 6.37 10 5.73 10 5zM2 1.8c.66 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2C1.35 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2zm0 12.41c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm6-8c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
             <div class="select-menu-item-text">
               <span class="select-menu-item-heading">Create branch: <span class="js-new-item-name"></span></span>
@@ -610,7 +610,7 @@
             </div>
             <input type="hidden" name="name" id="name" class="js-new-item-value">
             <input type="hidden" name="branch" id="branch" value="Sultaneous-cleanup">
-            <input type="hidden" name="path" id="path" value="WebContent/assets/images/icon_login.png">
+            <input type="hidden" name="path" id="path" value="src/club/seedymusic/filter/LoginFilter.java">
 </form>
       </div>
 
@@ -619,7 +619,7 @@
 
 
             <a class="select-menu-item js-navigation-item js-navigation-open "
-              href="/Sultaneous/SeedyMusicClub/tree/alpha.171104/WebContent/assets/images/icon_login.png"
+              href="/Sultaneous/SeedyMusicClub/tree/alpha.171104/src/club/seedymusic/filter/LoginFilter.java"
               data-name="alpha.171104"
               data-skip-pjax="true"
               rel="nofollow">
@@ -629,7 +629,7 @@
               </span>
             </a>
             <a class="select-menu-item js-navigation-item js-navigation-open "
-              href="/Sultaneous/SeedyMusicClub/tree/Team_Submit_Part1/WebContent/assets/images/icon_login.png"
+              href="/Sultaneous/SeedyMusicClub/tree/Team_Submit_Part1/src/club/seedymusic/filter/LoginFilter.java"
               data-name="Team_Submit_Part1"
               data-skip-pjax="true"
               rel="nofollow">
@@ -657,12 +657,12 @@
       <button aria-label="Copy file path to clipboard" class="js-zeroclipboard btn btn-sm BtnGroup-item tooltipped tooltipped-s" data-copied-hint="Copied!" type="button">Copy path</button>
     </div>
     <div class="breadcrumb js-zeroclipboard-target">
-      <span class="repo-root js-repo-root"><span class="js-path-segment"><a href="/Sultaneous/SeedyMusicClub/tree/Sultaneous-cleanup"><span>SeedyMusicClub</span></a></span></span><span class="separator">/</span><span class="js-path-segment"><a href="/Sultaneous/SeedyMusicClub/tree/Sultaneous-cleanup/WebContent"><span>WebContent</span></a></span><span class="separator">/</span><span class="js-path-segment"><a href="/Sultaneous/SeedyMusicClub/tree/Sultaneous-cleanup/WebContent/assets"><span>assets</span></a></span><span class="separator">/</span><span class="js-path-segment"><a href="/Sultaneous/SeedyMusicClub/tree/Sultaneous-cleanup/WebContent/assets/images"><span>images</span></a></span><span class="separator">/</span><strong class="final-path">icon_login.png</strong>
+      <span class="repo-root js-repo-root"><span class="js-path-segment"><a href="/Sultaneous/SeedyMusicClub/tree/Sultaneous-cleanup"><span>SeedyMusicClub</span></a></span></span><span class="separator">/</span><span class="js-path-segment"><a href="/Sultaneous/SeedyMusicClub/tree/Sultaneous-cleanup/src"><span>src</span></a></span><span class="separator">/</span><span class="js-path-segment"><a href="/Sultaneous/SeedyMusicClub/tree/Sultaneous-cleanup/src/club"><span>club</span></a></span><span class="separator">/</span><span class="js-path-segment"><a href="/Sultaneous/SeedyMusicClub/tree/Sultaneous-cleanup/src/club/seedymusic"><span>seedymusic</span></a></span><span class="separator">/</span><span class="js-path-segment"><a href="/Sultaneous/SeedyMusicClub/tree/Sultaneous-cleanup/src/club/seedymusic/filter"><span>filter</span></a></span><span class="separator">/</span><strong class="final-path">LoginFilter.java</strong>
     </div>
   </div>
 
 
-  <include-fragment class="commit-tease" src="/Sultaneous/SeedyMusicClub/contributors/Sultaneous-cleanup/WebContent/assets/images/icon_login.png">
+  <include-fragment class="commit-tease" src="/Sultaneous/SeedyMusicClub/contributors/Sultaneous-cleanup/src/club/seedymusic/filter/LoginFilter.java">
     <div>
       Fetching contributors&hellip;
     </div>
@@ -678,18 +678,24 @@
   <div class="file-actions">
 
     <div class="BtnGroup">
-      <a href="/Sultaneous/SeedyMusicClub/raw/Sultaneous-cleanup/WebContent/assets/images/icon_login.png" class="btn btn-sm BtnGroup-item" id="raw-url">Download</a>
-      <a href="/Sultaneous/SeedyMusicClub/commits/Sultaneous-cleanup/WebContent/assets/images/icon_login.png" class="btn btn-sm BtnGroup-item" rel="nofollow">History</a>
+      <a href="/Sultaneous/SeedyMusicClub/raw/Sultaneous-cleanup/src/club/seedymusic/filter/LoginFilter.java" class="btn btn-sm BtnGroup-item" id="raw-url">Raw</a>
+        <a href="/Sultaneous/SeedyMusicClub/blame/Sultaneous-cleanup/src/club/seedymusic/filter/LoginFilter.java" class="btn btn-sm js-update-url-with-hash BtnGroup-item" data-hotkey="b">Blame</a>
+      <a href="/Sultaneous/SeedyMusicClub/commits/Sultaneous-cleanup/src/club/seedymusic/filter/LoginFilter.java" class="btn btn-sm BtnGroup-item" rel="nofollow">History</a>
     </div>
 
         <a class="btn-octicon tooltipped tooltipped-nw"
-           href="github-windows://openRepo/https://github.com/Sultaneous/SeedyMusicClub?branch=Sultaneous-cleanup&amp;filepath=WebContent%2Fassets%2Fimages%2Ficon_login.png"
+           href="github-windows://openRepo/https://github.com/Sultaneous/SeedyMusicClub?branch=Sultaneous-cleanup&amp;filepath=src%2Fclub%2Fseedymusic%2Ffilter%2FLoginFilter.java"
            aria-label="Open this file in GitHub Desktop"
            data-ga-click="Repository, open with desktop, type:windows">
             <svg aria-hidden="true" class="octicon octicon-device-desktop" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M15 2H1c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1h5.34c-.25.61-.86 1.39-2.34 2h8c-1.48-.61-2.09-1.39-2.34-2H15c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm0 9H1V3h14v8z"/></svg>
         </a>
 
-        <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Sultaneous/SeedyMusicClub/delete/Sultaneous-cleanup/WebContent/assets/images/icon_login.png" class="inline-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="DebcYPWfxpSvKMavxyCaddZjuSifgcWgengNWfgt4Q7mwLUAf0vGJbKCGnEw4uCyTFIIeqv/Rq2Mi6AJi2rPxg==" /></div>
+        <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Sultaneous/SeedyMusicClub/edit/Sultaneous-cleanup/src/club/seedymusic/filter/LoginFilter.java" class="inline-form js-update-url-with-hash" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="XCnhT66JkeauIa4huQ2nsUvLafW0aWCoyRcFSekOBLwytpEGHs1RbWKCENnaNLRgugg7pH3+x6fCUNgIg/zkwQ==" /></div>
+          <button class="btn-octicon tooltipped tooltipped-nw" type="submit"
+            aria-label="Edit this file" data-hotkey="e" data-disable-with>
+            <svg aria-hidden="true" class="octicon octicon-pencil" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/></svg>
+          </button>
+</form>        <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Sultaneous/SeedyMusicClub/delete/Sultaneous-cleanup/src/club/seedymusic/filter/LoginFilter.java" class="inline-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="6f7HEV/NQrE5igsTCwSgqJqMk3SqRrjoz4yarOCioUgpK7ceFi10KWW2Z1ITRxOpjfsFU2MZU3vBho9anvcFKA==" /></div>
           <button class="btn-octicon btn-octicon-danger tooltipped tooltipped-nw" type="submit"
             aria-label="Delete this file" data-disable-with>
             <svg aria-hidden="true" class="octicon octicon-trashcan" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M11 2H9c0-.55-.45-1-1-1H5c-.55 0-1 .45-1 1H2c-.55 0-1 .45-1 1v1c0 .55.45 1 1 1v9c0 .55.45 1 1 1h7c.55 0 1-.45 1-1V5c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm-1 12H3V5h1v8h1V5h1v8h1V5h1v8h1V5h1v9zm1-10H2V3h9v1z"/></svg>
@@ -697,16 +703,266 @@
 </form>  </div>
 
   <div class="file-info">
-    1.45 KB
+      56 lines (44 sloc)
+      <span class="file-info-divider"></span>
+    1.77 KB
   </div>
 </div>
 
     
 
-  <div itemprop="text" class="blob-wrapper data type-text">
-      <div class="image">
-          <span class="border-wrap"><img src="/Sultaneous/SeedyMusicClub/blob/Sultaneous-cleanup/WebContent/assets/images/icon_login.png?raw=true" alt="icon_login.png"></span>
-      </div>
+  <div itemprop="text" class="blob-wrapper data type-java">
+      <table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tr>
+        <td id="L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">package</span> <span class="pl-smi">club.seedymusic.filter</span>;</td>
+      </tr>
+      <tr>
+        <td id="L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="LC2" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">java.io.IOException</span>;</td>
+      </tr>
+      <tr>
+        <td id="L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="LC4" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.Filter</span>;</td>
+      </tr>
+      <tr>
+        <td id="L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="LC6" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.FilterChain</span>;</td>
+      </tr>
+      <tr>
+        <td id="L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.FilterConfig</span>;</td>
+      </tr>
+      <tr>
+        <td id="L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="LC8" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.ServletException</span>;</td>
+      </tr>
+      <tr>
+        <td id="L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="LC9" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.ServletRequest</span>;</td>
+      </tr>
+      <tr>
+        <td id="L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="LC10" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.ServletResponse</span>;</td>
+      </tr>
+      <tr>
+        <td id="L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="LC11" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebFilter</span>;</td>
+      </tr>
+      <tr>
+        <td id="L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="LC12" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.http.HttpServletRequest</span>;</td>
+      </tr>
+      <tr>
+        <td id="L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="LC13" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.http.HttpServletResponse</span>;</td>
+      </tr>
+      <tr>
+        <td id="L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="LC14" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.http.HttpSession</span>;</td>
+      </tr>
+      <tr>
+        <td id="L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="LC15" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="LC16" class="blob-code blob-code-inner js-file-line"><span class="pl-k">@WebFilter</span>(<span class="pl-c1">filterName</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">&quot;</span>LoginFilter<span class="pl-pds">&quot;</span></span>, <span class="pl-c1">servletNames</span> <span class="pl-k">=</span> {<span class="pl-s"><span class="pl-pds">&quot;</span>OrderController<span class="pl-pds">&quot;</span></span>})</td>
+      </tr>
+      <tr>
+        <td id="L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="LC17" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">LoginFilter</span> <span class="pl-k">implements</span> <span class="pl-e">Filter</span>{</td>
+      </tr>
+      <tr>
+        <td id="L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="LC18" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="LC19" class="blob-code blob-code-inner js-file-line">	<span class="pl-k">@Override</span></td>
+      </tr>
+      <tr>
+        <td id="L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="LC20" class="blob-code blob-code-inner js-file-line">	<span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">destroy</span>() {</td>
+      </tr>
+      <tr>
+        <td id="L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="LC21" class="blob-code blob-code-inner js-file-line">		<span class="pl-c"><span class="pl-c">//</span> TODO Auto-generated method stub</span></td>
+      </tr>
+      <tr>
+        <td id="L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="LC22" class="blob-code blob-code-inner js-file-line">		</td>
+      </tr>
+      <tr>
+        <td id="L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="LC23" class="blob-code blob-code-inner js-file-line">	}</td>
+      </tr>
+      <tr>
+        <td id="L24" class="blob-num js-line-number" data-line-number="24"></td>
+        <td id="LC24" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L25" class="blob-num js-line-number" data-line-number="25"></td>
+        <td id="LC25" class="blob-code blob-code-inner js-file-line">	<span class="pl-c"><span class="pl-c">/*</span>*</span></td>
+      </tr>
+      <tr>
+        <td id="L26" class="blob-num js-line-number" data-line-number="26"></td>
+        <td id="LC26" class="blob-code blob-code-inner js-file-line"><span class="pl-c">	 * Followed example by Balus</span></td>
+      </tr>
+      <tr>
+        <td id="L27" class="blob-num js-line-number" data-line-number="27"></td>
+        <td id="LC27" class="blob-code blob-code-inner js-file-line"><span class="pl-c">	 * https://stackoverflow.com/questions/13274279/authentication-filter-and-servlet-for-login</span></td>
+      </tr>
+      <tr>
+        <td id="L28" class="blob-num js-line-number" data-line-number="28"></td>
+        <td id="LC28" class="blob-code blob-code-inner js-file-line"><span class="pl-c">	 <span class="pl-c">*/</span></span></td>
+      </tr>
+      <tr>
+        <td id="L29" class="blob-num js-line-number" data-line-number="29"></td>
+        <td id="LC29" class="blob-code blob-code-inner js-file-line">	<span class="pl-k">@Override</span></td>
+      </tr>
+      <tr>
+        <td id="L30" class="blob-num js-line-number" data-line-number="30"></td>
+        <td id="LC30" class="blob-code blob-code-inner js-file-line">	<span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">doFilter</span>(<span class="pl-smi">ServletRequest</span> <span class="pl-v">req</span>, <span class="pl-smi">ServletResponse</span> <span class="pl-v">res</span>, <span class="pl-smi">FilterChain</span> <span class="pl-v">chain</span>)</td>
+      </tr>
+      <tr>
+        <td id="L31" class="blob-num js-line-number" data-line-number="31"></td>
+        <td id="LC31" class="blob-code blob-code-inner js-file-line">			<span class="pl-k">throws</span> <span class="pl-smi">IOException</span>, <span class="pl-smi">ServletException</span> {</td>
+      </tr>
+      <tr>
+        <td id="L32" class="blob-num js-line-number" data-line-number="32"></td>
+        <td id="LC32" class="blob-code blob-code-inner js-file-line">		<span class="pl-smi">HttpServletRequest</span> request <span class="pl-k">=</span> (<span class="pl-smi">HttpServletRequest</span>) req;</td>
+      </tr>
+      <tr>
+        <td id="L33" class="blob-num js-line-number" data-line-number="33"></td>
+        <td id="LC33" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">HttpServletResponse</span> response <span class="pl-k">=</span> (<span class="pl-smi">HttpServletResponse</span>) res;</td>
+      </tr>
+      <tr>
+        <td id="L34" class="blob-num js-line-number" data-line-number="34"></td>
+        <td id="LC34" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">HttpSession</span> session <span class="pl-k">=</span> request<span class="pl-k">.</span>getSession(<span class="pl-c1">false</span>);</td>
+      </tr>
+      <tr>
+        <td id="L35" class="blob-num js-line-number" data-line-number="35"></td>
+        <td id="LC35" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">String</span> loginURI <span class="pl-k">=</span> request<span class="pl-k">.</span>getContextPath() <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">&quot;</span>/login.jsp<span class="pl-pds">&quot;</span></span>;</td>
+      </tr>
+      <tr>
+        <td id="L36" class="blob-num js-line-number" data-line-number="36"></td>
+        <td id="LC36" class="blob-code blob-code-inner js-file-line">        </td>
+      </tr>
+      <tr>
+        <td id="L37" class="blob-num js-line-number" data-line-number="37"></td>
+        <td id="LC37" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">boolean</span> loggedIn <span class="pl-k">=</span> session <span class="pl-k">!=</span> <span class="pl-c1">null</span> <span class="pl-k">&amp;&amp;</span> session<span class="pl-k">.</span>getAttribute(<span class="pl-s"><span class="pl-pds">&quot;</span>userId<span class="pl-pds">&quot;</span></span>) <span class="pl-k">!=</span> <span class="pl-c1">null</span>;;</td>
+      </tr>
+      <tr>
+        <td id="L38" class="blob-num js-line-number" data-line-number="38"></td>
+        <td id="LC38" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">boolean</span> loginRequest <span class="pl-k">=</span> request<span class="pl-k">.</span>getRequestURI()<span class="pl-k">.</span>equals(loginURI);</td>
+      </tr>
+      <tr>
+        <td id="L39" class="blob-num js-line-number" data-line-number="39"></td>
+        <td id="LC39" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L40" class="blob-num js-line-number" data-line-number="40"></td>
+        <td id="LC40" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">if</span> (loggedIn) {</td>
+      </tr>
+      <tr>
+        <td id="L41" class="blob-num js-line-number" data-line-number="41"></td>
+        <td id="LC41" class="blob-code blob-code-inner js-file-line">        	chain<span class="pl-k">.</span>doFilter(request, response);</td>
+      </tr>
+      <tr>
+        <td id="L42" class="blob-num js-line-number" data-line-number="42"></td>
+        <td id="LC42" class="blob-code blob-code-inner js-file-line">        } <span class="pl-k">else</span> {</td>
+      </tr>
+      <tr>
+        <td id="L43" class="blob-num js-line-number" data-line-number="43"></td>
+        <td id="LC43" class="blob-code blob-code-inner js-file-line">        	<span class="pl-c"><span class="pl-c">//</span> forward with error message</span></td>
+      </tr>
+      <tr>
+        <td id="L44" class="blob-num js-line-number" data-line-number="44"></td>
+        <td id="LC44" class="blob-code blob-code-inner js-file-line">        	request<span class="pl-k">.</span>setAttribute(<span class="pl-s"><span class="pl-pds">&quot;</span>errorMessage<span class="pl-pds">&quot;</span></span>, <span class="pl-s"><span class="pl-pds">&quot;</span>You must be logged in to do that action.<span class="pl-pds">&quot;</span></span>);</td>
+      </tr>
+      <tr>
+        <td id="L45" class="blob-num js-line-number" data-line-number="45"></td>
+        <td id="LC45" class="blob-code blob-code-inner js-file-line">        	request<span class="pl-k">.</span>getRequestDispatcher(loginURI)<span class="pl-k">.</span>forward(request,  response);</td>
+      </tr>
+      <tr>
+        <td id="L46" class="blob-num js-line-number" data-line-number="46"></td>
+        <td id="LC46" class="blob-code blob-code-inner js-file-line">        }</td>
+      </tr>
+      <tr>
+        <td id="L47" class="blob-num js-line-number" data-line-number="47"></td>
+        <td id="LC47" class="blob-code blob-code-inner js-file-line">	}</td>
+      </tr>
+      <tr>
+        <td id="L48" class="blob-num js-line-number" data-line-number="48"></td>
+        <td id="LC48" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L49" class="blob-num js-line-number" data-line-number="49"></td>
+        <td id="LC49" class="blob-code blob-code-inner js-file-line">	<span class="pl-k">@Override</span></td>
+      </tr>
+      <tr>
+        <td id="L50" class="blob-num js-line-number" data-line-number="50"></td>
+        <td id="LC50" class="blob-code blob-code-inner js-file-line">	<span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">init</span>(<span class="pl-smi">FilterConfig</span> <span class="pl-v">arg0</span>) <span class="pl-k">throws</span> <span class="pl-smi">ServletException</span> {</td>
+      </tr>
+      <tr>
+        <td id="L51" class="blob-num js-line-number" data-line-number="51"></td>
+        <td id="LC51" class="blob-code blob-code-inner js-file-line">		<span class="pl-c"><span class="pl-c">//</span> TODO Auto-generated method stub</span></td>
+      </tr>
+      <tr>
+        <td id="L52" class="blob-num js-line-number" data-line-number="52"></td>
+        <td id="LC52" class="blob-code blob-code-inner js-file-line">		</td>
+      </tr>
+      <tr>
+        <td id="L53" class="blob-num js-line-number" data-line-number="53"></td>
+        <td id="LC53" class="blob-code blob-code-inner js-file-line">	}</td>
+      </tr>
+      <tr>
+        <td id="L54" class="blob-num js-line-number" data-line-number="54"></td>
+        <td id="LC54" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L55" class="blob-num js-line-number" data-line-number="55"></td>
+        <td id="LC55" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</table>
+
+  <div class="BlobToolbar position-absolute js-file-line-actions dropdown js-menu-container js-select-menu d-none" aria-hidden="true">
+    <button class="btn-octicon ml-0 px-2 p-0 bg-white border border-gray-dark rounded-1 dropdown-toggle js-menu-target" id="js-file-line-action-button" type="button" aria-expanded="false" aria-haspopup="true" aria-label="Inline file action toolbar" aria-controls="inline-file-actions">
+      <svg aria-hidden="true" class="octicon" height="16" version="1.1" viewBox="0 0 13 4" width="14">
+        <g stroke="none" stroke-width="1" fill-rule="evenodd">
+            <g transform="translate(-1.000000, -6.000000)">
+                <path d="M2.5,9.5 C1.67157288,9.5 1,8.82842712 1,8 C1,7.17157288 1.67157288,6.5 2.5,6.5 C3.32842712,6.5 4,7.17157288 4,8 C4,8.82842712 3.32842712,9.5 2.5,9.5 Z M7.5,9.5 C6.67157288,9.5 6,8.82842712 6,8 C6,7.17157288 6.67157288,6.5 7.5,6.5 C8.32842712,6.5 9,7.17157288 9,8 C9,8.82842712 8.32842712,9.5 7.5,9.5 Z M12.5,9.5 C11.6715729,9.5 11,8.82842712 11,8 C11,7.17157288 11.6715729,6.5 12.5,6.5 C13.3284271,6.5 14,7.17157288 14,8 C14,8.82842712 13.3284271,9.5 12.5,9.5 Z"></path>
+            </g>
+        </g>
+      </svg>
+    </button>
+    <div class="dropdown-menu-content js-menu-content" id="inline-file-actions">
+      <ul class="BlobToolbar-dropdown dropdown-menu dropdown-menu-se mt-2">
+        <li><a class="js-zeroclipboard dropdown-item" style="cursor:pointer;" id="js-copy-lines" data-original-text="Copy lines">Copy lines</a></li>
+        <li><a class="js-zeroclipboard dropdown-item" id= "js-copy-permalink" style="cursor:pointer;" data-original-text="Copy permalink">Copy permalink</a></li>
+        <li><a href="/Sultaneous/SeedyMusicClub/blame/48b396c77e12bd7adb55e49decdbcb4da713156e/src/club/seedymusic/filter/LoginFilter.java" class="dropdown-item js-update-url-with-hash" id="js-view-git-blame">View git blame</a></li>
+          <li><a href="/Sultaneous/SeedyMusicClub/issues/new" class="dropdown-item" id="js-new-issue">Open new issue</a></li>
+      </ul>
+    </div>
+  </div>
+
   </div>
 
   </div>
@@ -731,7 +987,7 @@
 <div class="footer container-lg px-3" role="contentinfo">
   <div class="position-relative d-flex flex-justify-between py-6 mt-6 f6 text-gray border-top border-gray-light ">
     <ul class="list-style-none d-flex flex-wrap ">
-      <li class="mr-3">&copy; 2017 <span title="0.18243s from unicorn-309225523-cbc0c">GitHub</span>, Inc.</li>
+      <li class="mr-3">&copy; 2017 <span title="0.18615s from unicorn-3006621747-vpf3f">GitHub</span>, Inc.</li>
         <li class="mr-3"><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
         <li class="mr-3"><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
         <li class="mr-3"><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
