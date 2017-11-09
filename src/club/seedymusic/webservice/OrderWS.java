@@ -252,7 +252,7 @@ public class OrderWS {
 	@Path("confirmOrder")
 	@Produces(MediaType.APPLICATION_JSON)
 	public boolean confirmOrder(String wrapper) {
-		
+		orderDAO = new OrderDAO();
 		ConfirmOrderWrapper confirmOrderWrapper = null;
 		
 		boolean orderCorrect = false;
@@ -264,16 +264,18 @@ public class OrderWS {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
+		
 		if(confirmOrderWrapper!=null)
 		{
+			int confirmOrderId = confirmOrderWrapper.getPurchaseOrder().getAccountId();
 			// either the account ID of the order and shipping info ID do not match, or we are rejecting every 5th order
-			if ((confirmOrderWrapper.getPurchaseOrder().getAccountId() != confirmOrderWrapper.getShippingInfo().getId()) ||
+			if ((confirmOrderId != confirmOrderWrapper.getShippingInfo().getId()) ||
 					((confirmOrderWrapper.getPurchaseOrder().getId()%5) == 0)
 					) {
-				confirmOrderWrapper.getPurchaseOrder().setStatus("credit card declined");
+				orderDAO.setStatus(confirmOrderId, "declined");
 			} else {
-				confirmOrderWrapper.getPurchaseOrder().setStatus("paid");
+				orderDAO.setStatus(confirmOrderId, "paid");
 				orderCorrect = true;
 			}
 		}
