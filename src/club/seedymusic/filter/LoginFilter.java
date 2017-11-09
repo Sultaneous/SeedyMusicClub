@@ -13,10 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(servletNames =
-{
-         "OrderController"
-})
+@WebFilter(urlPatterns= {"/OrderController"})
 public class LoginFilter implements Filter
 {
 
