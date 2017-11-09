@@ -23,9 +23,14 @@
 				<h3 style="color: #fff; background: #120012;">SEEDY MUSIC CLUB: LOGIN</h3>
 			</div>
 
-			<form
+			<form name="login" id="login" onSubmit="return(formValidation());"
 				action="${pageContext.request.contextPath}/account/AccountLoginControllerServlet"
 				method="post">
+
+            <div class="form-group row"><h4>
+               <label name="formError" id="formError" style="color: #FF1035;"
+                  class="col-sm-12"></label></h4>
+            </div>
 
 				<div class="form-group row">
 					<label for="username"
@@ -55,6 +60,28 @@
 			</form>
 		</div>
 	</div>
+
+<!--  Script must be at bottom to ensure elements have loaded. -->
+<script>
+function formValidation()
+{
+   var error = document.getElementById("formError");
+   var username = document.login.username;
+   var password = document.login.password;
+   
+   if (username.value === "" ||
+       password.value === "")
+   {
+      error.textContent="Error: All fields are required.";
+      window.scrollTo(0,0);
+      username.focus();
+      return false;     
+   }
+   
+   return true;
+}
+</script>
+
 
 </body>
 </html>
