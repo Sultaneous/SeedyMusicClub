@@ -154,7 +154,8 @@ public class AccountCreateControllerServlet extends HttpServlet {
 			session.setAttribute("firstName", responseAccount.getFirstName());
 			session.setAttribute("lastName", responseAccount.getLastName()); 
 			session.setAttribute("account", responseAccount);
-			
+			// check on how to send data back to server
+			response.sendRedirect(baseUrl+"catalog.jsp");
 		} catch (UserAlreadyExistsException exception) {
 			request.setAttribute("userExistsError", "This user already exists.");
 			request.getRequestDispatcher("/register.jsp").forward(request,  response);
@@ -164,8 +165,7 @@ public class AccountCreateControllerServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// check on how to send data back to server
-		response.sendRedirect("/catalog.jsp");
+	
 	}
 
 	/**
