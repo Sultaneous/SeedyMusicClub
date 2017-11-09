@@ -14,8 +14,8 @@
 
 <body>
 
-<jsp:include page="assets/fragments/libs.jsp"/>
-<jsp:include page="assets/fragments/navbar.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/assets/fragments/libs.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/assets/fragments/navbar.jsp"/>
 <br/><br/>
 
    <!--  Place content here -->

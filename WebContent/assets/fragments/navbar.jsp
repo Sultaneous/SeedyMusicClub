@@ -35,8 +35,8 @@
     </li>
 
     <li>
-    <form class="form-inline" method="get" action="quickSearch.jsp">
-     <input class="form-control mr-sm-2" type="text" placeholder="Search">
+    <form class="form-inline" method="get" action="${pageContext.request.contextPath}/browse">
+     <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search">
      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">
       <span class="fa fa-search"></span> CDs</button>
     </form>

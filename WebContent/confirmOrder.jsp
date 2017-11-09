@@ -22,7 +22,7 @@
          </div>
 
          <form
-            action="${pageContext.request.contextPath}/account/AccountLoginControllerServlet"
+            action="${pageContext.request.contextPath}/OrderController"
             method="post">
 
             <div class="form-group row">
