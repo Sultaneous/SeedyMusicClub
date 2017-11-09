@@ -5,10 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -16,6 +13,7 @@ import org.hibernate.criterion.Restrictions;
 
 import club.seedymusic.jpa.bean.Cd;
 import club.seedymusic.util.ConfigurationManager;
+import club.seedymusic.util.SessionManager;
 
 /**
  * <h2>CdDAO Class</h2>
@@ -166,14 +164,8 @@ public class CdDAO
    {
       try
       {
-         // Configure Hibernate
-         Configuration configuration = new Configuration().configure();
-
-         // Create session factory
-         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                  .applySettings(configuration.getProperties());
-         SessionFactory sessionFactory = configuration.buildSessionFactory(builder.build());
-         return (sessionFactory.openSession());
+         // Get a session from our singleton session factory
+         return (SessionManager.getSessionFactory().openSession());
       }
       catch (HibernateException e)
       {
@@ -211,8 +203,7 @@ public class CdDAO
       catch (HibernateException e)
       {
          // Rollback if necessary
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 
@@ -247,8 +238,7 @@ public class CdDAO
       try
       {
          // Sanity check
-         if (lcp == null)
-            throw new Exception("ListControllerParameters not set.");
+         if (lcp == null) throw new Exception("ListControllerParameters not set.");
 
          // Transaction
          transaction = session.beginTransaction();
@@ -355,8 +345,7 @@ public class CdDAO
       catch (HibernateException e)
       {
          // Check if rollback is required
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 
@@ -570,8 +559,7 @@ public class CdDAO
       catch (HibernateException e)
       {
          // Check if rollback is required
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 
@@ -604,7 +592,8 @@ public class CdDAO
 
          // Using criteria requires no HQL or SQL or XML config data
          Criteria criteria = session.createCriteria(Cd.class);
-         long records = ((Number)criteria.setProjection(Projections.rowCount()).uniqueResult()).longValue();
+         long records = ((Number) criteria.setProjection(Projections.rowCount()).uniqueResult())
+                  .longValue();
 
          session.flush();
          transaction.commit();
@@ -615,8 +604,7 @@ public class CdDAO
       catch (HibernateException e)
       {
          // Check if rollback is required
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 
@@ -667,7 +655,8 @@ public class CdDAO
          }
 
          // Get the count
-         long records = ((Number)criteria.setProjection(Projections.rowCount()).uniqueResult()).longValue();
+         long records = ((Number) criteria.setProjection(Projections.rowCount()).uniqueResult())
+                  .longValue();
 
          transaction.commit();
 
@@ -677,8 +666,7 @@ public class CdDAO
       catch (HibernateException e)
       {
          // Check if rollback is required
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 
@@ -728,8 +716,7 @@ public class CdDAO
       catch (HibernateException e)
       {
          // Check if rollback is required
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 

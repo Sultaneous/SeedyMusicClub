@@ -5,14 +5,12 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import club.seedymusic.jpa.bean.Order;
+import club.seedymusic.util.SessionManager;
 
 /**
  * <h2>OrderDAO Class</h2>
@@ -50,14 +48,9 @@ public class OrderDAO
    {
       try
       {
-         // Configure Hibernate
-         Configuration configuration = new Configuration().configure();
+         // Get a session from our singleton session factory
+         return (SessionManager.getSessionFactory().openSession());
 
-         // Create session factory
-         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                  .applySettings(configuration.getProperties());
-         SessionFactory sessionFactory = configuration.buildSessionFactory(builder.build());
-         return (sessionFactory.openSession());
       }
       catch (HibernateException e)
       {
@@ -96,8 +89,7 @@ public class OrderDAO
       catch (HibernateException e)
       {
          // Rollback if necessary
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 
@@ -148,8 +140,7 @@ public class OrderDAO
       catch (HibernateException e)
       {
          // Check if rollback is required
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 
@@ -201,8 +192,7 @@ public class OrderDAO
       catch (HibernateException e)
       {
          // Check if rollback is required
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 
@@ -235,7 +225,8 @@ public class OrderDAO
 
          // Using criteria requires no HQL or SQL or XML config data
          Criteria criteria = session.createCriteria(Order.class);
-         long records = ((Number) criteria.setProjection(Projections.rowCount()).uniqueResult()).longValue();
+         long records = ((Number) criteria.setProjection(Projections.rowCount()).uniqueResult())
+                  .longValue();
 
          transaction.commit();
 
@@ -245,8 +236,7 @@ public class OrderDAO
       catch (HibernateException e)
       {
          // Check if rollback is required
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 
@@ -291,9 +281,8 @@ public class OrderDAO
          List<Order> orders = criteria.list();
 
          // Make sure we have a result; exception will be handle by catch block
-         if (orders == null || orders.isEmpty())
-            throw (new HibernateException(
-                     "The Order ID: " + id + " was not found in the database."));
+         if (orders == null || orders.isEmpty()) throw (new HibernateException(
+                  "The Order ID: " + id + " was not found in the database."));
 
          // Get order object
          Order order = orders.get(0);
@@ -311,8 +300,7 @@ public class OrderDAO
       catch (HibernateException e)
       {
          // Check if rollback is required
-         if (transaction != null)
-            transaction.rollback();
+         if (transaction != null) transaction.rollback();
 
          e.printStackTrace();
 

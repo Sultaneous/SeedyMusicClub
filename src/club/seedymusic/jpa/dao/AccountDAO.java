@@ -5,16 +5,14 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.util.ConfigurationManager;
+import club.seedymusic.util.SessionManager;
 
 /**
  * <h2>AccountDAO Class</h2>
@@ -76,14 +74,9 @@ public class AccountDAO
    {
       try
       {
-         // Configure Hibernate
-         Configuration configuration = new Configuration().configure();
+         // Get a session from our singleton session factory
+         return (SessionManager.getSessionFactory().openSession());
 
-         // Create session factory
-         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                  .applySettings(configuration.getProperties());
-         SessionFactory sessionFactory = configuration.buildSessionFactory(builder.build());
-         return (sessionFactory.openSession());
       }
       catch (HibernateException e)
       {
