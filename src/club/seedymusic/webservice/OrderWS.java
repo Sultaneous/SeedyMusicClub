@@ -267,12 +267,15 @@ public class OrderWS {
 		}	
 		if(confirmOrderWrapper!=null)
 		{
-		if (confirmOrderWrapper.getPurchaseOrder().getAccountId() == confirmOrderWrapper.getShippingInfo().getId()) {
-			confirmOrderWrapper.getPurchaseOrder().setStatus("paid");
-			orderCorrect = true;
-		} else {
-			confirmOrderWrapper.getPurchaseOrder().setStatus("credit card declined");
-		}
+			// either the account ID of the order and shipping info ID do not match, or we are rejecting every 5th order
+			if ((confirmOrderWrapper.getPurchaseOrder().getAccountId() != confirmOrderWrapper.getShippingInfo().getId()) ||
+					((confirmOrderWrapper.getPurchaseOrder().getId()%5) == 0)
+					) {
+				confirmOrderWrapper.getPurchaseOrder().setStatus("credit card declined");
+			} else {
+				confirmOrderWrapper.getPurchaseOrder().setStatus("paid");
+				orderCorrect = true;
+			}
 		}
 		return orderCorrect;
 	}

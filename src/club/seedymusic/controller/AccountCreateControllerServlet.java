@@ -165,7 +165,7 @@ public class AccountCreateControllerServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		// check on how to send data back to server
-		response.sendRedirect(request.getHeader("referer"));
+		response.sendRedirect("/catalog.jsp");
 	}
 
 	/**
