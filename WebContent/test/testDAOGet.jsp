@@ -12,7 +12,7 @@
       <h1>DAO Get Test Page</h1>
       NOTE: This page is under development and will change as it is updated frequently.
       <br/><br/>
-      
+      <h3>Get CD</h3>   
       <%
       CdDAO acd= new CdDAO();
       long recs = acd.getCount();
@@ -68,6 +68,7 @@
       %>   
       
       <br/><br/>
+      <h3>Get Account</h3>
       <%
       AccountDAO anaccount = new AccountDAO();
       recs = anaccount.getCount();
@@ -129,6 +130,7 @@
       %>
 
       <br/><br/>
+      <h3>Get Order</h3>
       <%
       OrderDAO anorder = new OrderDAO();
       recs = anorder.getCount();
@@ -185,5 +187,16 @@
       } 
       %>
       
+      <br/><br/>
+      <h3>Set Order Status</h3>
+      <form name="order" action="${pageContext.request.contextPath}/test/TestDAOGet" method="get">
+         <input type="hidden" name="lookup" value="setStatus">
+         Order ID: <input name="orderid" type="text" value="1" size="10">
+         Status: <input name="orderStatus" type="text" value="paid" size="40">
+         <input type="submit" value="Set Order Status..."/>
+      </form>
+      <h3>Result of setStatus() operation: <%=(String) session.getAttribute("order.result")%></h3>
+
    </body>
 </html>
+

@@ -91,6 +91,23 @@ public class TestDAOGet extends HttpServlet
          HttpSession session = request.getSession();
          session.setAttribute("order", order);
       }
+      else if (lookup.equals("setStatus"))
+      {
+         // Create order DAO
+         OrderDAO orderDAO = new OrderDAO();
+
+         // The JSP form passes us the account id as a string parameter; retrieve an convert to int
+         int orderid = Integer.parseInt(request.getParameter("orderid"));
+
+         // Get the status field
+         String orderStatus = request.getParameter("orderStatus");
+
+         // Set status
+         boolean result = orderDAO.setStatus(orderid, orderStatus);
+
+         // Stash result
+         request.getSession().setAttribute("order.result", String.valueOf(result));
+      }
 
       // Return to the calling JSP page
       response.sendRedirect(request.getHeader("referer"));
