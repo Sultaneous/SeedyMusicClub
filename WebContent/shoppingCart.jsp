@@ -23,11 +23,14 @@
 	<div>
 
 		<label> Hello <c:if test="${not empty firstName}">
-				<c:out value="${firstName}" />
+				<c:out value="${firstName}." />
 			</c:if> <c:if test="${empty firstName}">
 Guest.<br/><br/>
 </c:if>
 
+      <c:if test="${empty cart}">
+      <h4>Your shopping cart is empty...</h4>
+      </c:if>
       <c:if test="${cart.getLineItemCount()==0}">
       <h4>Your shopping cart is empty...</h4>
       </c:if>
@@ -77,7 +80,8 @@ Guest.<br/><br/>
 					<td class="align-bottom"><h5>$${cart.getOrderTotal()}</h5></td>
 					<td>
                 <form action="${pageContext.request.contextPath}/OrderController" method="get">
-                 <button class="btn btn-success" type="submit">Submit Order...</button>
+                 <button class="btn btn-success" type="submit">
+                 <span class="fa fa-credit-card"></span> Submit Order...</button>
                 </form>
                </td>
 				</tr>

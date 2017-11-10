@@ -16,14 +16,17 @@
 <h1>Order Status</h1>
 <p>
 
-<table>
+<div class="container">
+<div class="col center-block">
+<table class="table">
 <tr>
 
-<td>OrderStatus:</td>
-<td>${orderStatus}</td>
+<td><h5>OrderStatus:</h5></td>
+<td><strong>${orderStatus}</strong></td>
 
 </tr>
 </table>
-
+</div>
+</div>
 </body>
 </html>
