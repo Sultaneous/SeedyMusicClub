@@ -48,7 +48,7 @@ public class OrderWS {
 	@POST
 	@Path("createAccount")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String createAccount(String msg) {
+	public StringWrapper createAccount(String msg) {
 		accountDAO = new AccountDAO();
 		
 		// remap JSON string to object
@@ -71,7 +71,9 @@ public class OrderWS {
 		} else {
 			accountDAO.addAccount(accountInfo);		
 		}
-		return accountCreationStatus;
+		StringWrapper stringWrapper = new StringWrapper();
+		stringWrapper.setStringMessage(accountCreationStatus);
+		return stringWrapper;
 	}
 	
 	/**
@@ -219,18 +221,16 @@ public class OrderWS {
 		OrderDAO orderDAO = new OrderDAO();		
 		boolean successfullOrder = orderDAO.addOrder(order);
 		
-		
-		
-		
-		
 		// get most recent order based on ID
 		Order mostRecentOrder = null;
 		for (Order currentOrder: orderDAO.listOrders()) {
 			// get initial mostRecentOrder
-			if (currentOrder.getAccountId() == createOrderWrapper.getShippingInfo().getId() && mostRecentOrder == null) {
-				mostRecentOrder = currentOrder;
-			} else if (currentOrder.getAccountId() == createOrderWrapper.getShippingInfo().getId() && (currentOrder.getId() > mostRecentOrder.getId())) {
-				mostRecentOrder = currentOrder;
+			if (currentOrder.getAccountId() == createOrderWrapper.getShippingInfo().getId()) {
+				if (mostRecentOrder == null) {
+					mostRecentOrder = currentOrder;
+				} else if (currentOrder.getId() > mostRecentOrder.getId()) {
+					mostRecentOrder = currentOrder;
+				}
 			}
 		}
 		
@@ -268,14 +268,15 @@ public class OrderWS {
 		
 		if(confirmOrderWrapper!=null)
 		{
-			int confirmOrderId = confirmOrderWrapper.getPurchaseOrder().getAccountId();
+			int confirmOrderAccountId = confirmOrderWrapper.getPurchaseOrder().getAccountId();
+			int orderId = confirmOrderWrapper.getPurchaseOrder().getId();
 			// either the account ID of the order and shipping info ID do not match, or we are rejecting every 5th order
-			if ((confirmOrderId != confirmOrderWrapper.getShippingInfo().getId()) ||
-					((confirmOrderWrapper.getPurchaseOrder().getId()%5) == 0)
-					) {
-				orderDAO.setStatus(confirmOrderId, "declined");
+			boolean isFithOrder = ((orderId%5) == 0);
+			boolean orderIdNotShippingInfoId = (confirmOrderAccountId != confirmOrderWrapper.getShippingInfo().getId());
+			if (orderIdNotShippingInfoId || isFithOrder) {
+				orderDAO.setStatus(orderId, "declined");
 			} else {
-				orderDAO.setStatus(confirmOrderId, "paid");
+				orderDAO.setStatus(orderId, "paid");
 				orderCorrect = true;
 			}
 		}

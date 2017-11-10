@@ -53,7 +53,9 @@ public class AccountLoginControllerServlet extends HttpServlet {
 		String userPassword = request.getParameter("password");
 		try {
 			doTrustToCertificates();
-			String baseUrl = getBaseURL(request);
+			String url = request.getRequestURL().toString();
+			String baseUrl = url.substring(0, url.length() - request.getRequestURI().length()) + 
+					request.getContextPath() + "/";
 			URL serviceUrl = new URL(baseUrl + "rest/order/verifyCredentials/");
 			
 			// wrap data to send to webservice
@@ -123,14 +125,15 @@ public class AccountLoginControllerServlet extends HttpServlet {
 					session.setAttribute("firstName", responseAccount.getFirstName());
 					session.setAttribute("lastName", responseAccount.getLastName()); 
 					session.setAttribute("account", responseAccount);
+					request.getSession().removeAttribute("loginErrorMessage");
 					response.sendRedirect(baseUrl+"/browse");
 				} catch (UserDoesNotExistException exception) {
-					request.setAttribute("loginErrorMessage", "User does not exist.");			
-					request.getRequestDispatcher("/login.jsp").forward(request,  response);
+					request.getSession().setAttribute("loginErrorMessage", "User does not exist.");			
+					response.sendRedirect(request.getHeader("Referer"));
 				}
 			} else {
-				request.setAttribute("loginErrorMessage", "Login failed. Username/Password mismatch.");
-				request.getRequestDispatcher("/login.jsp").forward(request,  response);
+				request.getSession().setAttribute("loginErrorMessage", "Login failed. Username/Password mismatch.");
+				response.sendRedirect(request.getHeader("Referer"));
 			}
 		} catch(Exception e) {
 			e.printStackTrace();

@@ -38,9 +38,7 @@ public class LoginFilter implements Filter
       String loginURI = request.getContextPath() + "/login.jsp";
 
       boolean loggedIn = session != null && session.getAttribute("userId") != null;
-      ;
-      boolean loginRequest = request.getRequestURI().equals(loginURI);
-
+      
       if (loggedIn)
       {
          chain.doFilter(request, response);
@@ -48,8 +46,11 @@ public class LoginFilter implements Filter
       else
       {
          // forward with error message
-         request.setAttribute("errorMessage", "You must be logged in to do that action.");
-         request.getRequestDispatcher(loginURI).forward(request, response);
+    	 String url = request.getRequestURL().toString();
+    	 String baseUrl = url.substring(0, url.length() - request.getRequestURI().length()) + 
+    	 request.getContextPath() + "/";
+         request.getSession().setAttribute("loginErrorMessage", "You must be logged in to do that action.");
+         response.sendRedirect(baseUrl + "login.jsp");
       }
    }
 

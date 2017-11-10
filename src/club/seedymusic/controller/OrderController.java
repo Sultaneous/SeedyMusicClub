@@ -157,28 +157,14 @@ public class OrderController extends HttpServlet
       // accept cc info and confirm order
       if (acc != null)
       {
-         // cause a decline on 5th use of credit card
-
-         int timesCreditCardUsedInt = cntr;
-
          int accountId = acc.getId();
-
-         if (timesCreditCardUsedInt == 5)
-         {
-            acc.setId(-1);
-         }
 
          if (confirmOrder(baseUrl, (Order) order, acc, (String) ccInfo))
          {
             orderStatus = "Confirmed";
-         }
-         else
-         {
+            request.getSession().removeAttribute("cart");
+         } else {
             orderStatus = "Credit Card declined";
-            if (timesCreditCardUsedInt == 5)
-            {
-               acc.setId(accountId);
-            }
          }
 
       }

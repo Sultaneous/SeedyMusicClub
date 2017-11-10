@@ -26,11 +26,13 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import club.seedymusic.exceptions.InvalidFormException;
 import club.seedymusic.exceptions.UserAlreadyExistsException;
 import club.seedymusic.exceptions.UserDoesNotExistException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.webservice.OrderWS;
 import club.seedymusic.wrapper.CreateAccountWrapper;
+import club.seedymusic.wrapper.StringWrapper;
 
 @WebServlet("/account/AccountCreateControllerServlet")
 public class AccountCreateControllerServlet extends HttpServlet {
@@ -59,31 +61,32 @@ public class AccountCreateControllerServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		//orderWebService = new OrderWS();
 		
-		if (!validateInput(request, response)) {
-			request.getRequestDispatcher("/register.jsp").forward(request, response);
-		}
-
-		Account accountToBeAdded = new Account();
-		String accountUsername = request.getParameter("username");
-
-		accountToBeAdded.setUsername(accountUsername);
-		accountToBeAdded.setPassword(request.getParameter("password"));
-		accountToBeAdded.setFirstName(request.getParameter("firstName"));
-		accountToBeAdded.setLastName(request.getParameter("lastName"));
-		accountToBeAdded.setStreet(request.getParameter("street"));
-		accountToBeAdded.setCity(request.getParameter("city"));
-		accountToBeAdded.setProvince(request.getParameter("province"));
-		accountToBeAdded.setCountry(request.getParameter("country"));
-		accountToBeAdded.setPostalCode(request.getParameter("postalCode"));
-		accountToBeAdded.setPhone(request.getParameter("phone"));
-		accountToBeAdded.setEmail(request.getParameter("email"));
-
+		String baseUrl = null;
 		try {
 			doTrustToCertificates();
 				
+			if (!validateInput(request, response)) {
+				throw new InvalidFormException();
+			}
+
+			Account accountToBeAdded = new Account();
+			String accountUsername = request.getParameter("username");
+
+			accountToBeAdded.setUsername(accountUsername);
+			accountToBeAdded.setPassword(request.getParameter("password"));
+			accountToBeAdded.setFirstName(request.getParameter("firstName"));
+			accountToBeAdded.setLastName(request.getParameter("lastName"));
+			accountToBeAdded.setStreet(request.getParameter("street"));
+			accountToBeAdded.setCity(request.getParameter("city"));
+			accountToBeAdded.setProvince(request.getParameter("province"));
+			accountToBeAdded.setCountry(request.getParameter("country"));
+			accountToBeAdded.setPostalCode(request.getParameter("postalCode"));
+			accountToBeAdded.setPhone(request.getParameter("phone"));
+			accountToBeAdded.setEmail(request.getParameter("email"));
+			
 			// generate mappedURL of the webservice
 			URL serviceUrl;
-			String baseUrl = getBaseURL(request);
+			baseUrl = getBaseURL(request);
 			serviceUrl = new URL(baseUrl + "rest/order/createAccount/");
 			
 			// wrap data to send to webservice
@@ -119,7 +122,9 @@ public class AccountCreateControllerServlet extends HttpServlet {
             }
 			
 			// process any errors
-			String accountCreateStatusString = objectMapper.readValue(result, String.class);
+			
+			String accountCreateStatusString = objectMapper.readValue(result, StringWrapper.class).getStringMessage();
+
 			if (accountCreateStatusString.equals("Account Exists")) {
 				throw new UserAlreadyExistsException();
 			}
@@ -154,14 +159,18 @@ public class AccountCreateControllerServlet extends HttpServlet {
 			session.setAttribute("firstName", responseAccount.getFirstName());
 			session.setAttribute("lastName", responseAccount.getLastName()); 
 			session.setAttribute("account", responseAccount);
-			// check on how to send data back to server
-			response.sendRedirect(baseUrl+"catalog.jsp");
+			clearWarningMessages(request);
+			response.sendRedirect(baseUrl+"/browse");
 		} catch (UserAlreadyExistsException exception) {
-			request.setAttribute("userExistsError", "This user already exists.");
-			request.getRequestDispatcher("/register.jsp").forward(request,  response);
+			clearWarningMessages(request);
+			request.getSession().setAttribute("userExistsError", "This user already exists.");		
+			response.sendRedirect(request.getHeader("Referer"));
 		} catch (UserDoesNotExistException exception) {
-			request.setAttribute("loginErrorMessage", "Account created, but an issue occured on login. Try logging in or contact us about the issue.");
-			request.getRequestDispatcher("/login.jsp").forward(request,  response);
+			clearWarningMessages(request);
+			request.getSession().setAttribute("loginErrorMessage", "Account created, but an issue occured on login. Try logging in or contact us about the issue.");
+			response.sendRedirect(baseUrl+"login.jsp");
+		} catch (InvalidFormException exception) {
+			response.sendRedirect(request.getHeader("Referer"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -193,44 +202,54 @@ public class AccountCreateControllerServlet extends HttpServlet {
 	 * @throws ServletException 
 	 */
 	private boolean validateInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		clearWarningMessages(request);
 		// check if password, email, phone number (North American) and postal code(Canadian) are valid
 		String emailStr = request.getParameter("email");
 		Matcher emailMatcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
 		boolean emailInvalid = !(emailMatcher.find());
+		// temp
+		emailInvalid = false;
 		
 		String phoneStr = request.getParameter("phone");
 		Matcher phoneMatcher = VALID_PHONE_REGEX .matcher(phoneStr);
 		boolean phoneInvalid = !(phoneMatcher.find());
+		// temp
+		phoneInvalid = false;
 
 		String postalCodeStr = request.getParameter("postalCode");
 		Matcher postalCodeMatcher = VALID_POSTAL_CODE_REGEX.matcher(postalCodeStr);
 		boolean postalCodeInvalid = !(postalCodeMatcher.find());
 		 postalCodeInvalid= false;
 
-		boolean passwordMismatch = request.getAttribute("passwordRetyped").equals(request.getAttribute("password"));
+		 String retypedPassword = (String)(request.getParameter("passwordRetyped"));
+		 String password = (String)(request.getParameter("password"));
+				 
+		boolean passwordMismatch = !retypedPassword.equals(password);
 
 		boolean validInput = true;
 		if (emailInvalid || phoneInvalid || postalCodeInvalid || passwordMismatch) {
 			if (emailInvalid) {
-				request.setAttribute("emailError", "Email format incorrect. Should be of example format: example@host.com");		
+				request.getSession().setAttribute("emailError", "Email format incorrect. Should be of example format: example@host.com");		
 				validInput = false;
 			}
 
 			if (phoneInvalid) {
-				request.setAttribute("phoneError", "Phone number format incorrect. Should be of example format: 123-456-7890, (123) 456-7890, or 123 456 7890.");
+				request.getSession().setAttribute("phoneError", "Phone number format incorrect. Should be of example format: 123-456-7890, (123) 456-7890, or 123 456 7890.");
 				validInput = false;
 			}
 
 			if (postalCodeInvalid) {
-				request.setAttribute("postalCodeError", "Postal code format incorrect. Should be of example format:  K1A 0B1");
+				request.getSession().setAttribute("postalCodeError", "Postal code format incorrect. Should be of example format:  K1A 0B1");
 				validInput = false;
 			}
 
 			if (passwordMismatch) {
-				request.setAttribute("passwordMismatchError", "Passwords do not match.");
+				request.getSession().setAttribute("passwordMismatchError", "Passwords do not match.");
 				validInput = false;
 			}
 		}
+		// temp
+		validInput = !passwordMismatch;
 		return validInput;
 	}
 	
@@ -266,5 +285,14 @@ public class AccountCreateControllerServlet extends HttpServlet {
 	        }
 	    };
 	    HttpsURLConnection.setDefaultHostnameVerifier(hv);
+	}
+	
+	public void clearWarningMessages(HttpServletRequest request) {
+		request.getSession().removeAttribute("loginErrorMessage");
+		request.getSession().removeAttribute("userExistsError");
+		request.getSession().removeAttribute("emailError");
+		request.getSession().removeAttribute("phoneError");
+		request.getSession().removeAttribute("postalCodeError");
+		request.getSession().removeAttribute("passwordMismatchError");
 	}
 }

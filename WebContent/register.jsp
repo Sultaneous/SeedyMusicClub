@@ -82,6 +82,16 @@
                      name="street" id="street" placeholder="unit &amp; street">
                </div>
             </div>
+            
+            <div class="form-group row">
+               <label for="city"
+                  class="col-sm-2 col-form-label col-form-label-lg">City</label>
+               <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-lg"
+                     name="city" id="city" placeholder="city">
+               </div>
+            </div>
+            
 
             <div class="form-group row">
                <label for="province"

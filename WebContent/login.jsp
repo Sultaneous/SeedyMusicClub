@@ -23,6 +23,8 @@
 				<h3 style="color: #fff; background: #120012;">SEEDY MUSIC CLUB: LOGIN</h3>
 			</div>
 
+			<div style="color: #FF0000;">${loginErrorMessage}</div>
+
 			<form
 				action="${pageContext.request.contextPath}/account/AccountLoginControllerServlet"
 				method="post">
