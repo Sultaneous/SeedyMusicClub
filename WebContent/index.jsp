@@ -66,7 +66,7 @@
                src="assets/images/icon_login.png" />
             </div>
 <%
-   // User is logged in tehn show logout icon
+   // User is logged in then show logout icon
    } else {
 %>
             <div class="col-3 center-block">

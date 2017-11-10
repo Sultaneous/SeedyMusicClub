@@ -32,7 +32,6 @@
                <label name="formError" id="formError" style="color: #FF1035;"
                   class="col-sm-12"></label></h4>
             </div>
-            
 
             <div class="form-group row">
                <label for="username"

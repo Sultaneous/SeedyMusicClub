@@ -50,7 +50,7 @@ Guest
 					<tr>
 						<td><c:out value="${cntr+1}" /></td>
 						<td>${cd.title}</td>
-						<td>${cd.price}</td>
+						<td>$${cd.price}</td>
 						<td>
 							<form
 								action="${pageContext.request.contextPath}/SessionController"
@@ -66,9 +66,9 @@ Guest
 				</c:forEach>
 
 				<tr>
-					<td colspan="2"></td>
-					<td>Total:</td>
-					<td>${cart.getOrderTotal()}$</td>
+					<td></td>
+					<td style="text-align: right;"><h5>Total:</h5></td>
+					<td><h5>$${cart.getOrderTotal()}</h5></td>
 				</tr>
 				<tr>
 				<td colspan="3"></td>
@@ -76,7 +76,7 @@ Guest
 				<form action="${pageContext.request.contextPath}/OrderController" method="get">
 				
 				<input type="hidden" value=""/>
-				<button class="btn btn-primary" type="submit">Confirm Order</button>
+				<button class="btn btn-success" type="submit">Confirm Order</button>
 				</form>
 				</td>
 				</tr>
