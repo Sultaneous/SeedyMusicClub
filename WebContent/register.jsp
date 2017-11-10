@@ -15,6 +15,7 @@
 <jsp:include page="assets/fragments/navbar.jsp"/>
 <br/><br/>
 
+
    <div class="bgimg-4">
 
       <br />
@@ -23,9 +24,14 @@
             <h3 style="color: #fff; background: #120012">SEEDY MUSIC CLUB: REGISTER</h3>
          </div>
 
-         <form
+         <form name="register" id="register" onSubmit="return(formValidation());"
             action="${pageContext.request.contextPath}/account/AccountCreateControllerServlet"
             method="post">
+            
+            <div class="form-group row"><h4>
+               <label name="formError" id="formError" style="color: #FF1035;"
+                  class="col-sm-12"></label></h4>
+            </div>
 
             <div class="form-group row">
                <label for="username"
@@ -152,6 +158,62 @@
          <br/><br/><br/>
       </div>
    </div>
+
+<!--  Script must be at bottom to ensure elements have loaded. -->
+<script>
+function formValidation()
+{
+	var error = document.getElementById("formError");
+   var password = document.register.password;
+   var password2 = document.register.passwordRetyped;
+   
+   var username=document.register.username;
+   var firstName=document.register.firstName;
+   var lastName=document.register.lastName;
+   var street=document.register.street;
+   var province=document.register.province;
+   var country=document.register.country;
+   var postalCode=document.register.postalCode;
+   var phone=document.register.phone;
+   var email=document.register.email;
+   
+   if (username.value === "" ||
+       firstName.value === "" ||
+       lastName.value === "" ||
+       street.value === "" ||
+       province.value === "" ||
+       country.value === "" ||
+       postalCode.value === "" ||
+       phone.value === "" ||
+       email.value === "")
+	{
+	   error.textContent="Error: All fields are required.";
+	   window.scrollTo(0,0);
+	   username.focus();
+	   return false;	   
+	}
+   
+   if (password.value !== password2.value) 
+   {
+	   password.value="";
+	   password2.value="";
+      error.textContent="Error: Your passwords did not match.";
+    	window.scrollTo(0,0);
+      password.focus();
+      return false;
+   }
+   
+   if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value))
+   {
+      error.textContent="Error: Please enter a valid email address.";
+	   window.scrollTo(0,0);
+	   password.focus(); 
+      return false;
+   }
+   
+   return true;
+}
+</script>
 
 </body>
 </html>

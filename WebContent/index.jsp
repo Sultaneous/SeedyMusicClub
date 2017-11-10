@@ -7,6 +7,9 @@
 <!DOCTYPE html >
 <html>
 <head>
+<link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Seedy Music Club</title>
 </head>
@@ -66,7 +69,7 @@
                src="assets/images/icon_login.png" />
             </div>
 <%
-   // User is logged in tehn show logout icon
+   // User is logged in then show logout icon
    } else {
 %>
             <div class="col-3 center-block">
