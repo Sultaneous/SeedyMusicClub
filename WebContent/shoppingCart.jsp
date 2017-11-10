@@ -25,8 +25,12 @@
 		<label> Hello <c:if test="${not empty firstName}">
 				<c:out value="${firstName}" />
 			</c:if> <c:if test="${empty firstName}">
-Guest
+Guest.<br/><br/>
 </c:if>
+
+      <c:if test="${cart.getLineItemCount()==0}">
+      <h4>Your shopping cart is empty...</h4>
+      </c:if>
 
 		</label>
 
@@ -82,7 +86,9 @@ Guest
 	</div>
 
 	<div>
-	<a class="btn btn-primary" href="${returnUrl}">Back to Browsing</a>
+	<c:if test="${not empty returnUrl}">
+	<a class="btn btn-primary" href="${returnUrl}">Return to Catalog</a>
+	</c:if>
 	</div>
 </div>
 
