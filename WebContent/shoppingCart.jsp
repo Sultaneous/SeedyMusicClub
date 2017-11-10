@@ -17,6 +17,7 @@
 <jsp:include page="assets/fragments/navbar.jsp"/>
 <br/><br/>
 
+<div class="container center-block">
 	<h1>Shopping Cart</h1>
 	<p>
 	<div>
@@ -31,17 +32,17 @@ Guest
 
 	</div>
 
-	<div class="table-responsive">
+	<div class="table-responsive" style="width: 80%;">
 
 		<c:if test="${cart.getLineItemCount()>0}">
 			<table class="table .table-striped">
-
+           <thead>
 				<tr>
 					<th>Item Number</th>
 					<th>Title</th>
 					<th>Price</th>
 				</tr>
-
+           </thead>
 
 				<c:set var="cntr" value="${0}" />
 
@@ -49,13 +50,14 @@ Guest
 				<c:forEach items="${cart.getCartItems()}" var="cd">
 					<tr>
 						<td><c:out value="${cntr+1}" /></td>
-						<td>${cd.title}</td>
+						<td><strong>${cd.title}</strong></td>
 						<td>$${cd.price}</td>
 						<td>
 							<form
 								action="${pageContext.request.contextPath}/SessionController"
 								method="post">
-								<button class="btn btn-info" type="submit">Remove</button>
+								<button class="btn btn-danger" type="submit">
+								<span class="fa fa-remove"></span></button>
 								<input type="hidden" value="${cd.id}" name="cdId" /> <input
 									type="hidden" value="delete" name="action" /> <input
 									type="hidden" value="${cntr}" name="itemIndex">
@@ -67,18 +69,13 @@ Guest
 
 				<tr>
 					<td></td>
-					<td style="text-align: right;"><h5>Total:</h5></td>
-					<td><h5>$${cart.getOrderTotal()}</h5></td>
-				</tr>
-				<tr>
-				<td colspan="3"></td>
-				<td>
-				<form action="${pageContext.request.contextPath}/OrderController" method="get">
-				
-				<input type="hidden" value=""/>
-				<button class="btn btn-success" type="submit">Confirm Order</button>
-				</form>
-				</td>
+					<td class="align-right align-bottom"><h5>Total:</h5></td>
+					<td class="align-bottom"><h5>$${cart.getOrderTotal()}</h5></td>
+					<td>
+                <form action="${pageContext.request.contextPath}/OrderController" method="get">
+                 <button class="btn btn-success" type="submit">Submit Order...</button>
+                </form>
+               </td>
 				</tr>
 			</table>
 		</c:if>
@@ -87,6 +84,7 @@ Guest
 	<div>
 	<a class="btn btn-primary" href="${returnUrl}">Back to Browsing</a>
 	</div>
+</div>
 
 </body>
 </html>
