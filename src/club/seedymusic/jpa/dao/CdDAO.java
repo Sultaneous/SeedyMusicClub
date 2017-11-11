@@ -91,7 +91,7 @@ public class CdDAO
       private static final int ACTION_LIST_BYGENRE_PAGED = 4;
 
       /**
-       * ACTION: seaches DB for matches and near matches of title criteria.
+       * ACTION: searches DB for matches and near matches of title criteria.
        */
       private static final int ACTION_SEARCH = 5;
 
@@ -548,6 +548,7 @@ public class CdDAO
          @SuppressWarnings("unchecked")
          List<Cd> cds = criteria.list();
 
+         session.flush();
          transaction.commit();
 
          // Make sure we have a result
@@ -569,7 +570,6 @@ public class CdDAO
       finally
       {
          // Close session to clean up
-         session.flush();
          session.close();
       }
    }
@@ -708,6 +708,7 @@ public class CdDAO
          @SuppressWarnings("unchecked")
          List<String> genres = criteria.list();
 
+         session.flush();
          transaction.commit();
 
          // Caller should check for empty set and null values
@@ -726,7 +727,6 @@ public class CdDAO
       finally
       {
          // Close session to clean up
-         session.flush();
          session.close();
       }
    }

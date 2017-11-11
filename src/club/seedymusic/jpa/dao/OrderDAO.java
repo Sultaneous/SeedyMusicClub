@@ -81,6 +81,7 @@ public class OrderDAO
          // Transaction
          transaction = session.beginTransaction();
          session.save(order);
+         session.flush();
          transaction.commit();
 
          // Success
@@ -99,7 +100,6 @@ public class OrderDAO
       finally
       {
          // Clean-up
-         session.flush();
          session.close();
       }
    }
@@ -134,6 +134,7 @@ public class OrderDAO
          @SuppressWarnings("unchecked")
          List<Order> orders = criteria.list();
 
+         session.flush();
          transaction.commit();
          return (orders);
       }
@@ -150,7 +151,6 @@ public class OrderDAO
       finally
       {
          // Close session to clean up
-         session.flush();
          session.close();
       }
    }
@@ -181,6 +181,7 @@ public class OrderDAO
          @SuppressWarnings("unchecked")
          List<Order> orders = criteria.list();
 
+         session.flush();
          transaction.commit();
 
          // Make sure we have a result
@@ -202,7 +203,6 @@ public class OrderDAO
       finally
       {
          // Close session to clean up
-         session.flush();
          session.close();
       }
    }
@@ -228,6 +228,7 @@ public class OrderDAO
          long records = ((Number) criteria.setProjection(Projections.rowCount()).uniqueResult())
                   .longValue();
 
+         session.flush();
          transaction.commit();
 
          // Make sure we have a result
@@ -246,7 +247,6 @@ public class OrderDAO
       finally
       {
          // Close session to clean up
-         session.flush();
          session.close();
       }
    }
@@ -292,6 +292,7 @@ public class OrderDAO
 
          // Update the database
          session.update(order);
+         session.flush();
          transaction.commit();
 
          // Success
@@ -310,7 +311,6 @@ public class OrderDAO
       finally
       {
          // Close session to clean up
-         session.flush();
          session.close();
       }
    }

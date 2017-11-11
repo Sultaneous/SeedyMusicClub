@@ -103,6 +103,8 @@ public class AccountDAO
          // Transaction
          transaction = session.beginTransaction();
          session.save(account);
+
+         session.flush();
          transaction.commit();
 
          // Success
@@ -153,6 +155,7 @@ public class AccountDAO
          @SuppressWarnings("unchecked")
          List<Account> accounts = criteria.list();
 
+         session.flush();
          transaction.commit();
          return (accounts);
       }
@@ -258,6 +261,7 @@ public class AccountDAO
          // Suppress casting warning; this is a Hibernate issue
          @SuppressWarnings("unchecked")
          List<Account> accounts = criteria.list();
+         session.flush();
 
          transaction.commit();
 
@@ -280,7 +284,6 @@ public class AccountDAO
       finally
       {
          // Close session to clean up
-         session.flush();
          session.close();
       }
    }
@@ -305,7 +308,7 @@ public class AccountDAO
          Criteria criteria = session.createCriteria(Account.class);
          long records = ((Number) criteria.setProjection(Projections.rowCount()).uniqueResult())
                   .longValue();
-
+         session.flush();
          transaction.commit();
 
          // Make sure we have a result
@@ -324,7 +327,6 @@ public class AccountDAO
       finally
       {
          // Close session to clean up
-         session.flush();
          session.close();
       }
    }
