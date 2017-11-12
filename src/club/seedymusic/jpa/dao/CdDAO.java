@@ -195,6 +195,7 @@ public class CdDAO
          // Transaction
          transaction = session.beginTransaction();
          session.save(cd);
+         session.flush();
          transaction.commit();
 
          // Success
@@ -213,7 +214,6 @@ public class CdDAO
       finally
       {
          // Close session to clean up
-         session.flush();
          session.close();
       }
    }
@@ -339,6 +339,7 @@ public class CdDAO
          @SuppressWarnings("unchecked")
          List<Cd> cds = criteria.list();
 
+         session.flush();
          transaction.commit();
          return (cds);
       }
@@ -363,7 +364,6 @@ public class CdDAO
       finally
       {
          // Close session to clean up
-         session.flush();
          session.close();
       }
    }
@@ -658,6 +658,7 @@ public class CdDAO
          long records = ((Number) criteria.setProjection(Projections.rowCount()).uniqueResult())
                   .longValue();
 
+         session.flush();
          transaction.commit();
 
          // Make sure we have a result
@@ -676,7 +677,6 @@ public class CdDAO
       finally
       {
          // Close session to clean up
-         session.flush();
          session.close();
       }
    }

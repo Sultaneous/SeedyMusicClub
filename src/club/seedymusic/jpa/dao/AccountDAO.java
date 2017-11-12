@@ -261,8 +261,8 @@ public class AccountDAO
          // Suppress casting warning; this is a Hibernate issue
          @SuppressWarnings("unchecked")
          List<Account> accounts = criteria.list();
-         session.flush();
 
+         session.flush();
          transaction.commit();
 
          // Make sure we have a result
@@ -308,6 +308,7 @@ public class AccountDAO
          Criteria criteria = session.createCriteria(Account.class);
          long records = ((Number) criteria.setProjection(Projections.rowCount()).uniqueResult())
                   .longValue();
+
          session.flush();
          transaction.commit();
 
@@ -356,8 +357,8 @@ public class AccountDAO
          account.setId(id);
 
          session.delete(account);
-         session.flush();
 
+         session.flush();
          transaction.commit();
 
          // Success
