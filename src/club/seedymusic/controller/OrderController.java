@@ -35,17 +35,15 @@ import club.seedymusic.wrapper.CreateOrderWrapper;
  * Servlet implementation class OrderController
  */
 @WebServlet("/OrderController")
-public class OrderController extends HttpServlet
-{
+public class OrderController extends HttpServlet {
+	
    private static final long serialVersionUID = 1L;
 
    /**
     * @see HttpServlet#HttpServlet()
     */
-   public OrderController()
-   {
+   public OrderController() {
       super();
-      // TODO Auto-generated constructor stub
    }
 
    /**
@@ -53,17 +51,14 @@ public class OrderController extends HttpServlet
     */
    @Override
    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-   {
-
-
+            throws ServletException, IOException {
+	   
       HttpSession session = request.getSession();
       ShoppingCart cartBean = null;
 
       // SC in session
       Object objCartBean = session.getAttribute("cart");
-      if (objCartBean != null)
-      {
+      if (objCartBean != null) {
          cartBean = (ShoppingCart) objCartBean;
       }
 
@@ -73,30 +68,18 @@ public class OrderController extends HttpServlet
                + request.getContextPath() + "/";
 
       Object userId = session.getAttribute("userId");
-
       Account acc = getAccountDetails(baseUrl, userId.toString());
 
-      if (acc != null)
-      {
-
+      if (acc != null) {
          Order order = createOrder(baseUrl, cartBean, acc);
-
-         if (order != null)
-         {
+         if (order != null) {
             session.setAttribute("order", order);
-
             // redirect to confirmOrder.jsp
             response.sendRedirect("confirmOrder.jsp");
-
-         }
-         else
-         {
+         } else {
             response.getWriter().append("failed").append(request.getContextPath());
-
          }
       }
-
-
       response.getWriter().append("Served at lemon");
       // TODO Auto-generated method stub
    }
@@ -106,9 +89,8 @@ public class OrderController extends HttpServlet
     */
    @Override
    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-   {
-
+            throws ServletException, IOException {
+	   
       HttpSession session = request.getSession();
 
       // this is were cc info are posted
@@ -119,57 +101,42 @@ public class OrderController extends HttpServlet
       int cntr = -1;
       Object timesCreditCardUsed = session.getAttribute("timesCreditCardUsed");
 
-      if (timesCreditCardUsed != null)
-      {
+      if (timesCreditCardUsed != null) {
          cntr = Integer.parseInt(timesCreditCardUsed.toString());
          cntr++;
          session.setAttribute("timesCreditCardUsed", cntr);
-      }
-      else
-      {
+      } else {
          cntr = 1;
          session.setAttribute("timesCreditCardUsed", cntr);
       }
 
-
-
       // get user Id
       Object userId = session.getAttribute("userId");
-
       String url = request.getRequestURL().toString();
       String baseUrl = url.substring(0, url.length() - request.getRequestURI().length())
                + request.getContextPath() + "/";
-
       Account acc = null;
-      try
-      {
-
+      
+      try {
          acc = getAccountDetails(baseUrl, userId.toString());
-
       }
-      catch (Exception e)
-      {
+      catch (Exception e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
 
       String orderStatus = "";
       // accept cc info and confirm order
-      if (acc != null)
-      {
+      if (acc != null) {
          int accountId = acc.getId();
 
-         if (confirmOrder(baseUrl, (Order) order, acc, (String) ccInfo))
-         {
+         if (confirmOrder(baseUrl, (Order) order, acc, (String) ccInfo)) {
             orderStatus = "Confirmed";
             request.getSession().removeAttribute("cart");
          } else {
             orderStatus = "Credit Card declined";
          }
-
-      }
-      else
-      {
+      } else {
          // return failed to confirm order
          orderStatus = "Failed to confirm Order";
       }
@@ -177,11 +144,6 @@ public class OrderController extends HttpServlet
       session.setAttribute("orderStatus", orderStatus);
 
       response.sendRedirect(baseUrl + "orderStatus.jsp");
-
-
-
-      // TODO Auto-generated method stub
-      // doGet(request, response);
    }
 
    public Order createOrder(String baseUrl, ShoppingCart shoppingCart, Account acc)
@@ -190,8 +152,7 @@ public class OrderController extends HttpServlet
       Order order = null;
 
       URL url;
-      try
-      {
+      try {
 
          url = new URL(baseUrl + "rest/order/createOrder/");
 
@@ -205,7 +166,6 @@ public class OrderController extends HttpServlet
          createOrderWrapper.setShoppingCartInfo(shoppingCart);
          createOrderWrapper.setShippingInfo(acc);
 
-
          ObjectMapper objectMapper = new ObjectMapper();
 
          // map wrapper class to a JSON string
@@ -217,19 +177,14 @@ public class OrderController extends HttpServlet
          con.setRequestProperty("Content-Type", "application/json");
          con.setRequestProperty("Accept", "application/json");
          con.setRequestMethod("POST");
-
-         OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+         
          // write the wrapper JSON string
+         OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
          wr.write(createOrderWrapperJSON);
          wr.flush();
 
-         // int HttpsResult = con.getResponseCode();
-         // if (HttpsResult == HttpsURLConnection.HTTP_OK)
-
          BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
          String result = "";
-
          String input = "";
 
          while ((input = reader.readLine()) != null)
@@ -237,26 +192,18 @@ public class OrderController extends HttpServlet
             result += input;
          }
 
-
-         // ObjectMapper objectMapper= new ObjectMapper();
-
          order = objectMapper.readValue(result, Order.class);
-      }
-      catch (Exception e)
-      {
-
+      } catch (Exception e) {
+    	  e.printStackTrace();
       }
       return order;
-
    }
 
-   public Account getAccountDetails(String baseUrl, String userId)
-   {
+   public Account getAccountDetails(String baseUrl, String userId) {
       Account acc = null;
 
       URL url;
-      try
-      {
+      try {
 
          // bypassing ssl
          doTrustToCertificates();
@@ -270,8 +217,7 @@ public class OrderController extends HttpServlet
 
          String input = "";
 
-         while ((input = reader.readLine()) != null)
-         {
+         while ((input = reader.readLine()) != null) {
             result += input;
          }
 
@@ -279,22 +225,18 @@ public class OrderController extends HttpServlet
          ObjectMapper objectMapper = new ObjectMapper();
 
          acc = objectMapper.readValue(result, Account.class);
+      } catch (Exception e) {
+    	  e.printStackTrace();
       }
-      catch (Exception e)
-      {
-
-
-      }
-
+      
       return acc;
    }
 
-   public boolean confirmOrder(String baseUrl, Order order, Account acc, String cc)
-   {
+   public boolean confirmOrder(String baseUrl, Order order, Account acc, String cc) {
+	   
       URL url;
       boolean orderCorrect = false;
-      try
-      {
+      try {
 
          url = new URL(baseUrl + "rest/order/confirmOrder/");
 
@@ -321,13 +263,10 @@ public class OrderController extends HttpServlet
          con.setRequestProperty("Accept", "application/json");
          con.setRequestMethod("POST");
 
-         OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
          // write the wrapper JSON string
+         OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
          wr.write(confirmOrderWrapperJSON);
          wr.flush();
-
-         // int HttpsResult = con.getResponseCode();
-         // if (HttpsResult == HttpsURLConnection.HTTP_OK)
 
          BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
@@ -340,70 +279,55 @@ public class OrderController extends HttpServlet
             result += input;
          }
 
-
-         // ObjectMapper objectMapper= new ObjectMapper();
-
          orderCorrect = objectMapper.readValue(result, boolean.class);
+      } catch (Exception e) {
+    	  e.printStackTrace();
       }
-      catch (Exception e)
-      {
-
-      }
+      
       return orderCorrect;
-
    }
 
-   boolean tryParseInt(String value)
-   {
-      try
-      {
+   boolean tryParseInt(String value) {
+	   
+      try {
          Integer.parseInt(value);
          return true;
-      }
-      catch (NumberFormatException e)
-      {
+      } catch (NumberFormatException e) {
          return false;
       }
    }
 
-
-   public static void doTrustToCertificates() throws Exception
-   {
+   public static void doTrustToCertificates() throws Exception {
+	   
       Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
       TrustManager[] trustAllCerts = new TrustManager[]
       {
-               new X509TrustManager()
-               {
-                  @Override
-                  public X509Certificate[] getAcceptedIssuers()
-                  {
-                     return null;
-                  }
+    	  new X509TrustManager()
+          {
+             @Override
+             public X509Certificate[] getAcceptedIssuers() {
+                return null;
+             }
 
-                  @Override
-                  public void checkServerTrusted(X509Certificate[] certs, String authType)
-                           throws CertificateException
-                  {
-                  }
+             @Override
+             public void checkServerTrusted(X509Certificate[] certs, String authType)
+                      throws CertificateException {
+             }
 
-                  @Override
-                  public void checkClientTrusted(X509Certificate[] certs, String authType)
-                           throws CertificateException
-                  {
-                  }
-               }
+             @Override
+             public void checkClientTrusted(X509Certificate[] certs, String authType)
+                      throws CertificateException {
+             }
+          }
       };
 
       SSLContext sc = SSLContext.getInstance("SSL");
       sc.init(null, trustAllCerts, new SecureRandom());
       HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-      HostnameVerifier hv = new HostnameVerifier()
-      {
+      HostnameVerifier hv = new HostnameVerifier() {
          @Override
-         public boolean verify(String urlHostName, SSLSession session)
-         {
-            if (!urlHostName.equalsIgnoreCase(session.getPeerHost()))
-            {
+         public boolean verify(String urlHostName, SSLSession session) {
+            if (!urlHostName.equalsIgnoreCase(session.getPeerHost())) {
                // logger.warn("Warning: URL host '" + urlHostName + "' is different to SSLSession
                // host '" + session.getPeerHost() + "'.");
             }
@@ -412,6 +336,4 @@ public class OrderController extends HttpServlet
       };
       HttpsURLConnection.setDefaultHostnameVerifier(hv);
    }
-
-
 }
