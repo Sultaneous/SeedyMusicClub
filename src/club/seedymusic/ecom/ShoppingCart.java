@@ -134,7 +134,7 @@ public ArrayList<Cd> getCartItems() {
     * @param strItemIndex this is the index of the item to be deleted from the cart
     */
    public void deleteCartItem(String strItemIndex) {
-	   int iItemIndex = 0;
+	     int iItemIndex = 0;
 	   try {
 	    iItemIndex = Integer.parseInt(strItemIndex);
 	    cartItems.remove(iItemIndex);
