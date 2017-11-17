@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- JSTL -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -47,7 +49,7 @@ Guest.<br/><br/>
 				<tr>
 					<th>Item Number</th>
 					<th>Title</th>
-					<th>Price</th>
+					<th>Price <img src="assets/images/icon_canada.png"/></th>
 				</tr>
            </thead>
 
@@ -76,8 +78,16 @@ Guest.<br/><br/>
 
 				<tr>
 					<td></td>
-					<td class="align-right align-bottom"><h5>Total:</h5></td>
-					<td class="align-bottom"><h5>$${cart.getOrderTotal()}</h5></td>
+					<td class="align-right align-bottom">
+					<h5>Total (C$ <img src="assets/images/icon_canada.png"/>):</h5></td>
+					
+					<!--  This formats to two decimal places -->
+					<td class="align-bottom">
+					 <fmt:formatNumber var="totalCost" type="number" 
+					 minFractionDigits="2" maxFractionDigits="2" value="${cart.getOrderTotal()}"/>
+					 <h5>$${totalCost}</h5> 
+					</td>
+					
 					<td>
                 <form action="${pageContext.request.contextPath}/OrderController" method="get">
                  <button class="btn btn-success" type="submit">
