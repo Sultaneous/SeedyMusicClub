@@ -1,6 +1,3 @@
-<!-- JSTL -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <!-- Site icon -->
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon.ico" type="image/x-icon">

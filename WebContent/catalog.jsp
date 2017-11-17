@@ -107,7 +107,7 @@
 						 </tr>
 						 <tr>
 						    <td><strong>Price</strong></td>
-							<td>$${cd.price}</td>
+							<td>$${cd.price} <img src="assets/images/icon_canada.png"/></td>
 						 </tr>
 						<tr>
 							<td>
