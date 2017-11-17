@@ -26,7 +26,10 @@
                   card number.  Any fake value - even empty - will work here.
                   This site is currently STAGED and is faking orders for
                   testing purposes, not fulfilling them.  No info entered here
-                  is saved.  Every 5th global order will be declined.</h5></label>
+                  is saved.  Every 5th global order will be declined.
+                  <br/><br/>
+                  TO BE REPLACED WITH BITCOIN PAYMENT...
+                  </h5></label>
          <form
             action="${pageContext.request.contextPath}/OrderController"
             method="post">

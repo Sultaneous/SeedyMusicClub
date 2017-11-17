@@ -4,7 +4,8 @@
 <!--  Navigation Bar -->
 <nav class="navbar navbar-expand-sm fixed-top navbar-dark font-weight-bold" style="background: #22084C;">
 
-  <ul class="navbar-nav mr-auto" >
+   <!--  Left side of navbar -->
+   <ul class="navbar-nav mr-auto" >
     <li class="nav-item">
       <a class="nav-link" href="index.jsp">Seedy Music Club Home</a>
     </li>
@@ -27,9 +28,16 @@
       </c:otherwise>
      </c:choose>
     </li>
-    
-    </ul>
-    <ul class="nav navbar-nav ml-auto">
+   </ul>
+   
+   <ul class="nav navbar-nav mx-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="#">[INACTIVE SITE - DEMO ONLY]</a>
+    </li>
+   </ul>
+
+   <!-- Right side of navbar -->
+   <ul class="nav navbar-nav ml-auto">
     <li class="nav-item">
       <a class="nav-link" href="shoppingCart.jsp"><span class="fa fa-shopping-cart"></span> Cart</a>
     </li>
@@ -41,8 +49,7 @@
       <span class="fa fa-search"></span> CDs</button>
     </form>
     </li>
-    </ul>
-   
+   </ul>
 
 </nav>
 <!-- End of Navbar fragment -->
