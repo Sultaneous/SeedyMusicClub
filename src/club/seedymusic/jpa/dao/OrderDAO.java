@@ -30,6 +30,16 @@ import club.seedymusic.util.SessionManager;
  */
 public class OrderDAO
 {
+   private class ListParams
+   {
+      int id;
+   }
+
+   public enum ListActions
+   {
+      LIST_ALL, LIST_BY_ID
+   };
+
    /**
     * Constructs a new OrderDAO.
     *
@@ -111,9 +121,13 @@ public class OrderDAO
     * 
     * NOTE: You will need to do a nested iteration over the OrderItems set contained within.
     * 
+    * @param action
+    *           A value from the ListActions enumeration to state what action to take
+    * @param listParams
+    *           A ListParms object with parameter values or null if none
     * @return Returns a list of all the Orders in the database which can be iterated over.
     */
-   public List<Order> listOrders()
+   private List<Order> listOrdersController(ListActions action, ListParams listParams)
    {
       // Create session
       Session session = createSession();
@@ -127,8 +141,7 @@ public class OrderDAO
          // Using criteria requires no HQL or SQL or XML config data
          Criteria criteria = session.createCriteria(Order.class);
 
-         // Alternative way to load table data using HQL
-         // List<Order> orders = session.createQuery("FROM Order").list();
+         if (action == ListActions.LIST_BY_ID) criteria.add(Restrictions.idEq(listParams.id));
 
          // Suppress casting warning; this is a Hibernate issue
          @SuppressWarnings("unchecked")
@@ -153,6 +166,23 @@ public class OrderDAO
          // Close session to clean up
          session.close();
       }
+   }
+
+   public List<Order> listOrders()
+   {
+      // No params; just tell controller what action to take
+      return (listOrdersController(ListActions.LIST_ALL, null));
+   }
+
+   public List<Order> listOrders(int id)
+   {
+      // Sanity check
+      if (id < 1) return null;
+
+      // Setup params object and tell controller what action to take
+      ListParams listParams = new ListParams();
+      listParams.id = id;
+      return (listOrdersController(ListActions.LIST_BY_ID, listParams));
    }
 
    /**
