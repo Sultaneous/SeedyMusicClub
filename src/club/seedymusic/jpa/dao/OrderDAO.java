@@ -168,12 +168,24 @@ public class OrderDAO
       }
    }
 
+   /**
+    * Lists all the orders in the database.
+    * 
+    * @return A list of Order objects on succes, null otherwise.
+    */
    public List<Order> listOrders()
    {
       // No params; just tell controller what action to take
       return (listOrdersController(ListActions.LIST_ALL, null));
    }
 
+   /**
+    * Lists all orders belonging to a specific account ID.
+    * 
+    * @param id
+    *           The integer account id.
+    * @return A list of Order objects on success, null otherwise.
+    */
    public List<Order> listOrders(int id)
    {
       // Sanity check
@@ -190,7 +202,7 @@ public class OrderDAO
     * 
     * @param id
     *           The order id to retrieve from database.
-    * @return Returns the Order bean populated from db if id exists; null otherwise.
+    * @return Returns the Order bean populated from DB if id exists; null otherwise.
     */
    public Order getOrder(int id)
    {
