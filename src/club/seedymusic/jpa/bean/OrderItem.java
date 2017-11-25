@@ -2,6 +2,7 @@ package club.seedymusic.jpa.bean;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -23,7 +24,7 @@ public class OrderItem
     * The unique ID for the record in the table.
     */
    @Id
-   @GeneratedValue
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
    private int id;
 
    /**
@@ -96,10 +97,8 @@ public class OrderItem
    @Override
    public boolean equals(Object obj)
    {
-      if (obj == null)
-         return false;
-      if (!this.getClass().equals(obj.getClass()))
-         return false;
+      if (obj == null) return false;
+      if (!this.getClass().equals(obj.getClass())) return false;
 
       OrderItem obj2 = (OrderItem) obj;
       if ((this.id == obj2.getId()) && (this.cdid == obj2.getCdid()))

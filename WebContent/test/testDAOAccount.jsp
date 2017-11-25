@@ -144,6 +144,18 @@ if (action != null)
       <td>${account.password}</td>
       <td>${account.date}</td>
     </tr>
+    <tr>
+      <th colspan=20>
+      JSON Representation
+      </th>
+    </tr>
+    <tr>
+      <td colspan=20>
+      <code>
+      ${account.toJson()}
+      </code>
+      </td>
+    </tr>
   </tbody>
 </table>
 </div>

@@ -171,7 +171,7 @@ public class OrderDAO
    /**
     * Lists all the orders in the database.
     * 
-    * @return A list of Order objects on succes, null otherwise.
+    * @return A list of Order objects on success, null otherwise.
     */
    public List<Order> listOrders()
    {

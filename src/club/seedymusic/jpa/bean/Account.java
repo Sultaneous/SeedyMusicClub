@@ -5,11 +5,14 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * <h2>Account Class</h2>
@@ -44,7 +47,7 @@ public class Account
     * This is the unique key for the object in the database.
     */
    @Id
-   @GeneratedValue
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
    private int id;
 
    /**
@@ -410,4 +413,28 @@ public class Account
       this.email = email;
    }
 
-}
+   /**
+    * Converts the object to a pretty formatted JSON string.
+    * 
+    * @return String value containing the JSON representation.
+    */
+   public String toJson()
+   {
+      // Convert object to pretty JSON string
+      ObjectMapper objectMapper = new ObjectMapper();
+
+      String json;
+
+      try
+      {
+         json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
+         return (json);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+         return (null);
+      }
+   }
+
+} // Class

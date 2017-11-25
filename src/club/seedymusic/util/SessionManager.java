@@ -1,5 +1,7 @@
 package club.seedymusic.util;
 
+import java.util.Properties;
+
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -25,6 +27,10 @@ public class SessionManager
          configuration.addAnnotatedClass(club.seedymusic.jpa.bean.Account.class);
          configuration.addAnnotatedClass(club.seedymusic.jpa.bean.Order.class);
          configuration.addAnnotatedClass(club.seedymusic.jpa.bean.OrderItem.class);
+
+         Properties properties = new Properties();
+         properties.put("hibernate.id.new_generator_mappings", "false");
+         configuration.addProperties(properties);
 
          // Create session factory
          StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
