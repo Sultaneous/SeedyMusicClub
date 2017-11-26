@@ -286,11 +286,11 @@ public class OrderWS {
 	@POST
 	@Path("orderList")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Order orderList(String msg) {
+	public List<Order> orderList(String msg) {
 		orderDAO = new OrderDAO();
 		
 		// do order list update call to python
-		Order order = orderDAO.getOrder(Integer.parseInt(msg));
+		List<Order> order = orderDAO.listOrders(Integer.parseInt(msg));
 		
 		return order;
 	}
