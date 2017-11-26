@@ -80,6 +80,9 @@ public class OrderDAO
     */
    public boolean addOrder(Order order)
    {
+      // Sanity test
+      if (order == null) return false;
+
       // Get session object
       Session session = createSession();
 

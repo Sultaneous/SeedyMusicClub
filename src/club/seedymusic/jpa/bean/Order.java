@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * <h2>Order Class</h2>
  * <p>
@@ -189,4 +191,53 @@ public class Order
    {
       this.date = date;
    }
-}
+
+   // Methods
+
+   /**
+    * Converts the object to a pretty formatted JSON string.
+    * 
+    * @return String value containing the JSON representation.
+    */
+   public String toJson()
+   {
+      // Convert object to pretty JSON string
+      ObjectMapper objectMapper = new ObjectMapper();
+
+      String json;
+
+      try
+      {
+         json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
+         return (json);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+         return (null);
+      }
+   }
+
+   /**
+    * Deserializes a JSON string into an Order object.
+    * 
+    * @param Json
+    *           - the JSON string to inflate.
+    * @return An Order object on success or null on failure.
+    */
+   public static Order createObject(String Json)
+   {
+      ObjectMapper objectMapper = new ObjectMapper();
+      try
+      {
+         Order order = objectMapper.readValue(Json, Order.class);
+         return (order);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+         return (null);
+      }
+   }
+
+} // Class

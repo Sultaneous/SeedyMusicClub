@@ -108,6 +108,21 @@ public class TestDAOAccount extends HttpServlet
          session.setAttribute("account.result", String.valueOf(result));
       }
 
+      else if (action.equals("account.addJson"))
+      {
+         // Create our DAO
+         AccountDAO accountDAO = new AccountDAO();
+
+         // Create our Account object
+         Account account = Account.createObject(request.getParameter("account.Json"));
+
+         // Add the account object. If JSON inflation failed, so will this.
+         boolean result = accountDAO.addAccount(account);
+
+         // Put it into the session object for the jsp
+         session.setAttribute("account.result", String.valueOf(result));
+      }
+
       else if (action.equals("account.delete"))
       {
          // Create our DAO

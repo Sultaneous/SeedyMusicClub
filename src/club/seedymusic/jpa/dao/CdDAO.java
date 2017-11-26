@@ -184,6 +184,9 @@ public class CdDAO
     */
    public boolean addCd(Cd cd)
    {
+      // Sanity test
+      if (cd == null) return false;
+
       // Get session object
       Session session = createSession();
 

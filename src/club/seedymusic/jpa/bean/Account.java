@@ -136,6 +136,7 @@ public class Account
       this.date = new Date();
    }
 
+
    /*
     * Accessors (Getters and Setters)
     */
@@ -429,6 +430,28 @@ public class Account
       {
          json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
          return (json);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+         return (null);
+      }
+   }
+
+   /**
+    * Deserializes a JSON string into an Account object.
+    * 
+    * @param Json
+    *           - the JSON string to inflate.
+    * @return An Account object on success or null on failure.
+    */
+   public static Account createObject(String Json)
+   {
+      ObjectMapper objectMapper = new ObjectMapper();
+      try
+      {
+         Account account = objectMapper.readValue(Json, Account.class);
+         return (account);
       }
       catch (Exception e)
       {

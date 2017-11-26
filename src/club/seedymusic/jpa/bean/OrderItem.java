@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * <h2>OrderItem Class</h2>
  * <p>
@@ -115,6 +117,52 @@ public class OrderItem
       String digest = Integer.toString(id) + Integer.toString(cdid);
       hash = digest.hashCode();
       return hash;
+   }
+
+   /**
+    * Converts the object to a pretty formatted JSON string.
+    * 
+    * @return String value containing the JSON representation.
+    */
+   public String toJson()
+   {
+      // Convert object to pretty JSON string
+      ObjectMapper objectMapper = new ObjectMapper();
+
+      String json;
+
+      try
+      {
+         json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
+         return (json);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+         return (null);
+      }
+   }
+
+   /**
+    * Deserializes a JSON string into an OrderItem object.
+    * 
+    * @param Json
+    *           - the JSON string to inflate.
+    * @return An OrderItem object on success or null on failure.
+    */
+   public static OrderItem createObject(String Json)
+   {
+      ObjectMapper objectMapper = new ObjectMapper();
+      try
+      {
+         OrderItem orderItem = objectMapper.readValue(Json, OrderItem.class);
+         return (orderItem);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+         return (null);
+      }
    }
 
 } // Class

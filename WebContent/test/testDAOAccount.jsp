@@ -63,6 +63,29 @@ if (action != null)
 
 <%
    }
+   else if (action.equals("account.addJson"))
+   {
+      String result = (String) session.getAttribute("account.result");
+      if (result==null) result="Unknown";
+
+%>
+<div>      
+<table class="table table-inverse" style="width: 50%">
+  <tbody>
+    <tr>
+      <td><b>Action performed</b></td>
+      <td><%=action %></td>
+    </tr>
+    <tr>
+      <td><b>Action result</b></td>
+      <td><%=result.toUpperCase() %></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<%
+   }
    else if (action.equals("account.delete"))
    {
       String result = (String) session.getAttribute("account.result");
@@ -423,6 +446,55 @@ No operation performed, no data returned, or session timed out.
       </div>
     </div>
   </div>
+
+  <div class="card">
+    <div class="card-header" role="tab" id="account.addJson">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwoA" aria-expanded="false" aria-controls="collapseTwoA">
+          Test Operation: ADD Account from JSON...
+        </a>
+      </h5>
+    </div>
+    <div id="collapseTwoA" class="collapse" role="tabpanel" aria-labelledby="account.addJson">
+      <div class="card-block">
+
+      <div class="container formtb">
+         <div>
+           <br/>
+            <h3>Enter account JSON:</h3>
+         </div>
+
+	      <div>
+	         <form
+	            action="${pageContext.request.contextPath}/test/TestDAOAccount"
+	            method="get">
+	            <input type="hidden" name="account.action" value="account.addJson">
+	
+	            <div class="form-group row">
+	               <label for="account.Json"
+	                  class="col-sm-2 col-form-label col-form-label-lg">JSON</label>
+	               <div class="col-sm-10">
+	                  <textarea class="form-control form-control-lg" 
+	                   name="account.Json" id="account.Json" placeholder="JSON String"
+	                   rows=6></textarea>
+	               </div>
+	            </div>
+
+	            <div class="form-group row">
+	               <div class="offset-sm-2 col-sm-10">
+	                  <button type="submit" class="btn btn-primary btn-lg">Create account from JSON...</button>
+	               </div>
+	            </div>
+	
+	         </form>
+	         
+	         <br/><br/><br/>
+	      </div>
+
+      </div>
+    </div>
+  </div>
+
   
   <div class="card">
     <div class="card-header" role="tab" id="account.delete">

@@ -94,6 +94,9 @@ public class AccountDAO
     */
    public boolean addAccount(Account account)
    {
+      // Sanity check
+      if (account == null) return false;
+
       // Get session object
       Session session = createSession();
       Transaction transaction = null;
