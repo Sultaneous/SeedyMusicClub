@@ -282,4 +282,16 @@ public class OrderWS {
 		}
 		return orderCorrect;
 	}
+	
+	@POST
+	@Path("orderList")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Order orderList(String msg) {
+		orderDAO = new OrderDAO();
+		
+		// do order list update call to python
+		Order order = orderDAO.getOrder(Integer.parseInt(msg));
+		
+		return order;
+	}
 }
