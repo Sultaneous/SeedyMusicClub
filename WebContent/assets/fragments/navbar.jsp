@@ -7,32 +7,51 @@
    <!--  Left side of navbar -->
    <ul class="navbar-nav mr-auto" >
     <li class="nav-item">
-      <a class="nav-link" href="index.jsp">Seedy Music Club Home</a>
+      <a class="nav-link" href="index.jsp">
+      <span class="fa fa-home"></span> Home</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-link" href="${pageContext.request.contextPath}/browse"">Browse CDs</a>
+      <a class="nav-link" href="${pageContext.request.contextPath}/browse">
+      <span class="fa fa-circle-o"></span> CDs</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="register.jsp">
+      <span class="fa fa-pencil-square"></span> Register</a>
     </li>
     
-    <li class="nav-item">
-      <a class="nav-link" href="register.jsp">Register</a>
-    </li>
-    
-    <li class="nav-item">
-     <c:choose>
-      <c:when test="${sessionScope.userId == null}">
-       <a class="nav-link" href="login.jsp">Login</a>
-      </c:when>
-      <c:otherwise>
-       <a class="nav-link" href="logout.jsp">Logout</a>   
+    <!--  Toggles Login / Account dropdown depending on login status -->
+    <c:choose>
+     <c:when test="${sessionScope.userId == null}">
+      <!--  Logged Out -->
+      <li class="nav-item">
+       <a class="nav-link" href="login.jsp">
+       <span class="fa fa-sign-in"></span> Login</a>
+      </li>
+     </c:when>
+     <c:otherwise>
+      <!--  Logged In -->
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" 
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <span class="fa fa-user"></span> Account</a>
+        <div class="dropdown-menu"  style="background: #22084C;" 
+          aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item nav-link" 
+           href="${pageContext.request.contextPath}/ListOrdersController">
+           <span class="fa fa-list"></span> Order History</a>
+          <a class="dropdown-item nav-link" href="logout.jsp">
+           <span class="fa fa-sign-out"></span> Logout</a>
+        </div>
+      </li>
       </c:otherwise>
      </c:choose>
-    </li>
    </ul>
    
    <ul class="nav navbar-nav mx-auto">
     <li class="nav-item">
-      <a class="nav-link" href="#">[INACTIVE SITE - DEMO ONLY]</a>
+      <a class="nav-link" href="#">[Seedy Music Club - DEMO]</a>
     </li>
    </ul>
 
