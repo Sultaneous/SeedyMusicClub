@@ -34,7 +34,7 @@ public class OrderDAO
    /**
     * Constant representing a key name in the configuration file.
     */
-   private static final String CONFIG_ACCOUNTID = "orders_accountId";
+   private static final String CONFIG_ACCOUNTID = "orders_accountid";
 
    /**
     * Constant representing a default field name in case the configuration file failed to load.
@@ -235,7 +235,7 @@ public class OrderDAO
    /**
     * Lists all orders belonging to a specific account ID.
     * 
-    * @param id
+    * @param accountId
     *           The integer account id.
     * @return A list of Order objects on success, null otherwise.
     */
