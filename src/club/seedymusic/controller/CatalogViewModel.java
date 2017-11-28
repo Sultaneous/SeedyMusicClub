@@ -79,6 +79,8 @@ public class CatalogViewModel {
 	public List<Cd> getCds(String baseUrl)
 	{
 		URL url;
+		if(_search!=null)
+		_search=refineSearch(_search);
 		
 		  try {
                 if(_genre=="" || _genre==null)
@@ -432,6 +434,13 @@ public class CatalogViewModel {
 	      } catch (NumberFormatException e) {  
 	         return false;  
 	      }  
+	}
+	
+	String refineSearch(String term)
+	{
+		
+		String res = term.replaceAll(" ", "+");
+		return res;
 	}
 
 }
