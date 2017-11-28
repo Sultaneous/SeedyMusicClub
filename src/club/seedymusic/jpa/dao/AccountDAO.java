@@ -137,6 +137,7 @@ public class AccountDAO
     * 
     * @return Returns a list of all the CDs in the database which can be iterated over.
     */
+
    public List<Account> listAccounts()
    {
       Session session = createSession();
@@ -148,6 +149,8 @@ public class AccountDAO
          transaction = session.beginTransaction();
 
          // Using criteria allows us to avoid HQL / SQL string literals
+         // Hibernate 5 deprecated this API in favour of JPA, which is 20x more verbose
+         @SuppressWarnings("deprecation")
          Criteria criteria = session.createCriteria(Account.class);
 
          // Return all ordered by id
@@ -198,6 +201,8 @@ public class AccountDAO
          transaction = session.beginTransaction();
 
          // Using criteria requires no HQL or SQL or XML config data
+         // Hibernate 5 deprecated this API in favour of JPA, which is 20x more verbose
+         @SuppressWarnings("deprecation")
          Criteria criteria = session.createCriteria(Account.class);
          criteria.add(Restrictions.idEq(id));
 
@@ -252,6 +257,8 @@ public class AccountDAO
          transaction = session.beginTransaction();
 
          // Using criteria requires no HQL or SQL or XML config data
+         // Hibernate 5 deprecated this API in favour of JPA, which is 20x more verbose
+         @SuppressWarnings("deprecation")
          Criteria criteria = session.createCriteria(Account.class);
 
          // Search for username. It should be unique. Regardless, we will
@@ -308,6 +315,8 @@ public class AccountDAO
          transaction = session.beginTransaction();
 
          // Using criteria requires no HQL or SQL or XML config data
+         // Hibernate 5 deprecated this API in favour of JPA, which is 20x more verbose
+         @SuppressWarnings("deprecation")
          Criteria criteria = session.createCriteria(Account.class);
          long records = ((Number) criteria.setProjection(Projections.rowCount()).uniqueResult())
                   .longValue();

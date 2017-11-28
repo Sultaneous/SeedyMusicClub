@@ -68,6 +68,12 @@
       Supports searching by genre and title keyword.</td>
      <td><a href="${pageContext.request.contextPath}/rest/catalog/all">/rest/catalog/all</a></td>
     </tr>    
+    <tr>
+     <th>5&nbsp;&nbsp;&nbsp;</th>
+     <td>Bitcoin Processor</td>
+     <td>Tests various Bitcoin Payment Processor unit test cases.</td>
+     <td><a href="${pageContext.request.contextPath}/test/testProcessor.jsp">testProcessor.jsp</a></td>
+    </tr>    
   </tbody>
  </table>
 </div>

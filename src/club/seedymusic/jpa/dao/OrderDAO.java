@@ -10,6 +10,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import club.seedymusic.jpa.bean.Order;
+import club.seedymusic.util.ConfigurationManager;
 import club.seedymusic.util.SessionManager;
 
 /**
@@ -30,15 +31,55 @@ import club.seedymusic.util.SessionManager;
  */
 public class OrderDAO
 {
+   /**
+    * Constant representing a key name in the configuration file.
+    */
+   private static final String CONFIG_ACCOUNTID = "orders_accountId";
+
+   /**
+    * Constant representing a default field name in case the configuration file failed to load.
+    */
+   private static final String DEFAULT_FIELD_ACCOUNTID = "accountId";
+
+   /**
+    * 
+    * <h2>ListParams Class</h2>
+    * <p>
+    * Contains the parameters for the list controller method.
+    */
    private class ListParams
    {
+      /**
+       * A generic parameter holder
+       */
       int id;
    }
 
+   /**
+    * 
+    * <h2>ListActions Class</h2>
+    * <p>
+    * Enumeration listing accessible actions for list controller method
+    */
    public enum ListActions
    {
-      LIST_ALL, LIST_BY_ID
+      /**
+       * Action: list all orders in DB
+       */
+      LIST_ALL,
+
+      /**
+       * Action: list all orders for a given account id
+       */
+      LIST_BY_ACCOUNTID
    };
+
+   /**
+    * Holds the mappings for string literals so that no fields are stored in the class, except some
+    * default values (overridden by the configuration). This abstracts all HQl / SQL field name
+    * references from the code and avoids recompilations on change.
+    */
+   private ConfigurationManager configurationManager;
 
    /**
     * Constructs a new OrderDAO.
@@ -46,7 +87,10 @@ public class OrderDAO
     */
    public OrderDAO()
    {
-      // Nothing to do (yet?)
+      // Load the configuration. The configuration keeps a dictionary of fields for
+      // the actual DB, abstracted from us, so if they change, one needs only update
+      // the properties file and not the code.
+      configurationManager = new ConfigurationManager();
    }
 
    /**
@@ -142,9 +186,15 @@ public class OrderDAO
          transaction = session.beginTransaction();
 
          // Using criteria requires no HQL or SQL or XML config data
+         // Hibernate 5 deprecated this API in favour of JPA, which is 20x more verbose
+         @SuppressWarnings("deprecation")
          Criteria criteria = session.createCriteria(Order.class);
 
-         if (action == ListActions.LIST_BY_ID) criteria.add(Restrictions.idEq(listParams.id));
+         // TODO: Change to account id
+         if (action == ListActions.LIST_BY_ACCOUNTID) criteria.add(Restrictions.eq(
+                  configurationManager.getConfiguration(CONFIG_ACCOUNTID, DEFAULT_FIELD_ACCOUNTID),
+                  listParams.id));
+
 
          // Suppress casting warning; this is a Hibernate issue
          @SuppressWarnings("unchecked")
@@ -189,15 +239,15 @@ public class OrderDAO
     *           The integer account id.
     * @return A list of Order objects on success, null otherwise.
     */
-   public List<Order> listOrders(int id)
+   public List<Order> listOrders(int accountId)
    {
       // Sanity check
-      if (id < 1) return null;
+      if (accountId < 1) return null;
 
       // Setup params object and tell controller what action to take
       ListParams listParams = new ListParams();
-      listParams.id = id;
-      return (listOrdersController(ListActions.LIST_BY_ID, listParams));
+      listParams.id = accountId;
+      return (listOrdersController(ListActions.LIST_BY_ACCOUNTID, listParams));
    }
 
    /**
@@ -219,6 +269,8 @@ public class OrderDAO
          transaction = session.beginTransaction();
 
          // Using criteria requires no HQL or SQL or XML config data
+         // Hibernate 5 deprecated this API in favour of JPA, which is 20x more verbose
+         @SuppressWarnings("deprecation")
          Criteria criteria = session.createCriteria(Order.class);
          criteria.add(Restrictions.idEq(id));
 
@@ -269,6 +321,8 @@ public class OrderDAO
          transaction = session.beginTransaction();
 
          // Using criteria requires no HQL or SQL or XML config data
+         // Hibernate 5 deprecated this API in favour of JPA, which is 20x more verbose
+         @SuppressWarnings("deprecation")
          Criteria criteria = session.createCriteria(Order.class);
          long records = ((Number) criteria.setProjection(Projections.rowCount()).uniqueResult())
                   .longValue();
@@ -318,6 +372,8 @@ public class OrderDAO
          transaction = session.beginTransaction();
 
          // Using criteria requires no HQL or SQL or XML config data
+         // Hibernate 5 deprecated this API in favour of JPA, which is 20x more verbose
+         @SuppressWarnings("deprecation")
          Criteria criteria = session.createCriteria(Order.class);
          criteria.add(Restrictions.idEq(id));
 

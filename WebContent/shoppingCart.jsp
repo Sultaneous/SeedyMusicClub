@@ -1,3 +1,4 @@
+<%@page import="club.seedymusic.processor.CurrencyTools"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!-- JSTL -->
@@ -50,6 +51,7 @@ Guest.<br/><br/>
 					<th>Item Number</th>
 					<th>Title</th>
 					<th>Price <img src="assets/images/icon_canada.png"/></th>
+					<th>&nbsp;</th>
 				</tr>
            </thead>
 
@@ -76,16 +78,32 @@ Guest.<br/><br/>
 					<c:set var="cntr" value="${cntr=cntr+1}" />
 				</c:forEach>
 
+            <tr>
+               <td></td>
+               <td class="align-right align-bottom">
+               <h5><img src="assets/images/icon_canada.png"/> Total:</h5></td>
+               
+               
+               <!--  This formats to two decimal places -->
+               <td class="align-bottom">
+                <fmt:formatNumber var="totalCost" type="number" 
+                minFractionDigits="2" maxFractionDigits="2" value="${cart.getOrderTotal()}"/>
+                <h5>$${totalCost}</h5> 
+               </td>
+               
+               <td>&nbsp;</td>
+               
+            </tr>
+
 				<tr>
 					<td></td>
 					<td class="align-right align-bottom">
-					<h5>Total (C$ <img src="assets/images/icon_canada.png"/>):</h5></td>
+					<h5><span class="fa fa-bitcoin"></span> bitcoins:</h5></td>
+					
 					
 					<!--  This formats to two decimal places -->
 					<td class="align-bottom">
-					 <fmt:formatNumber var="totalCost" type="number" 
-					 minFractionDigits="2" maxFractionDigits="2" value="${cart.getOrderTotal()}"/>
-					 <h5>$${totalCost}</h5> 
+					 <h5>${CurrencyTools.getValueXBT(cart.getOrderTotal())}</h5> 
 					</td>
 					
 					<td>

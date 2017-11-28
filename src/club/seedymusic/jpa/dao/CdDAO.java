@@ -247,6 +247,8 @@ public class CdDAO
          transaction = session.beginTransaction();
 
          // Using criteria requires no HQL or SQL or XML config data
+         // Hibernate 5 deprecated this API in favour of JPA, which is 20x more verbose
+         @SuppressWarnings("deprecation")
          Criteria criteria = session.createCriteria(Cd.class);
 
          // The request is to list all CDs
@@ -544,6 +546,8 @@ public class CdDAO
          transaction = session.beginTransaction();
 
          // Using criteria requires no HQL or SQL or XML config data
+         // Hibernate 5 deprecated this API in favour of JPA, which is 20x more verbose
+         @SuppressWarnings("deprecation")
          Criteria criteria = session.createCriteria(Cd.class);
          criteria.add(Restrictions.idEq(id));
 
@@ -594,6 +598,8 @@ public class CdDAO
          transaction = session.beginTransaction();
 
          // Using criteria requires no HQL or SQL or XML config data
+         // Hibernate 5 deprecated this API in favour of JPA, which is 20x more verbose
+         @SuppressWarnings("deprecation")
          Criteria criteria = session.createCriteria(Cd.class);
          long records = ((Number) criteria.setProjection(Projections.rowCount()).uniqueResult())
                   .longValue();
@@ -642,6 +648,8 @@ public class CdDAO
          transaction = session.beginTransaction();
 
          // Using criteria requires no HQL or SQL or XML config data
+         // Hibernate 5 deprecated this API in favour of JPA, which is 20x more verbose
+         @SuppressWarnings("deprecation")
          Criteria criteria = session.createCriteria(Cd.class);
          if (title != null && !title.isEmpty())
          {
@@ -701,6 +709,8 @@ public class CdDAO
          transaction = session.beginTransaction();
 
          // Using criteria requires no HQL or SQL or XML config data
+         // Hibernate 5 deprecated this API in favour of JPA, which is 20x more verbose
+         @SuppressWarnings("deprecation")
          Criteria criteria = session.createCriteria(Cd.class);
          criteria.setProjection(Projections.distinct(Projections.property(
                   configurationManager.getConfiguration(CONFIG_GENRE, DEFAULT_FIELD_GENRE))))

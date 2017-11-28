@@ -11,9 +11,25 @@
 <body>
 <jsp:include page="assets/fragments/libs.jsp"/>
 <jsp:include page="assets/fragments/navbar.jsp"/>
+
+
+<div>
+ <label> Hello 
+  <c:if test="${not empty firstName}">
+   <c:out value="${firstName}." />
+  </c:if> 
+  <c:if test="${empty firstName}">
+   Guest.
+  </c:if>
+  <br/><br/>
+ </label>
+</div>
+
+<div class="table-responsive" style="width: 80%;">
+
+
 <br/><br/>
 
-   <div class="bgimg-4">
 
       <br />
       <div class="container formtb" style="color: #fff;">
@@ -33,58 +49,6 @@
          <form
             action="${pageContext.request.contextPath}/OrderController"
             method="post">
-
-            <div class="form-group row">
-               <label
-                  class="col-sm-2 col-form-label col-form-label-lg">Card Type</label>
-              <div class="col-sm-9">
-               
-                  <div class="form-check form-check-inline col-sm-4">
-                  <label class="form-check-label col-form-label col-form-label-lg">
-						<input class="form-check-input form-control-lg" 
-						 type="radio" name="ccType" 
-						 id="ccType" value="visa" checked>
-						 <span class="fa fa-cc-visa"></span> Visa
-						 </label>
-						</div>
-						
-						
-                  <div class="form-check form-check-inline col-sm-4">
-                  <label class="form-check-label col-form-label col-form-label-lg">
-                  <input class="form-check-input form-control-lg" 
-                   type="radio" name="ccType" 
-                   id="ccType" value="mastercard">
-                   <span class="fa fa-cc-mastercard"></span> Mastercard
-                  </label>
-                  </div>
-					</div>
-              </div>
-
-            <div class="form-group row">
-               <label for="ccInfo"
-                  class="col-sm-2 col-form-label col-form-label-lg">Credit Card</label>
-               <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-lg"
-                     name="ccInfo" id="ccInfo" placeholder="your credit card number">
-               </div>
-            </div>
-
-            <div class="form-group row">
-               <label for="ccExpiry"
-                  class="col-sm-2 col-form-label col-form-label-lg">Expiry Date</label>
-               <div class="col-sm-4">
-                  <input type="text" class="form-control form-control-lg"
-                     name="ccExpiry" id="ccExpiry" size=10 placeholder="YYMM">
-               </div>
-               
-               <label for="ccCvv"
-                  class="col-sm-2 col-form-label col-form-label-lg">Card CVV</label>
-               <div class="col-sm-4">
-                  <input type="text" class="form-control form-control-lg"
-                     name="ccCvv" id="ccCvv" size=10 placeholder="XXX">
-               </div>
-               
-            </div>
 
 
             <div class="form-group row">
