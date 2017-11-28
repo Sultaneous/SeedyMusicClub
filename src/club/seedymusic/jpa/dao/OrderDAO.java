@@ -191,9 +191,16 @@ public class OrderDAO
          Criteria criteria = session.createCriteria(Order.class);
 
          // TODO: Change to account id
-         if (action == ListActions.LIST_BY_ACCOUNTID) criteria.add(Restrictions.eq(
-                  configurationManager.getConfiguration(CONFIG_ACCOUNTID, DEFAULT_FIELD_ACCOUNTID),
-                  listParams.id));
+         if (action == ListActions.LIST_BY_ACCOUNTID)
+         {
+            // Find all records using accountId as criteria
+            criteria.add(Restrictions.eq(configurationManager.getConfiguration(CONFIG_ACCOUNTID,
+                     DEFAULT_FIELD_ACCOUNTID), listParams.id));
+
+            // Hibernate will return a duplicate record for each OrderItem child,
+            // so we make the result set distinct.
+            criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+         }
 
 
          // Suppress casting warning; this is a Hibernate issue

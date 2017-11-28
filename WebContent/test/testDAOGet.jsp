@@ -211,6 +211,62 @@
       %>
       
       <br/><br/>
+      <h3>List Orders by Account ID</h3>
+      
+      <form name="order" action="${pageContext.request.contextPath}/test/TestDAOGet" method="get">
+         <input type="hidden" name="lookup" value="accountorder">
+         Enter Account ID to list orders for: <input name="accountid" type="text" value="1" size="10">
+         <input type="submit" value="List Orders for Account ID..."/>
+      </form>
+      <br/>
+      <%
+      List<Order> accountorders = (List<Order>) session.getAttribute("accountorders");
+      if (accountorders == null)
+      {
+      %>
+      <h3>NO DATA: No request OR requested Account ID has not made any orders.</h3>
+      <% 
+      }
+      else
+      {
+      %>
+      
+      <table cellpadding=2 cellspacing=2 border=2>
+         <th>ID</th>
+         <th>Account ID</th>
+         <th>Order Items</th>
+         <th>Status</th>
+         <th>Date</th>
+
+        <c:forEach items="${accountorders}" var="accountorder">
+         <tr>
+         <td>${accountorder.id}</td>
+         <td>${accountorder.accountId}></td>
+         <td>
+         <c:forEach items="${accountorder.orderItems}" var="orderitem">
+           ${orderitem.cdid}&nbsp;&nbsp;
+         </c:forEach>
+         </td>
+         <td>${accountorder.status}</cd>
+         <td>${accountorder.date}</cd>
+         </tr>
+         
+         <tr>
+          <th colspan=20>JSON</th>
+         </tr>
+         <tr>
+          <td colspan=20>${accountorder.toJson()}</td>
+         </tr>
+         
+        </c:forEach>
+         
+      </table>
+      <br/>
+      <%
+      } 
+      %>
+      
+      <br/><br/>
       <h3>Set Order Status</h3>
       <form name="order" action="${pageContext.request.contextPath}/test/TestDAOGet" method="get">
          <input type="hidden" name="lookup" value="setStatus">
