@@ -61,6 +61,14 @@
          <td><%=cd.getSample()%></td>
          <td><%=cd.getDate()%></td>
          </tr>
+         
+         <tr>
+          <th colspan=20>JSON</th>
+         </tr>
+         <tr>
+          <td colspan=20>${cd.toJson()}</td>
+         </tr>
+         
       </table>
       <br/>
       <%
@@ -123,6 +131,13 @@
          <td><%=account.getEmail()%></td>
          <td><%=account.getDate()%></td>
          </tr>
+         
+         <tr>
+          <th colspan=20>JSON</th>
+         </tr>
+         <tr>
+          <td colspan=20>${account.toJson()}</td>
+         </tr>
       </table>
       <br/>
       <%
@@ -181,6 +196,14 @@
          <td><%=order.getStatus()%></cd>
          <td><%=order.getDate()%></cd>
          </tr>
+         
+         <tr>
+          <th colspan=20>JSON</th>
+         </tr>
+         <tr>
+          <td colspan=20>${order.toJson()}</td>
+         </tr>
+         
       </table>
       <br/>
       <%
