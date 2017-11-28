@@ -1,6 +1,7 @@
 package club.seedymusic.test;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -90,6 +91,21 @@ public class TestDAOGet extends HttpServlet
          // Put it into the session object for the jsp
          HttpSession session = request.getSession();
          session.setAttribute("order", order);
+      }
+      else if (lookup.equals("accountorder"))
+      {
+         // Create our DAO
+         OrderDAO orderDAO = new OrderDAO();
+
+         // The JSP form passes us the account id as a string parameter; retrieve an convert to int
+         int accountid = Integer.parseInt(request.getParameter("accountid"));
+
+         // Retrieve the requested account by id
+         List<Order> orders = orderDAO.listOrders(accountid);
+         System.out.println("Found " + orders.size() + " orders...");
+         // Put it into the session object for the jsp
+         HttpSession session = request.getSession();
+         session.setAttribute("accountorders", orders);
       }
       else if (lookup.equals("setStatus"))
       {
