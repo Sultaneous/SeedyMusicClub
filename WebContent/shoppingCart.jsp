@@ -103,7 +103,11 @@ Guest.<br/><br/>
 					
 					<!--  This formats to two decimal places -->
 					<td class="align-bottom">
-					 <h5>${CurrencyTools.getValueXBT(cart.getOrderTotal())}</h5> 
+					 <fmt:formatNumber var="bitcoinCost" type="number" 
+                minFractionDigits="2" maxFractionDigits="8" 
+                value="${CurrencyTools.getValueXBT(cart.getOrderTotal())}"/>
+					
+					 <h5>${bitcoinCost}</h5> 
 					</td>
 					
 					<td>

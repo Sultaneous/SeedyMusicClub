@@ -27,6 +27,11 @@ import club.seedymusic.util.SessionManager;
 public class CdDAO
 {
    /**
+    * The name of the configuration file.
+    */
+   private static final String CONFIG_FILE = "dao.configuration.properties";
+
+   /**
     * Constant representing a key name in the configuration file.
     */
    private static final String CONFIG_ID = "cds_id";
@@ -152,7 +157,7 @@ public class CdDAO
       // Load the configuration. The configuration keeps a dictionary of fields for
       // the actual DB, abstracted from us, so if they change, one needs only update
       // the properties file and not the code.
-      configurationManager = new ConfigurationManager();
+      configurationManager = new ConfigurationManager(CONFIG_FILE);
    }
 
    /**
@@ -234,15 +239,17 @@ public class CdDAO
     */
    private List<Cd> listCdsController(ListControllerParameters lcp)
    {
+      // Sanity check
+      if (lcp == null) return null;
+
       // Create session
       Session session = createSession();
       Transaction transaction = null;
 
+      if (lcp.title != null) System.out.println("[SEARCH] " + lcp.title);
+
       try
       {
-         // Sanity check
-         if (lcp == null) throw new Exception("ListControllerParameters not set.");
-
          // Transaction
          transaction = session.beginTransaction();
 

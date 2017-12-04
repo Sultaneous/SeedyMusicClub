@@ -13,18 +13,16 @@
 <jsp:include page="assets/fragments/navbar.jsp"/>
 <br/><br/>
 
-<h1>Order Status</h1>
-<p>
 
-<div class="container">
-<div class="col center-block">
-<table class="table">
-<tr>
-
-<td><h5>OrderStatus:</h5></td>
-<td><strong>${orderStatus}</strong></td>
-
-</tr>
+<div class="container center-block">
+   <div class="table-responsive" style="width: 80%;">
+<table class="table" >
+<tr><td><h1>Order Status</h1></td></tr>
+<tr><td><h5><strong>Thank-you.</strong> Your bitcoin payment can take from 10 minutes to several 
+hours to be received, depending on transaction backlog.  Please check the order status regularly
+at <a clas="link" href="${pageContext.request.contextPath}/ListOrdersController">your Order History</a>.  
+A status of <strong>PAID</strong> indicates success while a status of <strong>DECLINED</strong>
+means your payment was not received or was not the right value.</h5></td></tr>
 </table>
 </div>
 </div>

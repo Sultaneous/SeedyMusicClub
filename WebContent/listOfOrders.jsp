@@ -17,49 +17,44 @@
 <jsp:include page="assets/fragments/navbar.jsp"/>
 <br/><br/>
 
-	<div class="">
-     
-     <table class="table table-inverse table-bordered table-striped ">
-     
-     
-     <tr>
-      <th>Order Id</th>
-      <th>Order Status</th>
-      <th>Order Date</th>
-      <th>Order Album(s)</th>
-    </tr>
-    
-     	<c:forEach items="${Orders}" var="orderAlbums">
-		<tr>
-		<td>${orderAlbums.getOrder().getId()}</td>
-		<td>${orderAlbums.getOrder().getStatus()}</td>
-		<td>${orderAlbums.getOrder().getDate()}</td>
-		<td>
-		 
-		   <ul>
-		<c:forEach items="${orderAlbums.getAlbums()}" var="cd">
+<div class="container center-block">
+   <div class="table-responsive" style="width: 80%;">
+ 
+      <table class="table table-inverse table-bordered table-striped">
+ 
+         <thead>
+            <tr>
+               <th>Order ID</th>
+               <th>Status</th>
+               <th>Date</th>
+               <th>CDs Ordered</th>
+            </tr>
+         </thead>
 
-		<li>${cd}</li> 
+         <tbody>
+ 	       <c:forEach items="${Orders}" var="orderAlbums">
+            <tr>
+               <td>${orderAlbums.getOrder().getId()}</td>
+               <td>${orderAlbums.getOrder().getStatus()}</td>
+               <td>${orderAlbums.getOrder().getDate()}</td>
 
-		 
-		 	</c:forEach>
-	
-		</td>
-		
-		<td>
-		
-		
-		 </td>
-		</tr>
-	
-	
-	</c:forEach>
+               <td> 
+                  <c:forEach items="${orderAlbums.getAlbums()}" var="cd">
+                     <c:url value="/browse" var="url">
+                        <c:param name="genre" value="all"/>
+                        <c:param name="search" value="${cd}"/>
+                     </c:url>
+                     <a class="link" href="${url}">${cd}</a>
+                     <br/>
+                  </c:forEach>
+               </td>
+            </tr>
+           </c:forEach>
      
-     
-     </table>
-     
+         </tbody>  
+      </table>     
 	</div>
-
+</div>
 
 
 

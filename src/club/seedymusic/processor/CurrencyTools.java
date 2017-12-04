@@ -10,6 +10,7 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 import club.seedymusic.exceptions.ProcessorException;
+import club.seedymusic.util.ConfigurationManager;
 
 /**
  * <h2>CurrencyTools Class</h2>
@@ -23,9 +24,14 @@ import club.seedymusic.exceptions.ProcessorException;
 public class CurrencyTools
 {
    /**
-    * HTTPS URL FOR GET API CALL We are using Blockchain.info for this call.
+    * The name of the configuration file.
     */
-   private static final String URL_CAD_XBT = "https://blockchain.info/tobtc?currency=CAD&value=";
+   private static final String CONFIG_FILE = "processor.configuration.properties";
+
+   /**
+    * Constant representing a key name in the configuration file.
+    */
+   private static final String CONFIG_XBT = "currencytools.url_cad_xbt";
 
    /**
     * Calls blockchain.info and converts a CAD value to XBT. The API is just a GET web call.
@@ -50,7 +56,13 @@ public class CurrencyTools
 
       try
       {
-         result = doApiCall(URL_CAD_XBT + cad);
+         ConfigurationManager configurationManager = new ConfigurationManager(CONFIG_FILE);
+         String api = configurationManager.getConfiguration(CONFIG_XBT, null);
+
+         if (api == null) throw (new Exception("Could not load API configuration key."));
+
+         api = String.format(api, cad);
+         result = doApiCall(api);
 
          // Convert to double
          xbt = Double.parseDouble(result);

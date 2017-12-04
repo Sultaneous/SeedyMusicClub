@@ -17,11 +17,6 @@ import java.util.Properties;
 public class ConfigurationManager
 {
    /**
-    * The name of the configuration file.
-    */
-   private static final String CONFIG_FILE = "dao.configuration.properties";
-
-   /**
     * Stores the properties read from the file.
     */
    private Properties configuration;
@@ -29,13 +24,16 @@ public class ConfigurationManager
    /**
     * 
     * Constructs a new ConfigurationManager.
+    * 
+    * @param fileName
+    *           The configuration file name to load.
     *
     */
-   public ConfigurationManager()
+   public ConfigurationManager(String fileName)
    {
       try
       {
-         configuration = LoadConfiguration();
+         configuration = LoadConfiguration(fileName);
       }
       catch (Exception e)
       {
@@ -51,11 +49,14 @@ public class ConfigurationManager
    /**
     * Attempts to load the properties from the property file.
     * 
+    * @param fileName
+    *           The configuration file to load.
+    * 
     * @return Returns a Properties object on success.
     * @throws IOException
     *            Throws an IOException on failure.
     */
-   private Properties LoadConfiguration() throws IOException
+   private Properties LoadConfiguration(String fileName) throws IOException
    {
       Properties properties = new Properties();
       InputStream inputStream = null;
@@ -65,7 +66,7 @@ public class ConfigurationManager
          // Load the configuration file
          // It is at the root level so we need to determine runtime path
          ClassLoader classLoader = getClass().getClassLoader();
-         inputStream = classLoader.getResourceAsStream(CONFIG_FILE);
+         inputStream = classLoader.getResourceAsStream(fileName);
 
          // Load the keys
          properties.load(inputStream);

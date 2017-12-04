@@ -32,6 +32,11 @@ import club.seedymusic.util.SessionManager;
 public class OrderDAO
 {
    /**
+    * The name of the configuration file.
+    */
+   private static final String CONFIG_FILE = "dao.configuration.properties";
+
+   /**
     * Constant representing a key name in the configuration file.
     */
    private static final String CONFIG_ACCOUNTID = "orders_accountid";
@@ -90,7 +95,7 @@ public class OrderDAO
       // Load the configuration. The configuration keeps a dictionary of fields for
       // the actual DB, abstracted from us, so if they change, one needs only update
       // the properties file and not the code.
-      configurationManager = new ConfigurationManager();
+      configurationManager = new ConfigurationManager(CONFIG_FILE);
    }
 
    /**

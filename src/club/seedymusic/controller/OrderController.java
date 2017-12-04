@@ -26,8 +26,10 @@ import javax.servlet.http.HttpSession;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import club.seedymusic.ecom.ShoppingCart;
+import club.seedymusic.exceptions.ProcessorException;
 import club.seedymusic.jpa.bean.Account;
 import club.seedymusic.jpa.bean.Order;
+import club.seedymusic.processor.Processor;
 import club.seedymusic.wrapper.ConfirmOrderWrapper;
 import club.seedymusic.wrapper.CreateOrderWrapper;
 
@@ -84,6 +86,19 @@ public class OrderController extends HttpServlet
          if (order != null)
          {
             session.setAttribute("order", order);
+
+            // KAS Processor Prototype
+            // Get a new bitcoin payment address and stash in session
+            String paymentAddress;
+            try
+            {
+               paymentAddress = Processor.getPaymentAddress(order.getId());
+               session.setAttribute("order_address", paymentAddress);
+            }
+            catch (ProcessorException e)
+            {
+               e.printStackTrace();
+            }
 
             // redirect to confirmOrder.jsp
             response.sendRedirect("confirmOrder.jsp");
@@ -163,7 +178,9 @@ public class OrderController extends HttpServlet
          {
             orderStatus = "Confirmed";
             request.getSession().removeAttribute("cart");
-         } else {
+         }
+         else
+         {
             orderStatus = "Credit Card declined";
          }
 
